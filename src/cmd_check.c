@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+#include "../inc/parsing.h"
 
 char	**get_path(char **envp)
 {

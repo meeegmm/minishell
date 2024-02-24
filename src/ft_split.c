@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+#include "../inc/parsing.h"
 
 int	ft_is_delimiter1(char c, int flag)
 {

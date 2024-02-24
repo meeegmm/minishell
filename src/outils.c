@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+#include "../inc/parsing.h"
 
 int ft_strlen(char *s)
 {
@@ -91,7 +91,8 @@ void print_tab(char **tab)
 	i = 0;
 	while(tab[i])
 	{
-		printf("%s\n", tab[i]);
+		printf("%s ", tab[i]);
 		i++;
 	}
+	printf("\n");
 }

@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+#include "../inc/parsing.h"
 
 int separate_pos(char *str)
 {
@@ -78,7 +78,7 @@ t_list_env *get_list(char **tab)
 		curr->next = malloc(sizeof(t_list_env));
 		if(!curr->next)
 		{
-			free_list(begin);
+			free_envp_list(begin);
 			return (NULL);
 		}
 		curr = curr->next;
@@ -91,6 +91,12 @@ t_list_env *get_list(char **tab)
 }
 
 //функция конвертации t_list_env *list в char **envp
+
+
+int get_line_len(char *s1, char *s2)
+{
+	return (ft_strlen(s1) + ft_strlen(s2) + 2);
+}
 
 int get_node_nb(t_list_env *list)
 {
@@ -105,12 +111,7 @@ int get_node_nb(t_list_env *list)
 	return (node_nb);
 }
 
-int get_line_len(char *s1, char *s2)
-{
-	return (ft_strlen(s1) + ft_strlen(s2) + 2);
-}
-
-char **get_tab(t_list_env *list) //разбить на функции поменьше
+char **get_envp(t_list_env *list) //разбить на функции поменьше
 {
 	char **envp;
 	char *tmp1;
@@ -125,7 +126,6 @@ char **get_tab(t_list_env *list) //разбить на функции помен
 		tmp1 = ft_strjoin(list->key, "=");
 		envp[i] = ft_strjoin(tmp1, list->value);
 		free(tmp1);
-		//printf("%s\n", envp[i]);
 		list = list->next;
 		i++;
 	}

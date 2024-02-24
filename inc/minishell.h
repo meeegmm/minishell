@@ -9,62 +9,36 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <fcntl.h>
+////////////////// STRUCTS //////////////////
 
-typedef struct s_lg
-{
-	char *key;
-	char *value;
-	struct s_lg *next;
-} t_lg;
+//parsed ligne struct
 
-typedef struct s_parsed
-{
-	t_list_lg 
-	struct s_parsed *next;
-} t_parsed;
+// enum in
+// {
+//     REDIR_IN,
+//     APP_IN,
+//     ZERO_IN
+// };
 
-// pipe struct
+// enum out
+// {
+//     REDIR_OUT,
+//     APP_OUT,
+//     ZERO_OUT
+// };
 
-/*typedef struct s_pipe
-{
-	int		fd_p[2];
-	int		infile_fd;
-	int		outfile_fd;
-	pid_t	pid1;
-	pid_t	pid2;
-}	t_pipe;*/
-
-//struct after the parsing
-
-/*enum in
-{
-    REDIR_IN,
-    APP_IN,
-    ZERO_IN
-};
-
-enum out
-{
-    REDIR_OUT,
-    APP_OUT,
-    ZERO_OUT
-};*/
-
-typedef struct s_logic_groupe
+typedef struct s_group
 {
 int flag_fail;
 char **cmd; 
 //enum redir_in;
 //enum redir_out;
-char **source;
-char **destination;
-s_logic_groupe *next;
-} t_logic_groupe;
+//char *source;
+//char *destination;
+struct s_group *next;
+} t_group;
 
-// struct s_list для оболочки
+// struct s_list for envp
 
 typedef struct s_list_env
 {
@@ -73,48 +47,15 @@ typedef struct s_list_env
 	struct s_list_env *next;
 } t_list_env;
 
-// struct для exec части
-
-//typedef int (*t_builtin_ptr)(t_logic_groupe*, t_exec*);
-
-typedef struct s_exec
-{
-	//t_builtin_ptr	builtins[7];
-	t_list_env		*envp_list;
-	//int			status;
-	//char			exit_f;
-} t_exec;
-
+////////////////// FONCTIONS //////////////////
 
 //envp parsing
 t_list_env *get_list(char **tab);
-char **get_tab(t_list_env *list);
-
-//builtins prototypes
-int ft_pwd(t_list_env *list);
-int ft_export(t_list_env *list, char *to_key, char *to_value);
-int ft_env(t_exec *p);
-
-//exec
-int exec(t_logic_groupe *lg, t_exec *p);
-
-char	**get_path(char **envp);
-char	*path_check(char **path_list, char **args_list);
-char	*cmd_check(char **cmd, char **envp);
+char **get_envp(t_list_env *list);
 
 //free
 void free_tab(char **tab);
-void free_list(t_list_env *list);
-void free_logic_group(t_logic_groupe *lg);
-void free_struct_exec(t_exec *p);
-
-//outils
-char	**ft_split1(char *str, int flag);
-char	*ft_strdup(char *s1);
-int ft_strlen(char *s);
-int		ft_strncmp(char *s1, char *s2, int n);
-void print_tab(char **tab);
-void print_list(t_list_env *list);
-char	*ft_strjoin(char *s1, char *s2);
+void free_envp_list(t_list_env *list);
+void free_group(t_group *lg);
 
 #endif
