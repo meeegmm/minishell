@@ -4,19 +4,24 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -MMD -MP -g3 -I. -MF $(DPSDIR)/$*.d #-fsanitize=adress
 CLIBS	= -lreadline
 
-SRCDIR	= ./src
+SRCDIRP	= ./src/src_pars
+SRCDIRE	= ./src/src_exec
 OBJDIR	= ./obj
 DPSDIR	= ./deps
 
-SRC 	= $(wildcard $(SRCDIR)/*.c)
-OBJ 	= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
+SRCP 	= 	$(wildcard $(SRCDIRP)/*.c)
+SRCE	=	$(wildcard $(SRCDIRE)/*.c)
 
+OBJ 	= 	$(patsubst $(SRCDIRP)/%.c, $(OBJDIR)/%.o, $(SRCP)) \
+			$(patsubst $(SRCDIRE)/%.c, $(OBJDIR)/%.o, $(SRCE))
 
 $(NAME): $(OBJDIR) $(OBJ) $(DPSDIR)
 		$(CC) $(CFLAGS) $(CLIBS) $(OBJ) -o $(NAME)
 
+$(OBJDIR)/%.o: $(SRCDIRP)/%.c | $(DPSDIR)
+		$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(DPSDIR)
+$(OBJDIR)/%.o: $(SRCDIRE)/%.c | $(DPSDIR)
 		$(CC) $(CFLAGS) -c $< -o $@
 
 $(DPSDIR)/%.d: ;

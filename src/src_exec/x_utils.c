@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+#include "../../inc/exec.h"
 
 int	is_exit(const char *line)
 {
