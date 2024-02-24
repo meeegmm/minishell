@@ -64,49 +64,27 @@ t_group *get_group(t_tokens *list, char **envp)
 	return (group);
 }
 
-#include "../inc/minishell.h"
-
-int	is_exit(const char *line)
+t_group *parser(char *line, char **envp) //или эта функция, или get_group избыточная
 {
-	const char	*exit;
+	t_tokens *list;
+	t_group *group;
 
-	exit = "exit";
-	if (*line == *exit)
-		return (0);
-	else
-		return (1);
-}
-
-int	main(int ac, char **av, char **envp)
-{
-	char	*line;
-
-	(void)ac;
-	(void)av[0];
-	line = readline(">$ ");
-	while (is_exit(line))
+	list = lexer(line);
+	if(list == NULL)
 	{
-		if (line && *line)
-			add_history(line);
-		t_tokens *list = lexer(line);
-		if(list == NULL)
-		{
-			printf("Problem");
-			exit(EXIT_FAILURE);
-		}
-		// printf("list->type %d\n", list->type);
-		// printf("list->len %d\n", list->len);
-		// printf("list->value %s\n", list->value);
-		t_group *group = get_group(list, envp);
-		if(group->flag_fail == 1)
-		{
-			free_tokens(list);
-			printf("invalid cmd");
-			exit(EXIT_FAILURE);
-		}
-		else
-			print_tab(group->cmd);
-		line = NULL;
-		line = readline(">$ ");
+		printf("Problem");
+		exit(EXIT_FAILURE);
 	}
+	// printf("list->type %d\n", list->type);
+	// printf("list->len %d\n", list->len);
+	// printf("list->value %s\n", list->value);
+
+	group = get_group(list, envp);
+	if(group->flag_fail == 1)
+	{
+		free_tokens(list);
+		printf("invalid cmd");
+		exit(EXIT_FAILURE);
+	}
+	return (group);
 }
