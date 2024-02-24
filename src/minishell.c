@@ -10,8 +10,8 @@ int	main(void)
 		if (line && *line)
 			add_history(line);
 		printf("%s\n", line);
-		// free(line);
-		// rl_clear_history();
 		line = readline(">$ ");
 	}
+	// free(line);
+	// rl_clear_history();
 }
