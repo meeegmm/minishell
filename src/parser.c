@@ -4,7 +4,7 @@
 
 int is_separator(char c)
 {
-	return (c == ' ' || c == '\t'); //точно ли так использовать \t?
+	return (c == ' ' || c == '\t');
 }
 
 t_tokens *lexer(char *str)
@@ -64,32 +64,49 @@ t_group *get_group(t_tokens *list, char **envp)
 	return (group);
 }
 
-int main(int ac, char **av, char **envp)
+#include "../inc/minishell.h"
+
+int	is_exit(const char *line)
 {
-	if(ac != 2)
-		exit(EXIT_FAILURE);
-	
-	t_tokens *list = lexer(av[1]);
-	if(list == NULL)
-	{
-		perror("malloc list");
-		exit(EXIT_FAILURE);
-	}
+	const char	*exit;
 
-	// printf("list->type %d\n", list->type);
-	// printf("list->len %d\n", list->len);
-	// printf("list->value %s\n", list->value);
-
-	t_group *group = get_group(list, envp);
-	if(group->flag_fail == 1)
-	{
-		free_tokens(list);
-		perror("invalid cmd");
-		exit(EXIT_FAILURE);
-	}
+	exit = "exit";
+	if (*line == *exit)
+		return (0);
 	else
+		return (1);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	char	*line;
+
+	(void)ac;
+	(void)av[0];
+	line = readline(">$ ");
+	while (is_exit(line))
 	{
-		print_tab(group->cmd);
+		if (line && *line)
+			add_history(line);
+		t_tokens *list = lexer(line);
+		if(list == NULL)
+		{
+			printf("Problem");
+			exit(EXIT_FAILURE);
+		}
+		// printf("list->type %d\n", list->type);
+		// printf("list->len %d\n", list->len);
+		// printf("list->value %s\n", list->value);
+		t_group *group = get_group(list, envp);
+		if(group->flag_fail == 1)
+		{
+			free_tokens(list);
+			printf("invalid cmd");
+			exit(EXIT_FAILURE);
+		}
+		else
+			print_tab(group->cmd);
+		line = NULL;
+		line = readline(">$ ");
 	}
-	return (0);
 }
