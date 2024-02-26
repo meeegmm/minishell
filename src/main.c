@@ -3,10 +3,7 @@
 
 int	is_exit(const char *line)
 {
-	const char	*exit;
-
-	exit = "exit";
-	if (*line == *exit)
+	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
 		return (0);
 	else
 		return (1);

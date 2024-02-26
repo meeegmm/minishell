@@ -1,145 +1,148 @@
-paul-f3Ar5s2% make valgrind
+paul-f3Ar3s10% make valgrind
+cc -Wall -Wextra -Werror -MMD -MP -g3 -I. -MF ./deps/parser.d  -c src/parser.c -o obj/parser.o
+cc -Wall -Wextra -Werror -MMD -MP -g3 -I. -MF ./deps/.d  -lreadline  ./obj/cmd_check.o  ./obj/envp_parsing.o  ./obj/free.o  ./obj/ft_split.o  ./obj/main.o  ./obj/outils.o  ./obj/parser.o  ./obj/tokens_outils.o -o minishell
 valgrind -q --suppressions=/mnt/nfs/homes/abelosev/minishell/ignore_readline --trace-children=yes \
         --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes \
         ./minishell
 >$ pwd
-==1780119== Invalid write of size 8
-==1780119==    at 0x402435: get_group (parser.c:53)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119==  Address 0x4b64208 is 0 bytes after a block of size 8 alloc'd
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4023F9: get_group (parser.c:47)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== Invalid read of size 8
-==1780119==    at 0x40243D: get_group (parser.c:54)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119==  Address 0x4b64208 is 0 bytes after a block of size 8 alloc'd
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4023F9: get_group (parser.c:47)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== Invalid read of size 8
-==1780119==    at 0x402468: get_group (parser.c:59)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119==  Address 0x4b64208 is 0 bytes after a block of size 8 alloc'd
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4023F9: get_group (parser.c:47)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== Invalid read of size 8
-==1780119==    at 0x40247C: get_group (parser.c:59)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119==  Address 0x4b64208 is 0 bytes after a block of size 8 alloc'd
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4023F9: get_group (parser.c:47)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== Invalid read of size 8
-==1780119==    at 0x402487: get_group (parser.c:60)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119==  Address 0x4b64208 is 0 bytes after a block of size 8 alloc'd
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4023F9: get_group (parser.c:47)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== Invalid read of size 8
-==1780119==    at 0x401E99: main (main.c:29)
-==1780119==  Address 0x4b64208 is 0 bytes after a block of size 8 alloc'd
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4023F9: get_group (parser.c:47)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-Parsed: /usr/bin/pwd
+==950208== Invalid write of size 8
+==950208==    at 0x402415: get_group (parser.c:53)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208==  Address 0x4b65228 is 0 bytes after a block of size 8 alloc'd
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4023D9: get_group (parser.c:47)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== Invalid read of size 8
+==950208==    at 0x40241D: get_group (parser.c:54)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208==  Address 0x4b65228 is 0 bytes after a block of size 8 alloc'd
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4023D9: get_group (parser.c:47)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== Invalid read of size 8
+==950208==    at 0x402448: get_group (parser.c:59)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208==  Address 0x4b65228 is 0 bytes after a block of size 8 alloc'd
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4023D9: get_group (parser.c:47)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== Invalid read of size 8
+==950208==    at 0x40245C: get_group (parser.c:59)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208==  Address 0x4b65228 is 0 bytes after a block of size 8 alloc'd
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4023D9: get_group (parser.c:47)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== Invalid read of size 8
+==950208==    at 0x402467: get_group (parser.c:60)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208==  Address 0x4b65228 is 0 bytes after a block of size 8 alloc'd
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4023D9: get_group (parser.c:47)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== Invalid read of size 8
+==950208==    at 0x401EA9: main (main.c:26)
+==950208==  Address 0x4b65228 is 0 bytes after a block of size 8 alloc'd
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4023D9: get_group (parser.c:47)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+Parsed: /usr/bin/pwd 
 >$ ls -la
 Parsed: /usr/bin/ls -la 
->$ echo kjkjh
-==1780119== FILE DESCRIPTORS: 6 open (3 std) at exit.
-==1780119== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==1780119==    <inherited from parent>
-==1780119== 
-==1780119== Open file descriptor 40: /usr/share/code/resources/app/node_modules.asar
-==1780119==    <inherited from parent>
-==1780119== 
-==1780119== Open file descriptor 38: /mnt/nfs/homes/abelosev/.config/Code/logs/20240226T135828/ptyhost.log
-==1780119==    <inherited from parent>
-==1780119== 
-==1780119== 
-==1780119== 4 bytes in 1 blocks are indirectly lost in loss record 3 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x401F43: ft_strdup (outils.c:19)
-==1780119==    by 0x4025F3: get_tab (tokens_outils.c:27)
-==1780119==    by 0x40242D: get_group (parser.c:53)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 7 bytes in 2 blocks are definitely lost in loss record 5 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x401F43: ft_strdup (outils.c:19)
-==1780119==    by 0x4025F3: get_tab (tokens_outils.c:27)
-==1780119==    by 0x40242D: get_group (parser.c:53)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 11 bytes in 3 blocks are indirectly lost in loss record 9 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x401B80: ft_get_word1 (ft_split.c:41)
-==1780119==    by 0x401D29: ft_split1 (ft_split.c:69)
-==1780119==    by 0x4022B9: lexer (parser.c:12)
-==1780119==    by 0x4024D8: parser (parser.c:72)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 16 bytes in 2 blocks are definitely lost in loss record 14 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4023F9: get_group (parser.c:47)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 24 bytes in 1 blocks are indirectly lost in loss record 20 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x40235B: lexer (parser.c:29)
-==1780119==    by 0x4024D8: parser (parser.c:72)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 25 bytes in 2 blocks are indirectly lost in loss record 21 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4020ED: ft_strjoin (outils.c:57)
-==1780119==    by 0x4012E0: path_check (cmd_check.c:39)
-==1780119==    by 0x4013E7: cmd_check (cmd_check.c:90)
-==1780119==    by 0x402474: get_group (parser.c:59)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 69 (40 direct, 29 indirect) bytes in 2 blocks are definitely lost in loss record 27 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4025BA: get_tab (tokens_outils.c:22)
-==1780119==    by 0x40242D: get_group (parser.c:53)
-==1780119==    by 0x40250F: parser (parser.c:82)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 72 (48 direct, 24 indirect) bytes in 2 blocks are definitely lost in loss record 28 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x4022EE: lexer (parser.c:19)
-==1780119==    by 0x4024D8: parser (parser.c:72)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-==1780119== 91 (80 direct, 11 indirect) bytes in 2 blocks are definitely lost in loss record 30 of 77
-==1780119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1780119==    by 0x401C70: ft_split1 (ft_split.c:60)
-==1780119==    by 0x4022B9: lexer (parser.c:12)
-==1780119==    by 0x4024D8: parser (parser.c:72)
-==1780119==    by 0x401E7F: main (main.c:27)
-==1780119== 
-paul-f3Ar5s2% 
-
+>$ echo khlkjh
+Parsed: /usr/bin/echo khlkjh 
+>$ exit
+==950208== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==950208== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==950208==    <inherited from parent>
+==950208== 
+==950208== Open AF_UNIX socket 39: <unknown>
+==950208==    <inherited from parent>
+==950208== 
+==950208== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==950208==    <inherited from parent>
+==950208== 
+==950208== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240226T201958/ptyhost.log
+==950208==    <inherited from parent>
+==950208== 
+==950208== 
+==950208== 11 bytes in 2 blocks are indirectly lost in loss record 6 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x401F53: ft_strdup (outils.c:19)
+==950208==    by 0x402613: get_tab (tokens_outils.c:27)
+==950208==    by 0x40240D: get_group (parser.c:53)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 12 bytes in 3 blocks are definitely lost in loss record 7 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x401F53: ft_strdup (outils.c:19)
+==950208==    by 0x402613: get_tab (tokens_outils.c:27)
+==950208==    by 0x40240D: get_group (parser.c:53)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 23 bytes in 5 blocks are indirectly lost in loss record 14 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x401B80: ft_get_word1 (ft_split.c:41)
+==950208==    by 0x401D29: ft_split1 (ft_split.c:69)
+==950208==    by 0x4024BD: parser (parser.c:73)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 24 bytes in 3 blocks are definitely lost in loss record 17 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4023D9: get_group (parser.c:47)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 39 bytes in 3 blocks are indirectly lost in loss record 21 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4020FD: ft_strjoin (outils.c:57)
+==950208==    by 0x4012E0: path_check (cmd_check.c:39)
+==950208==    by 0x4013E7: cmd_check (cmd_check.c:90)
+==950208==    by 0x402454: get_group (parser.c:59)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 48 bytes in 2 blocks are indirectly lost in loss record 25 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x402332: lexer (parser.c:27)
+==950208==    by 0x4024F1: parser (parser.c:79)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 114 (64 direct, 50 indirect) bytes in 3 blocks are definitely lost in loss record 31 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4025DA: get_tab (tokens_outils.c:22)
+==950208==    by 0x40240D: get_group (parser.c:53)
+==950208==    by 0x402528: parser (parser.c:89)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 120 (72 direct, 48 indirect) bytes in 3 blocks are definitely lost in loss record 32 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x4022C5: lexer (parser.c:17)
+==950208==    by 0x4024F1: parser (parser.c:79)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 
+==950208== 191 (168 direct, 23 indirect) bytes in 3 blocks are definitely lost in loss record 35 of 77
+==950208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==950208==    by 0x401C70: ft_split1 (ft_split.c:60)
+==950208==    by 0x4024BD: parser (parser.c:73)
+==950208==    by 0x401E8F: main (main.c:24)
+==950208== 

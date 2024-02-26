@@ -1,43 +1,43 @@
 #include "../inc/parsing.h"
 
+//quotes check
+
+//realloc - enlever les quotes
+
+//char *check_quotes(char *str)
+
 //do a list of tokens
 
-t_tokens *lexer(char *str)
+t_tokens *lexer(char **token_tab)
 {
-	char **token_tab;
 	int i;
 	t_tokens *begin;
 	t_tokens *curr;
-	
-	token_tab = ft_split1(str, 1);
-	if(token_tab == NULL)
-	{
-		perror("tokens");
-		return (NULL);
-	}
 
 	begin = malloc(sizeof(t_tokens));
-	if (begin == NULL)
+	if (!begin)
 		return (NULL);
 	begin->type = WORD;
 	begin->value = token_tab[0];
 	begin->next = NULL;
 	curr = begin;
 	i = 1;
-	while(token_tab[i])
+	while(token_tab[i] != NULL)
 	{
-		curr->next = malloc(sizeof(t_list_env));
+		curr->next = malloc(sizeof(t_tokens));
 		if(!curr->next)
 		{
 			//free_token_list(begin);
+			free_tab(token_tab);
 			return (NULL);
 		}
 		curr = curr->next;
 		curr->type = WORD;
 		curr->value = token_tab[i];
+		curr->next = NULL;
 		i++;
 	}
-	curr->next = NULL;
+	//free_tab(token_tab); //why produced parsed: (NULL) from here?
 	return (begin);
 }
 
@@ -68,8 +68,15 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 {
 	t_tokens *list;
 	t_group *group;
+	char **token_tab;
 
-	list = lexer(line);
+	token_tab = ft_split1(line, 1);
+	if(token_tab == NULL)
+	{
+		perror("tokens");
+		return (NULL);
+	}
+	list = lexer(token_tab);
 	if(list == NULL)
 	{
 		printf("Problem");

@@ -44,8 +44,8 @@ void free_tokens(t_tokens *list);
 void	print_tab(char **tab);
 void	print_list(t_list_env *list);
 char	*ft_strdup(char *s1);
-int		ft_strlen(char *s);
-int		ft_strncmp(char *s1, char *s2, int n);
+int		ft_strlen(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, int n);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split1(char *str, int flag);
 
