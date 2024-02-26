@@ -12,13 +12,16 @@
 typedef enum 
 {
 	WORD,
-	SEP,
+	REDIR_IN,
+	REDIR_OUT,
+	APP_IN,
+	APP_OUT,
+	PIPE
 } TokenType;
 
 typedef struct s_tokens
 {
 	TokenType type;
-	int len; //нужно ли это?
 	char *value;
 	struct s_tokens *next;
 } t_tokens;

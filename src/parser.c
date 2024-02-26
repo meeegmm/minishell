@@ -2,42 +2,42 @@
 
 //do a list of tokens
 
-int is_separator(char c)
-{
-	return (c == ' ' || c == '\t');
-}
-
 t_tokens *lexer(char *str)
 {
-	t_tokens *begin;
+	char **token_tab;
 	int i;
-	int start;
+	t_tokens *begin;
+	t_tokens *curr;
+	
+	token_tab = ft_split1(str, 1);
+	if(token_tab == NULL)
+	{
+		perror("tokens");
+		return (NULL);
+	}
 
-	i = 0;
-	start = 0;
 	begin = malloc(sizeof(t_tokens));
 	if (begin == NULL)
 		return (NULL);
-	
-	while(str[i] && is_separator(str[i]) == 1)
-		i++;
-	if(is_separator(str[i]) == 0)
-		start = i;
-	while(str[i] && is_separator(str[i]) == 0)
-		i++;
-	begin->len = i - start;
 	begin->type = WORD;
-	begin->value = malloc(sizeof(char) * (begin->len + 1));
-	start = begin->len;
-	begin->value[begin->len + 1] = '\0';
-	while(start >= 0)
-	{
-		begin->value[start] = str[i];
-		start--;
-		i--;
-	}
-	i += begin->len;
+	begin->value = token_tab[0];
 	begin->next = NULL;
+	curr = begin;
+	i = 1;
+	while(token_tab[i])
+	{
+		curr->next = malloc(sizeof(t_list_env));
+		if(!curr->next)
+		{
+			//free_token_list(begin);
+			return (NULL);
+		}
+		curr = curr->next;
+		curr->type = WORD;
+		curr->value = token_tab[i];
+		i++;
+	}
+	curr->next = NULL;
 	return (begin);
 }
 
