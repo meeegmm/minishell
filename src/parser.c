@@ -2,9 +2,47 @@
 
 //quotes check
 
-//realloc - enlever les quotes
+int quotes_ok(char *str) //faire plus court
+{
+	int i;
+	int res;
 
-//char *check_quotes(char *str)
+	i = 0;
+	res = 1;
+	while(str[i])
+	{
+		if(str[i] == '"')
+		{
+			res = 0;
+			while(str[i])
+			{
+				i++;
+				if(str[i] == '"')
+				{
+					res = 1;
+					break;
+				}
+			}
+		}
+		else if(str[i] == 39)
+		{
+			res = 0;
+			while(str[i])
+			{
+				i++;
+				if(str[i] == 39)
+				{
+					res = 1;
+					break;
+				}
+			}
+		}
+		i++;
+	}
+	return (res);
+}
+
+//realloc - enlever les quotes
 
 //do a list of tokens
 
@@ -37,7 +75,6 @@ t_tokens *lexer(char **token_tab)
 		curr->next = NULL;
 		i++;
 	}
-	//free_tab(token_tab); //why produced parsed: (NULL) from here?
 	return (begin);
 }
 
@@ -64,6 +101,32 @@ t_group *get_group(t_tokens *list, char **envp)
 	return (group);
 }
 
+int syntax_pb(char *line)
+{
+	if(quotes_ok(line) != 1)
+	{
+		printf("Invalid input: quotes\n");
+		return (1);	
+	}
+	///////// plenty of other cases ////////
+	return (0);
+}
+
+t_group *invalid_group(void)
+{
+	t_group *group;
+	group = malloc(sizeof(group));
+	if(!group)
+	{
+		perror("group malloc");
+		return (NULL);
+	}
+	group->cmd = NULL;
+	group->next = NULL;
+	group->flag_fail = 1;
+	return (group);
+}
+
 t_group *parser(char *line, char **envp) //или эта функция, или get_group избыточная
 {
 	t_tokens *list;
@@ -85,13 +148,13 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 	// printf("list->type %d\n", list->type);
 	// printf("list->len %d\n", list->len);
 	// printf("list->value %s\n", list->value);
-
-	group = get_group(list, envp);
-	if(group->flag_fail == 1)
+	
+	if(syntax_pb(line) != 0)
+		group = invalid_group();
+	else
 	{
+		group = get_group(list, envp); //shoudn't work for non-existing cmd
 		free_tokens(list);
-		printf("invalid cmd");
-		exit(EXIT_FAILURE);
 	}
 	return (group);
 }

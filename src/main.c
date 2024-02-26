@@ -21,10 +21,17 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (line && *line)
 			add_history(line);
+		
 		group = parser(line, envp);
-		printf("Parsed: ");
-		print_tab(group->cmd);
-		line = NULL;
+		if(group->flag_fail !=  0)
+			line = NULL;
+		else
+		{
+			printf("Parsed: ");
+			print_tab(group->cmd);
+			line = NULL;
+		}
 		line = readline(">$ ");
 	}
+	return 0;
 }

@@ -30,7 +30,8 @@ typedef struct s_tokens
 ////////////////// FONCTIONS //////////////////
 
 //line parsing
-char **get_tab(t_tokens *list);
+char	**get_tab(t_tokens *list);
+int		syntax_pb(char *line);
 
 //сheck cmd and files
 char	**get_path(char **envp);
