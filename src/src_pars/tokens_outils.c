@@ -1,7 +1,5 @@
 #include "../../inc/parsing.h"
 
-
-
 int get_tokens_nb(t_tokens *list)
 {
 	int node_nb;

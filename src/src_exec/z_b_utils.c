@@ -3,12 +3,11 @@
 #include "../../inc/parsing.h"
 
 //set_env function
-char	*set_env(char *env)
+char	*set_dir(char *path)
 {
-	char	*envp;
 
-	envp = getenv(env);
-	if (access(env, F_OK | X_OK) == 0)
-		return (env);
+	path = getenv(path);
+	if (access(path, F_OK | X_OK) == 0)
+		return (path);
 	return ("error");
 }

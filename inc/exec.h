@@ -9,9 +9,10 @@
 # include <fcntl.h>
 
 ////////////////// BUILT_INS //////////////////
-int		built_echo(t_group *group);
-int		built_pwd(char *cmd);
-int		built_cd(char *cmd, char *path);
+int		builtin_echo(t_tokens *list);
+int		builtin_pwd(t_tokens *list);
+int		builtin_cd(t_tokens *list, char *path);
+int		builtin_env(t_tokens *list, char *path, char **envp);
 
 
 ////////////////// EXEC (PIPEX) //////////////////
@@ -32,7 +33,7 @@ void	cmd2(char **av, int *pipe_fd, char **envp);
 ////////////////// UTILS //////////////////
 
 //built_ins
-char	*set_env(char *env);
+char	*set_dir(char *path);
 
 //exec
 

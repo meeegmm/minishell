@@ -15,9 +15,11 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*line;
 	t_group 	*group;
+	t_tokens	*list;
 	// int			cd;
 	// int			pwd;
 	// int			echo;
+	char **token_tab;
 
 	(void)ac;
 	(void)av[0];
@@ -26,7 +28,9 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (line && *line)
 			add_history(line);
+		token_tab = ft_split1(line, 1);
 		group = parser(line, envp);
+		list = lexer(token_tab);
 		if(group->flag_fail !=  0)
 			line = NULL;
 		else
@@ -39,12 +43,13 @@ int	main(int ac, char **av, char **envp)
 			// print_list(list);
 			// printf("env = : ");
 			// printf("env == %s\n", envp[2]);
-			built_cd(group->cmd[0], group->cmd[1]);
-			// printf("cd == %d\n", cd);
-			built_pwd(group->cmd[0]);
+			builtin_pwd(list);
 			// printf("pwd == %d\n", pwd);
-			built_echo(group);
+			builtin_cd(list, group->cmd[1]);
+			// printf("cd == %d\n", cd);
+			builtin_echo(list);
 			// printf("echo == %d\n", echo);
+			builtin_env(list, group->cmd[0], envp);
 			line = NULL;
 		}
 		line = readline(">$ ");

@@ -31,6 +31,7 @@ typedef struct s_tokens
 
 //line parsing
 char	**get_tab(t_tokens *list);
+t_tokens	*lexer(char **token_tab);
 int		syntax_pb(char *line);
 
 //сheck cmd and files
