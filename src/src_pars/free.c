@@ -7,7 +7,7 @@ void free_tab(char **tab)
 	i = 0;
 	while(tab[i] != NULL)
 	{
-		free(tab[i]); //is it correct? нужно ли устанавливать в NULL
+		free(tab[i]); //нужно ли устанавливать в NULL?
 		i++;
 	}
 	free(tab);
@@ -22,12 +22,24 @@ void free_group(t_group *lg)
 		// if(lg->source != NULL)
 		// 	free(lg->source);
 		// if(lg->destination != NULL)
-			// free(lg->destination);
-		free(lg); //нужно ли отдельно освобождать память пойнтера?
+		// 	free(lg->destination);
+		free(lg);
 	}
 }
 
-void free_list(t_list_env *list) //rewrite the function => segfault pb
+void free_tokens(t_tokens *list)
+{
+	t_tokens *tmp;
+	while(list != NULL)
+	{
+		tmp = list->next;
+		free(list->value);
+		free(list->next);
+		list = tmp;
+	}
+}
+
+void free_envp_list(t_list_env *list)
 {
 	t_list_env *tmp;
 	while(list != NULL)
@@ -39,10 +51,3 @@ void free_list(t_list_env *list) //rewrite the function => segfault pb
 		list = tmp;
 	}
 }
-
-// void free_struct_exec(t_exec *p)
-// {
-// 	if(p->envp_list)
-// 		free_list(p->envp_list);
-// 	free(p);
-// }

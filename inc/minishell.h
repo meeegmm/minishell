@@ -1,13 +1,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <errno.h>
 
 ////////////////// STRUCTS //////////////////
 
@@ -49,12 +47,15 @@ typedef struct s_list_env
 
 ////////////////// FONCTIONS //////////////////
 
-//envp parsing
+//parsing
+t_group *parser(char *line, char **envp);
 
+//envp parsing
+t_list_env *get_list(char **tab);
+char **get_envp(t_list_env *list);
 
 //free
 void free_tab(char **tab);
-void free_list(t_list_env *list);
 void free_envp_list(t_list_env *list);
 void free_group(t_group *lg);
 

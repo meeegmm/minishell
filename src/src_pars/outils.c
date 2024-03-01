@@ -1,6 +1,6 @@
 #include "../../inc/parsing.h"
 
-int ft_strlen(char *s)
+int ft_strlen(const char *s)
 {
 	int i = 0;
 	while(s[i] != '\0')
@@ -28,7 +28,7 @@ char	*ft_strdup(char *s1)
 	return (s);
 }
 
-int		ft_strncmp(char *s1, char *s2, int n)
+int		ft_strncmp(const char *s1, const char *s2, int n)
 {
 	int i;
 
@@ -91,7 +91,8 @@ void print_tab(char **tab)
 	i = 0;
 	while(tab[i])
 	{
-		printf("%s\n", tab[i]);
+		printf("%s ", tab[i]);
 		i++;
 	}
+	printf("\n");
 }
