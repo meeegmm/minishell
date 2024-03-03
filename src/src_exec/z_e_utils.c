@@ -1,5 +1,3 @@
 #include "../../inc/exec.h"
 
-//___PIPEX___
-
-
+//dup function w/ different cases

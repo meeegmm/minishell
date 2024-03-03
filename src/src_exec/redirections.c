@@ -2,6 +2,14 @@
 
 //___PIPEX___ pipes + redirections for simple cmd
 
+//always connect before I/O redir
+//dup() before redir to save fd
+//open then dup(2)
+//do it for all redir
+//close() where necessary
+//dup(2) to remove redir
+//exec
+
 // void	ft_redir(char *path, char **args, char **envp, int fd)
 // {
 // 	int	pipe_fd[2];

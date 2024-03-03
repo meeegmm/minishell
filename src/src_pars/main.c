@@ -43,12 +43,12 @@ int	main(int ac, char **av, char **envp)
 			// print_list(list);
 			// printf("env = : ");
 			// printf("env == %s\n", envp[2]);
+			builtin_echo(list);
+			// printf("echo == %d\n", echo);
 			builtin_pwd(list);
 			// printf("pwd == %d\n", pwd);
 			builtin_cd(list, group->cmd[1]);
 			// printf("cd == %d\n", cd);
-			builtin_echo(list);
-			// printf("echo == %d\n", echo);
 			builtin_env(list, group->cmd[0], envp);
 			ft_exec(group, envp);
 			line = NULL;

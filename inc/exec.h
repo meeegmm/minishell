@@ -8,6 +8,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+//TODO: 
+
 ////////////////// BUILT_INS //////////////////
 int		builtin_echo(t_tokens *list);
 int		builtin_pwd(t_tokens *list);
@@ -15,10 +17,8 @@ int		builtin_cd(t_tokens *list, char *path);
 int		builtin_env(t_tokens *list, char *path, char **envp);
 
 
-////////////////// EXEC (PIPEX) //////////////////
+////////////////// EXEC //////////////////
 void	ft_exec(t_group *group, char **envp);
-void	cmd1(t_group *group, int *pipe_fd, char **envp);
-void	cmd2(t_group *group, int *pipe_fd, char **envp);
 
 
 ////////////////// REDIRECTION //////////////////

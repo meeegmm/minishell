@@ -33,7 +33,7 @@ int	builtin_echo(t_tokens *list)
 			printf("\n");
 		return (0);
 	}
-	return (-1);
+	return (1);
 }
 
 
@@ -57,12 +57,13 @@ int	builtin_pwd(t_tokens *list)
 		printf("\n");
 		return (0);
 	}
-	return (-1);
+	return (1);
 }
 
 
 //__cd__Use chdir(path)
 //doesn't work if tab to fill path
+//create and keep subshells, why
 int	builtin_cd(t_tokens *list, char *path)
 {
 	char	*buf;
@@ -71,7 +72,7 @@ int	builtin_cd(t_tokens *list, char *path)
 	size = 2048; //look for optimal value
 	buf = malloc(sizeof(char) * (size + 1));
 	if (!buf)
-		return (-2);
+		return (2);
 	if (ft_strncmp(list->value, "cd", 2) == 0)
 	{
 		if (list->next == NULL || ft_strncmp(list->next->value, "~", 1) == 0)
@@ -85,7 +86,7 @@ int	builtin_cd(t_tokens *list, char *path)
 		ft_putstr_fd("\n", 1);
 		return (0);
 	}
-	return (-1); 
+	return (1); 
 }
 
 //__env__

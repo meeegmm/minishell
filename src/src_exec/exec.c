@@ -1,5 +1,10 @@
 #include "../../inc/exec.h"
 
+//not for bultins
+//browse list and check for pipes
+//1 simple cmd
+//2 background exec (fork()), redir
+//3 pipes
 void	ft_exec(t_group *group, char **envp)
 {
 	pid_t	pid;
