@@ -50,6 +50,7 @@ int	main(int ac, char **av, char **envp)
 			builtin_echo(list);
 			// printf("echo == %d\n", echo);
 			builtin_env(list, group->cmd[0], envp);
+			ft_exec(group, envp);
 			line = NULL;
 		}
 		line = readline(">$ ");

@@ -2,56 +2,39 @@
 
 //___PIPEX___ pipes + redirections for simple cmd
 
-// void	cmd1(char **av, int *pipe_fd, char **envp)
-// {
-// 	int	fd;
-
-// 	fd = open_file(av[1], 0);
-// 	dup2(fd, STDIN_FILENO);
-// 	dup2(pipe_fd[1], STDOUT_FILENO);
-// 	close(pipe_fd[0]);
-// 	close(pipe_fd[1]);
-// 	close(fd);
-// 	do_cmd(av[2], envp);
-// }
-
-// void	cmd2(char **av, int *pipe_fd, char **envp)
-// {
-// 	int	fd;
-
-// 	fd = open_file(av[4], 1);
-// 	dup2(fd, STDOUT_FILENO);
-// 	dup2(pipe_fd[0], STDIN_FILENO);
-// 	close(fd);
-// 	close(pipe_fd[0]);
-// 	do_cmd(av[3], envp);
-// }
-
-// int	main(int ac, char **av, char **env)
+// void	ft_redir(char *path, char **args, char **envp, int fd)
 // {
 // 	int	pipe_fd[2];
 // 	int	pid;
-// 	int	pid2;
 
-// 	if (ac != 5)
-// 	{
-// 		ft_putstr_fd("Must contain: ./pipex file1 cmd1 cmd2 file2", 2);
-// 		exit(0);
-// 	}
 // 	if (pipe(pipe_fd) == -1)
 // 		exit (-1);
 // 	pid = fork();
-// 	if (pid == -1)
-// 		exit(-1);
-// 	if (pid == 0)
-// 		cmd1(av, pipe_fd, env);
-// 	close(pipe_fd[1]);
-// 	pid2 = fork();
-// 	if (pid2 == -1)
-// 		exit(-1);
-// 	if (pid2 == 0)
-// 		cmd2(av, pipe_fd, env);
-// 	close(pipe_fd[0]);
-// 	wait(NULL);
-// 	wait(NULL);
+// 	if (pid)
+// 	{
+// 		close(pipe_fd[1]);
+// 		dup2(pipe_fd[0], STDIN_FILENO);
+// 		wait(&pid);
+// 	}
+// 	else
+// 	{
+// 		close(pipe_fd[0]);
+// 		dup2(pipe_fd[1], STDIN_FILENO);
+// 	}
+// 	if (fd)
+// 		ft_exec(path, envp);
+// 	else
+// 		exit(1);
+// }
+
+// void	r_exec(t_group *group, t_tokens *list, char **envp)
+// {
+// 	int	pipe_fd[2];
+
+// 	pipe_fd[0] = open_file(list->next->value, 0);
+// 	pipe_fd[1] = open_file(list->next->value, 1);
+// 	if (pipe(pipe_fd) == -1)
+// 		exit (-1);
+	
+
 // }

@@ -16,13 +16,13 @@ int		builtin_env(t_tokens *list, char *path, char **envp);
 
 
 ////////////////// EXEC (PIPEX) //////////////////
-void	do_cmd(char *token, char **envp);
-void	cmd1(char **av, int *pipe_fd, char **envp);
-void	cmd2(char **av, int *pipe_fd, char **envp);
+void	ft_exec(t_group *group, char **envp);
+void	cmd1(t_group *group, int *pipe_fd, char **envp);
+void	cmd2(t_group *group, int *pipe_fd, char **envp);
 
 
 ////////////////// REDIRECTION //////////////////
-
+void	r_exec(t_group *group, char **env);
 
 ////////////////// SIGNALS //////////////////
 

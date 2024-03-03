@@ -45,7 +45,7 @@ int	builtin_pwd(t_tokens *list)
 	char	*buf;
 	size_t	size;
 
-	size = 2048; //look for max or string size?
+	size = 2048; //look for optimal value
 	buf = malloc(sizeof(char) * (size + 1));
 	if (!buf)
 		return (-2);
@@ -62,28 +62,24 @@ int	builtin_pwd(t_tokens *list)
 
 
 //__cd__Use chdir(path)
-// display pwd if ../../etc?
 //doesn't work if tab to fill path
 int	builtin_cd(t_tokens *list, char *path)
 {
-	// char	*buf;
-	// size_t	size;
+	char	*buf;
+	size_t	size;
 
-	// size = 2048; //look for optimal value
-	// buf = malloc(sizeof(char) * (size + 1));
-	// if (!buf)
-	// 	return (-2);
+	size = 2048; //look for optimal value
+	buf = malloc(sizeof(char) * (size + 1));
+	if (!buf)
+		return (-2);
 	if (ft_strncmp(list->value, "cd", 2) == 0)
 	{
 		if (list->next == NULL || ft_strncmp(list->next->value, "~", 1) == 0)
 			path = set_dir("HOME");
 		if (access(path, F_OK | X_OK) == 0)
 			chdir(path);
-		// if (ft_strncmp(list->next->value, "..", 2) == 0)
-		// 	{		
-		// 		path = getcwd(buf, size);
-		// 		free(buf);
-		// 	}
+		path = getcwd(buf, size);
+		free(buf);
 		ft_putstr_fd("Current directory: ", 1);			
 		ft_putstr_fd(path, 1);
 		ft_putstr_fd("\n", 1);
@@ -93,7 +89,6 @@ int	builtin_cd(t_tokens *list, char *path)
 }
 
 //__env__
-//w/ args, change the cmd or pgm env
 int	builtin_env(t_tokens *list, char *path, char **envp)
 {
 	t_tokens	*env_list;
