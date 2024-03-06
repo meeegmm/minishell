@@ -2,10 +2,53 @@
 
 //quotes check
 
-int quotes_ok(char *str) //faire plus court
+/*void condition_part(int *res, char *str, char c)
+{
+	*res = 0;
+	while(*str)
+	{
+		str++;
+		if(*str == c)
+		{
+			*res = 1;
+			break;
+		}
+	}
+}
+
+int quotes_ok(char *str)
+{
+	int res;
+
+	res = 1;
+	while(*str)
+	{
+
+		if(*str == '"')
+		{
+			condition_part(&res, str, '"');
+		}
+		else if(*str == 39)
+		{
+			condition_part(&res, str, 39);
+		}
+		str++;
+	}
+	return (res);
+}*/
+
+
+int is_meta(char c) //gere tout sauf >> <<
+{
+	return(c == '>' || c == '<' || c == '|');
+}
+
+
+char *quotes_ok(char *str) //faire plus court
 {
 	int i;
 	int res;
+	int start;
 
 	i = 0;
 	res = 1;
@@ -14,35 +57,146 @@ int quotes_ok(char *str) //faire plus court
 		if(str[i] == '"')
 		{
 			res = 0;
+			start = i;
 			while(str[i])
 			{
 				i++;
 				if(str[i] == '"')
 				{
 					res = 1;
+					str[start] = 31;
+					str[i] = 31;
 					break;
 				}
+
 			}
 		}
 		else if(str[i] == 39)
 		{
 			res = 0;
+			start = i;
 			while(str[i])
 			{
 				i++;
 				if(str[i] == 39)
 				{
 					res = 1;
+					str[start] = 31;
+					str[i] = 31;
 					break;
 				}
 			}
 		}
 		i++;
 	}
-	return (res);
+	if(res == 0)
+	{
+		printf("Invalid syntax: quotes\n");
+		return (NULL);
+	}
+	else
+		return (str);
 }
 
-//realloc - enlever les quotes
+int new_spaces_nb(char *str)
+{
+	int nb;
+
+	nb = 0;
+	while(*str)
+	{
+		if(is_meta(*str) == 1)
+			nb++;
+		str++;
+	}
+	return (nb * 2);
+}
+
+char *spaces_before_meta(char *str)
+{
+	char *new_str;
+	int len;
+	int i;
+	int k;
+	
+	i = 0;
+	k = 0;
+	str = quotes_ok(str);
+	if(str == NULL)
+		return (NULL);
+	len = new_spaces_nb(str) + ft_strlen(str) + 1;
+
+	new_str = malloc(sizeof(char) * len);
+	if(!new_str)
+		return (NULL);
+	while(i < len && str[k])
+	{
+		if(str[k] == 31)
+		{
+			i++;
+			while(str[k] != 31)
+				k++;
+			k++;
+		}
+
+		if(is_meta(str[k]) == 1 && (i + 2 < len))
+		{
+			new_str[i] = ' ';
+			new_str[i + 1] = str[k];
+			new_str[i + 2] = ' ';
+			i += 3;
+			k++;
+		}
+		new_str[i] = str[k];
+		i++;
+		k++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
+}
+
+int quotes_nb(char *str)
+{
+	int nb;
+
+	nb = 0;
+	while(*str)
+	{
+		if(*str == 31)
+			nb++;
+		str++;
+	}
+	return (nb);
+}
+
+char *remove_quotes(char *str)
+{
+	char *res;
+	int len;
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	str = spaces_before_meta(str);
+	if(str == NULL)
+		return (NULL);
+	len = ft_strlen(str) - quotes_nb(str) + 1;
+
+	res = malloc(sizeof(char) * len);
+	if(!res)
+		return (NULL);
+	while(i < len && str[k])
+	{
+		if(str[k] == 31)
+			k++;
+		res[i] = str[k];
+		i++;
+		k++;
+	}
+	res[i] = '\0';
+	return (res);
+}
 
 //do a list of tokens
 
@@ -101,17 +255,6 @@ t_group *get_group(t_tokens *list, char **envp)
 	return (group);
 }
 
-int syntax_pb(char *line)
-{
-	if(quotes_ok(line) != 1)
-	{
-		printf("Invalid input: quotes\n");
-		return (1);	
-	}
-	///////// plenty of other cases ////////
-	return (0);
-}
-
 t_group *invalid_group(void)
 {
 	t_group *group;
@@ -132,6 +275,11 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 	t_tokens *list;
 	t_group *group;
 	char **token_tab;
+	
+	line = remove_quotes(line);
+	if(line == NULL)
+		return (NULL); //make more explicite
+	printf("new line : %s\n", line);
 
 	token_tab = ft_split1(line, 1);
 	if(token_tab == NULL)
@@ -143,14 +291,14 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 	if(list == NULL)
 	{
 		printf("Problem");
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	// printf("list->type %d\n", list->type);
 	// printf("list->len %d\n", list->len);
 	// printf("list->value %s\n", list->value);
 	
-	if(syntax_pb(line) != 0)
-		group = invalid_group();
+	// if(syntax_pb(line) != 0)
+	// 	group = invalid_group();
 	else
 	{
 		group = get_group(list, envp); //shoudn't work for non-existing cmd

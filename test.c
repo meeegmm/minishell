@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 
-int quotes_ok(char *str) //plus court
+int quotes_ok(char *str) //faire plus court
 {
 	int i;
 	int res;
@@ -49,3 +49,39 @@ int main(int ac, char **av)
     printf("%d\n", quotes_ok(av[1]));
     return 0;
 }
+
+
+/*void condition_part(int *res, char *str, char c)
+{
+	*res = 0;
+	while(*str)
+	{
+		str++;
+		if(*str == c)
+		{
+			*res = 1;
+			break;
+		}
+	}
+}
+
+int quotes_ok(char *str) //plus court
+{
+	int res;
+
+	res = 1;
+	while(*str)
+	{
+
+		if(*str == '"')
+		{
+			condition_part(&res, str, '"');
+		}
+		else if(*str == 39)
+		{
+			condition_part(&res, str, 39);
+		}
+		str++;
+	}
+	return (res);
+}*/

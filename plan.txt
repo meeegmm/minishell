@@ -2,4 +2,6 @@
 
 1/ leaks + errors
 2/ переписать проверку cmd (проверить для "" и " ")
-3/ discuss types
+3/ enlever les quotes
+4/ modifier la tokenisation pour le type IN_QUOTES
+4/ re_tokeniser les mots qui peuvent contenir les redirections et les pipes
