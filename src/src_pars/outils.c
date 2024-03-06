@@ -84,7 +84,7 @@ void print_list(t_list_env *list)
 	}
 }
 
-void print_tab(char **tab)
+void print_cmd_tab(char **tab)
 {
 	int i;
 
@@ -95,4 +95,16 @@ void print_tab(char **tab)
 		i++;
 	}
 	printf("\n");
+}
+
+void print_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while(tab[i])
+	{
+		printf("%s\n", tab[i]);
+		i++;
+	}
 }

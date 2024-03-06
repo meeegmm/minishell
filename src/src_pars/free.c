@@ -30,11 +30,12 @@ void free_group(t_group *lg)
 void free_tokens(t_tokens *list)
 {
 	t_tokens *tmp;
+
 	while(list != NULL)
 	{
 		tmp = list->next;
 		free(list->value);
-		free(list->next);
+		// free(list->next);
 		list = tmp;
 	}
 }
@@ -42,12 +43,13 @@ void free_tokens(t_tokens *list)
 void free_envp_list(t_list_env *list)
 {
 	t_list_env *tmp;
+
 	while(list != NULL)
 	{
 		tmp = list->next;
 		free(list->key);
 		free(list->value);
-		free(list->next);
+		// free(list->next);
 		list = tmp;
 	}
 }

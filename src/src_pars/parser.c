@@ -81,7 +81,8 @@ t_tokens *lexer(char **token_tab)
 t_group *get_group(t_tokens *list, char **envp)
 {
 	t_group *group;
-	group = malloc(sizeof(group));
+
+	group = malloc(sizeof(t_group));
 	if(!group)
 	{
 		perror("group malloc");
@@ -115,7 +116,7 @@ int syntax_pb(char *line)
 t_group *invalid_group(void)
 {
 	t_group *group;
-	group = malloc(sizeof(group));
+	group = malloc(sizeof(t_group));
 	if(!group)
 	{
 		perror("group malloc");
