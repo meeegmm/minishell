@@ -1,11 +1,11 @@
 #include "../../inc/parsing.h"
 
-void free_tab(char **tab)
+void	free_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(tab[i] != NULL)
+	while (tab[i] != NULL)
 	{
 		free(tab[i]); //нужно ли устанавливать в NULL?
 		i++;
@@ -13,11 +13,11 @@ void free_tab(char **tab)
 	free(tab);
 }
 
-void free_group(t_group *lg)
+void	free_group(t_group *lg)
 {
-	if(lg)
+	if (lg)
 	{
-		if(lg->cmd)
+		if (lg->cmd)
 			free_tab(lg->cmd);
 		// if(lg->source != NULL)
 		// 	free(lg->source);
@@ -27,11 +27,11 @@ void free_group(t_group *lg)
 	}
 }
 
-void free_tokens(t_tokens *list)
+void	free_tokens(t_tokens *list)
 {
-	t_tokens *tmp;
+	t_tokens	*tmp;
 
-	while(list != NULL)
+	while (list != NULL)
 	{
 		tmp = list->next;
 		free(list->value);
@@ -40,11 +40,11 @@ void free_tokens(t_tokens *list)
 	}
 }
 
-void free_envp_list(t_list_env *list)
+void	free_envp_list(t_list_env *list)
 {
-	t_list_env *tmp;
+	t_list_env	*tmp;
 
-	while(list != NULL)
+	while (list != NULL)
 	{
 		tmp = list->next;
 		free(list->key);

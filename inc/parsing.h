@@ -37,6 +37,7 @@ int			syntax_pb(char *line);
 char		**get_path(char **envp);
 char		*path_check(char **path_list, char **args_list);
 char		*cmd_check(char **cmd, char **envp);
+int			get_tokens_nb(t_tokens *list);
 
 //free
 void		free_tokens(t_tokens *list);
@@ -44,7 +45,7 @@ void		free_tokens(t_tokens *list);
 //outils
 void		print_cmd_tab(char **tab);
 void		print_tab(char **tab);
-void		print_list(t_list_env *list);
+void		print_env_list(t_list_env *list);
 char		*ft_strdup(char *s1);
 int			ft_strlen(const char *s);
 int			ft_strncmp(const char *s1, const char *s2, int n);

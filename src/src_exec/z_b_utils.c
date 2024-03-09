@@ -2,7 +2,6 @@
 #include "../../inc/exec.h"
 #include "../../inc/parsing.h"
 
-//set_env function
 char	*set_dir(char *path)
 {
 	path = getenv(path);
@@ -17,15 +16,15 @@ int	is_built(char *str)
 	char	*tab[6];
 
 	i = 0;
-	tab[0] = "echo";
-	tab[1] = "cd";
+	tab[0] = "cd";
+	tab[1] = "env";
 	tab[2] = "pwd";
-	tab[3] = "export";
+	tab[3] = "echo";
 	tab[4] = "unset";
-	tab[5] = "env";
-	while (str[i])
+	tab[5] = "export";
+	while (str[i] && i <= 5)
 	{
-		if (ft_strcmp(tab[i], str) == 0)
+		if (ft_strcmp(str, tab[i]) == 0)
 			return (0);
 		i++;
 	}
