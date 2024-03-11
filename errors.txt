@@ -246,3 +246,165 @@ Invalid input: quotes
 ==378289==    by 0x401E8F: main (main.c:25)
 ==378289== 
 paul-f3Ar3s5% 
+
+
+
+//////////////
+
+
+paul-f3Ar6s10% make valgrind
+cc -Wall -Wextra -Werror -MMD -MP -g3 -I. -MF ./deps/parser.d  -c src/parser.c -o obj/parser.o
+cc -Wall -Wextra -Werror -MMD -MP -g3 -I. -MF ./deps/.d  -lreadline  ./obj/cmd_check.o  ./obj/envp_parsing.o  ./obj/free.o  ./obj/ft_split.o  ./obj/main.o  ./obj/outils.o  ./obj/parser.o  ./obj/tokens_outils.o -o minishell
+valgrind -q --suppressions=/mnt/nfs/homes/abelosev/minishell/ignore_readline --trace-children=yes \
+        --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes \
+        ./minishell
+>$ pwd
+new line : pwd
+Parsed: /usr/bin/pwd 
+>$ exit
+==547383== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==547383== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==547383==    <inherited from parent>
+==547383== 
+==547383== Open AF_UNIX socket 39: <unknown>
+==547383==    <inherited from parent>
+==547383== 
+==547383== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==547383==    <inherited from parent>
+==547383== 
+==547383== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240311T132643/ptyhost.log
+==547383==    <inherited from parent>
+==547383== 
+==547383== 
+==547383== 4 bytes in 1 blocks are definitely lost in loss record 5 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x40255D: spaces_before_meta (parser.c:129)
+==547383==    by 0x402732: remove_quotes (parser.c:181)
+==547383==    by 0x402AC8: parser (parser.c:279)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+==547383== 4 bytes in 1 blocks are definitely lost in loss record 6 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x40277D: remove_quotes (parser.c:186)
+==547383==    by 0x402AC8: parser (parser.c:279)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+==547383== 4 bytes in 1 blocks are definitely lost in loss record 7 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x401F63: ft_strdup (outils.c:19)
+==547383==    by 0x402C43: get_tab (tokens_outils.c:27)
+==547383==    by 0x40299D: get_group (parser.c:244)
+==547383==    by 0x402B75: parser (parser.c:304)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+==547383== 13 bytes in 1 blocks are indirectly lost in loss record 13 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x40210D: ft_strjoin (outils.c:57)
+==547383==    by 0x4012D0: path_check (cmd_check.c:39)
+==547383==    by 0x4013D7: cmd_check (cmd_check.c:90)
+==547383==    by 0x4029E4: get_group (parser.c:250)
+==547383==    by 0x402B75: parser (parser.c:304)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+==547383== 16 bytes in 1 blocks are indirectly lost in loss record 17 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x402C0A: get_tab (tokens_outils.c:22)
+==547383==    by 0x40299D: get_group (parser.c:244)
+==547383==    by 0x402B75: parser (parser.c:304)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+==547383== 24 bytes in 1 blocks are definitely lost in loss record 22 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x402855: lexer (parser.c:209)
+==547383==    by 0x402B3B: parser (parser.c:290)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+==547383== 32 bytes in 1 blocks are definitely lost in loss record 23 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x401C60: ft_split1 (ft_split.c:60)
+==547383==    by 0x402B07: parser (parser.c:284)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+==547383== 53 (24 direct, 29 indirect) bytes in 1 blocks are definitely lost in loss record 28 of 76
+==547383==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==547383==    by 0x402969: get_group (parser.c:238)
+==547383==    by 0x402B75: parser (parser.c:304)
+==547383==    by 0x401E7F: main (main.c:25)
+==547383== 
+paul-f3Ar6s10% 
+
+
+//////////////
+
+paul-f3Ar6s10% make valgrind
+valgrind -q --suppressions=/mnt/nfs/homes/abelosev/minishell/ignore_readline --trace-children=yes \
+        --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes \
+        ./minishell
+>$ pwd
+new line : pwd
+Parsed: /usr/bin/pwd 
+>$ exit
+==549591== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==549591== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==549591==    <inherited from parent>
+==549591== 
+==549591== Open AF_UNIX socket 39: <unknown>
+==549591==    <inherited from parent>
+==549591== 
+==549591== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==549591==    <inherited from parent>
+==549591== 
+==549591== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240311T132643/ptyhost.log
+==549591==    <inherited from parent>
+==549591== 
+==549591== 
+==549591== 4 bytes in 1 blocks are definitely lost in loss record 5 of 74
+==549591==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549591==    by 0x40277D: remove_quotes (parser.c:186)
+==549591==    by 0x402AD8: parser (parser.c:280)
+==549591==    by 0x401E7F: main (main.c:25)
+==549591== 
+==549591== 4 bytes in 1 blocks are definitely lost in loss record 6 of 74
+==549591==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549591==    by 0x401F63: ft_strdup (outils.c:19)
+==549591==    by 0x402C53: get_tab (tokens_outils.c:27)
+==549591==    by 0x4029AD: get_group (parser.c:245)
+==549591==    by 0x402B85: parser (parser.c:305)
+==549591==    by 0x401E7F: main (main.c:25)
+==549591== 
+==549591== 13 bytes in 1 blocks are indirectly lost in loss record 11 of 74
+==549591==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549591==    by 0x40210D: ft_strjoin (outils.c:57)
+==549591==    by 0x4012D0: path_check (cmd_check.c:39)
+==549591==    by 0x4013D7: cmd_check (cmd_check.c:90)
+==549591==    by 0x4029F4: get_group (parser.c:251)
+==549591==    by 0x402B85: parser (parser.c:305)
+==549591==    by 0x401E7F: main (main.c:25)
+==549591== 
+==549591== 16 bytes in 1 blocks are indirectly lost in loss record 15 of 74
+==549591==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549591==    by 0x402C1A: get_tab (tokens_outils.c:22)
+==549591==    by 0x4029AD: get_group (parser.c:245)
+==549591==    by 0x402B85: parser (parser.c:305)
+==549591==    by 0x401E7F: main (main.c:25)
+==549591== 
+==549591== 24 bytes in 1 blocks are definitely lost in loss record 20 of 74
+==549591==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549591==    by 0x402865: lexer (parser.c:210)
+==549591==    by 0x402B4B: parser (parser.c:291)
+==549591==    by 0x401E7F: main (main.c:25)
+==549591== 
+==549591== 32 bytes in 1 blocks are definitely lost in loss record 21 of 74
+==549591==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549591==    by 0x401C60: ft_split1 (ft_split.c:60)
+==549591==    by 0x402B17: parser (parser.c:285)
+==549591==    by 0x401E7F: main (main.c:25)
+==549591== 
+==549591== 53 (24 direct, 29 indirect) bytes in 1 blocks are definitely lost in loss record 26 of 74
+==549591==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549591==    by 0x402979: get_group (parser.c:239)
+==549591==    by 0x402B85: parser (parser.c:305)
+==549591==    by 0x401E7F: main (main.c:25)
+==549591== 
+paul-f3Ar6s10% 
+paul-f3Ar6s10% 
