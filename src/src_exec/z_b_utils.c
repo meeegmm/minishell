@@ -15,13 +15,12 @@ int	is_char(char *str, char c)
 	int	i;
 
 	i = 1;
-	while (str[i])
-	{
-		if (str[i] != c)
-			return (1);
+	while (str[i] && str[i] == c)
 		i++;
-	}
-	return (0);
+	if (i == ft_strlen(str))
+			return (1);
+	else
+		return (0);
 }
 
 void	print_token_lst(t_tokens *token_lst)
@@ -50,8 +49,8 @@ int	is_built(char *str)
 	while (str[i] && i <= 5)
 	{
 		if (ft_strcmp(str, tab[i]) == 0)
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }

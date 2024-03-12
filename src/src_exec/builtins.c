@@ -30,7 +30,7 @@ int	builtin_echo(t_tokens *token_lst)
 		while (token_lst != NULL)
 		{
 			if (ft_strncmp(token_lst->value, "-n", 2) == 0 \
-											&& !is_char(token_lst->value, 'n'))
+											&& is_char(token_lst->value, 'n'))
 			{
 				option = 1;
 				token_lst = token_lst->next;
@@ -49,7 +49,6 @@ int	builtin_echo(t_tokens *token_lst)
 }
 
 // __pwd__
-//--p / ---p
 int	builtin_pwd(t_tokens *token_lst)
 {
 	char	*cmd;
@@ -65,7 +64,7 @@ int	builtin_pwd(t_tokens *token_lst)
 	if (get_tokens_nb(token_lst) > 1)
 	{
 		if (ft_strncmp(token_lst->next->value, "-", 1) == 0 \
-								&& !is_char(token_lst->next->value, 'p'))
+								&& !is_char(token_lst->next->value, '-'))
 		{
 			ft_putstr_fd(cmd, token_lst->next->value, 2);
 			//invalid option
@@ -151,11 +150,13 @@ int	builtin_env(t_tokens *token_lst, char **envp)
 }
 
 //__export__
+//can modify variable value
 //set export attributs (= make var available for child processes)
 //need to get current process
 //duplicate in a tab, set this tab as **envp, add if "export"
 //w/out options, export all var + display env token_lst
 //free when process ends
+
 //__unset__
 //unset + args (= variables)
 //substract from export tab

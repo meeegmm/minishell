@@ -12,6 +12,8 @@
 //redir struct
 //exec struct
 //define error messages + code (exit status)
+//check flag fail, if 1 = fail
+//new_envp must not be in main!
 
 ////////////////// BUILT_INS //////////////////
 int		builtin_echo(t_tokens *token_lst);

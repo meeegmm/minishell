@@ -36,7 +36,7 @@ void	ft_s_exec(t_tokens *token_lst, t_group *group, char **envp)
 
 void	simple_cmd(t_tokens *token_lst, t_group *group, char **envp)
 {
-	if (!is_built(token_lst->value))
+	if (is_built(token_lst->value))
 		ft_builtins(token_lst, group, envp);
 	else
 		ft_s_exec(token_lst, group, envp);
