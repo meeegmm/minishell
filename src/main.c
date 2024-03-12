@@ -16,6 +16,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av[0];
+	//$SHLVL
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
