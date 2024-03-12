@@ -34,7 +34,8 @@ void free_tokens(t_tokens *list)
 	{
 		tmp = list->next;
 		free(list->value);
-		free(list->next);
+		if(list->next)
+			free(list->next);
 		list = tmp;
 	}
 }

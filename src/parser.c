@@ -71,14 +71,14 @@ char *quotes_ok(char *str) //faire plus court
 
 			}
 		}
-		else if(str[i] == 39)
+		else if(str[i] == '\'')
 		{
 			res = 0;
 			start = i;
 			while(str[i])
 			{
 				i++;
-				if(str[i] == 39)
+				if(str[i] == '\'')
 				{
 					res = 1;
 					str[start] = 31;
@@ -92,6 +92,7 @@ char *quotes_ok(char *str) //faire plus court
 	if(res == 0)
 	{
 		printf("Invalid syntax: quotes\n");
+		free(str);
 		return (NULL);
 	}
 	else
@@ -270,7 +271,9 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 	
 	line = remove_quotes(line);
 	if(line == NULL)
-		return (NULL); //make more explicite
+	{
+		return (invalid_group()); //make more explicite
+	}
 	printf("new line : %s\n", line);
 
 	token_tab = ft_split1(line, 1);
@@ -285,16 +288,13 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 		printf("Problem");
 		return (NULL);
 	}
-	// printf("list->type %d\n", list->type);
-	// printf("list->len %d\n", list->len);
-	// printf("list->value %s\n", list->value);
 	
-	// if(syntax_pb(line) != 0)
+	//if(syntax_pb(line) != 0)
 	// 	group = invalid_group();
 	else
 	{
 		group = get_group(list, envp); //shoudn't work for non-existing cmd
-		free_tokens(list);
+		//free_tokens(list);
 	}
 	return (group);
 }
