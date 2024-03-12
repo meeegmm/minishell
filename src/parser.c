@@ -65,7 +65,7 @@ char *quotes_ok(char *str) //faire plus court
 				{
 					res = 1;
 					str[start] = 31;
-					str[i] = 31;
+					str[i] = 30;
 					break;
 				}
 
@@ -82,7 +82,7 @@ char *quotes_ok(char *str) //faire plus court
 				{
 					res = 1;
 					str[start] = 31;
-					str[i] = 31;
+					str[i] = 30;
 					break;
 				}
 			}
@@ -105,6 +105,12 @@ int new_spaces_nb(char *str)
 	nb = 0;
 	while(*str)
 	{
+		if(*str == 31)
+		{
+			while(*str != 30)
+				str++;
+			str++;
+		}
 		if(is_meta(*str) == 1)
 			nb++;
 		str++;
@@ -112,7 +118,7 @@ int new_spaces_nb(char *str)
 	return (nb * 2);
 }
 
-char *spaces_before_meta(char *str)
+char *spaces_before_meta(char *str) //+ remove quotes
 {
 	char *new_str;
 	int len;
@@ -133,12 +139,19 @@ char *spaces_before_meta(char *str)
 	{
 		if(str[k] == 31)
 		{
+			new_str[i] = ' ';
 			i++;
-			while(str[k] != 31)
+			k++;
+			while(str[k] != 30)
+			{
+				new_str[i] = str[k];
 				k++;
+				i++;
+			}
+			new_str[i] = ' ';
+			i++;
 			k++;
 		}
-
 		if(is_meta(str[k]) == 1 && (i + 2 < len))
 		{
 			new_str[i] = ' ';
@@ -171,32 +184,10 @@ int quotes_nb(char *str)
 
 char *remove_quotes(char *str)
 {
-	char *res;
-	int len;
-	int i;
-	int k;
-
-	i = 0;
-	k = 0;
 	str = spaces_before_meta(str);
 	if(str == NULL)
 		return (NULL);
-	len = ft_strlen(str) - quotes_nb(str) + 1;
-
-	res = malloc(sizeof(char) * len);
-	if(!res)
-		return (NULL);
-	while(i < len && str[k])
-	{
-		if(str[k] == 31)
-			k++;
-		res[i] = str[k];
-		i++;
-		k++;
-	}
-	res[i] = '\0';
-	free(str);
-	return (res);
+	return (str);
 }
 
 //do a list of tokens
@@ -260,7 +251,7 @@ t_group *invalid_group(void)
 {
 	t_group *group;
 	group = malloc(sizeof(group));
-	if(!group)
+	if(!group || group == NULL)
 	{
 		perror("group malloc");
 		return (NULL);
