@@ -7,7 +7,32 @@ char	*set_dir(char *path)
 	path = getenv(path);
 	if (access(path, F_OK | X_OK) == 0)
 		return (path);
-	return ("error");
+	return (NULL);
+}
+
+int	is_char(char *str, char c)
+{
+	int	i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] != c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	print_token_lst(t_tokens *token_lst)
+{
+	while (token_lst != NULL)
+	{
+		printf("%s", token_lst->value);
+		if (token_lst->next != NULL)
+			printf(" ");
+		token_lst = token_lst->next;
+	}
 }
 
 int	is_built(char *str)

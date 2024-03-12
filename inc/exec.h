@@ -11,6 +11,7 @@
 //TODO:
 //redir struct
 //exec struct
+//define error messages + code (exit status)
 
 ////////////////// BUILT_INS //////////////////
 int		builtin_echo(t_tokens *token_lst);
@@ -25,7 +26,7 @@ void	ft_s_exec(t_tokens *token_lst, t_group *group, char **envp);
 void	ft_r_exec(t_tokens *token_lst, t_group *group, char **envp);
 
 ////////////////// REDIRECTION //////////////////
-void	ft_redir(t_tokens *token_lst, t_group *group, int *pipe_fd, char **envp);
+// void	ft_redir(t_tokens *token_lst, t_group *group, int *pipe_fd, char **envp);
 
 ////////////////// SIGNALS //////////////////
 
@@ -35,10 +36,13 @@ void	ft_redir(t_tokens *token_lst, t_group *group, int *pipe_fd, char **envp);
 
 //built_ins
 char	*set_dir(char *path);
+int		is_char(char *str, char c);
+void	print_token_lst(t_tokens *token_lst);
 int		is_built(char *str);
 
 //exec
 char	**set_envp(char **envp);
+char	**split_cmds(char *line);
 
 //redirection  (for now = PIPEX)
 int		open_file(char *file, int std_no);
@@ -48,5 +52,7 @@ int		open_file(char *file, int std_no);
 //libft
 int		ft_strcmp(char *s1, char *s2);
 void	ft_putstr_fd(char *cmd, char *s, int fd);
+char	*ft_strncpy(char *s1, char *s2, int n);
+char	**ft_split(char *str);
 
 #endif

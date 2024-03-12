@@ -17,8 +17,8 @@ void	ft_s_exec(t_tokens *token_lst, t_group *group, char **envp)
 	cmd = token_lst->value;
 	if (!group->cmd[0])
 	{
-		ft_putstr_fd(cmd, ": Command not found\n", 2);
-		strerror(127);
+		ft_putstr_fd("minishell", cmd, 2);
+		//cmd not found
 		return ;
 	}
 	pid = fork();
@@ -26,13 +26,11 @@ void	ft_s_exec(t_tokens *token_lst, t_group *group, char **envp)
 		wait(NULL);
 	else if (execve(group->cmd[0], group->cmd, envp) == 0)
 	{
-		if (access(group->cmd[0], F_OK) == -1)
+		if (access(group->cmd[0], F_OK | X_OK) == -1)
 		{
-			perror("Access denied");
-			return ;
+			ft_putstr_fd(cmd, group->cmd[0], 2);
+			perror(NULL);
 		}
-		else
-			perror("Exit");
 	}
 }
 

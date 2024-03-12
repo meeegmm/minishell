@@ -33,7 +33,7 @@ int	main(int ac, char **av, char **envp)
 			line = NULL;
 		else
 		{
-			// printf("Parsed: ");
+			// printf("Parsed: ");		
 			// print_tab(group->cmd);
 			simple_cmd(token_lst, group, new_envp);
 			line = NULL;

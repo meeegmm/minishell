@@ -2,16 +2,16 @@
 
 //TODO: assign good exit status if fail
 //		choose a function for error messages to write on good fd
-//		put cmd when error
-//		add checks
-//		
+//		add checks: think about quotes
 //		handle args
-//		1 struct by builtin?
+//		1 struct for builtin?
 //		pass by tmp for each?
+//		error function (define values in .h)
 //		error returns: format = 2 / path = 3 / fail = 4
 
 //__echo__
 //remove "" at display
+//function is_option?
 int	builtin_echo(t_tokens *token_lst)
 {
 	int		option;
@@ -27,19 +27,18 @@ int	builtin_echo(t_tokens *token_lst)
 			return (0);
 		}
 		token_lst = token_lst->next;
-		if (ft_strncmp(token_lst->value, "-n", 2) == 0)
-		{
-			option = 1;
-			token_lst = token_lst->next;
-		}
-		// else
-		// 	token_lst = token_lst->next;
 		while (token_lst != NULL)
 		{
-			printf("%s", token_lst->value);
-			printf(" ");
-			token_lst = token_lst->next;
+			if (ft_strncmp(token_lst->value, "-n", 2) == 0 \
+											&& !is_char(token_lst->value, 'n'))
+			{
+				option = 1;
+				token_lst = token_lst->next;
+			}
+			else
+				break ;
 		}
+		print_token_lst(token_lst);
 		if (!option)
 			printf("\n");
 		return (0);
@@ -50,23 +49,28 @@ int	builtin_echo(t_tokens *token_lst)
 }
 
 // __pwd__
+//--p / ---p
 int	builtin_pwd(t_tokens *token_lst)
 {
-
 	char	*cmd;
 	size_t	size;
 	char	*buf;
 	char	*dir;
 
-	size = 2048; //look for optimal value
+	size = 2048; /* look for optimal value */
 	buf = malloc(sizeof(char) * (size + 1));
 	cmd = token_lst->value;
 	if (!buf)
 		return (1);
 	if (get_tokens_nb(token_lst) > 1)
 	{
-		ft_putstr_fd(cmd, ": Invalid format: Too many arguments\n", 2);
-		return (2);
+		if (ft_strncmp(token_lst->next->value, "-", 1) == 0 \
+								&& !is_char(token_lst->next->value, 'p'))
+		{
+			ft_putstr_fd(cmd, token_lst->next->value, 2);
+			//invalid option
+			return (2);
+		}
 	}
 	if (ft_strncmp(token_lst->value, "pwd", 3) == 0)
 	{
@@ -90,7 +94,8 @@ int	builtin_cd(t_tokens *token_lst, char *path)
 	cmd = token_lst->value;
 	if (get_tokens_nb(token_lst) > 2)
 	{
-		ft_putstr_fd(cmd, ": Invalid format: Too many arguments\n", 2);
+		ft_putstr_fd("minishell", cmd, 2);
+		//too many arguments
 		return (2);
 	}
 	if (ft_strncmp(token_lst->value, "cd", 2) == 0)
@@ -107,7 +112,8 @@ int	builtin_cd(t_tokens *token_lst, char *path)
 			chdir(path);
 		else
 		{
-			ft_putstr_fd(cmd, ": Invalid path\n", 2);
+			ft_putstr_fd(cmd, token_lst->next->value, 2);
+			perror(NULL);
 			return (3);
 		}
 		return (0);
@@ -124,8 +130,15 @@ int	builtin_env(t_tokens *token_lst, char **envp)
 	cmd = token_lst->value;
 	if (get_tokens_nb(token_lst) > 1)
 	{
-		ft_putstr_fd(cmd, ": Invalid format: Too many arguments\n", 2);
-		return (2);
+		if (ft_strcmp(token_lst->next->value, "env") != 0)
+		{
+			if (access(token_lst->next->value, F_OK | X_OK) == -1)
+			{
+				ft_putstr_fd(cmd, token_lst->next->value, 2);
+				perror(NULL);
+				return (3);
+			}
+		}
 	}
 	if (ft_strncmp(token_lst->value, "env", 3) == 0)
 	{
