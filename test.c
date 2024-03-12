@@ -3,6 +3,21 @@
 #include <unistd.h>
 #include <string.h>
 
+char *clean_builtin(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	i--;
+	while(str[i] != '/')
+		i--;
+	i++;
+	str = str + i;
+	return (str);
+}
+
 int quotes_ok(char *str) //faire plus court
 {
 	int i;
@@ -46,7 +61,8 @@ int quotes_ok(char *str) //faire plus court
 int main(int ac, char **av)
 {
     (void)ac;
-    printf("%d\n", quotes_ok(av[1]));
+    //printf("%d\n", quotes_ok(av[1]));
+	printf("%s\n", clean_builtin(av[1]));
     return 0;
 }
 

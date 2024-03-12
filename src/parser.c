@@ -1,5 +1,41 @@
 #include "../inc/parsing.h"
 
+int    is_built(char *str)
+{
+    int        i;
+    char    *tab[6];
+
+    i = 0;
+    tab[0] = "cd";
+    tab[1] = "env";
+    tab[2] = "pwd";
+    tab[3] = "echo";
+    tab[4] = "unset";
+    tab[5] = "export";
+    while (str[i] && i <= 5)
+    {
+        if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+char *clean_cmd(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	i--;
+	while(str[i] != '/')
+		i--;
+	i++;
+	str = str + i;
+	return (str);
+}
+
 //quotes check
 
 /*void condition_part(int *res, char *str, char c)
@@ -240,18 +276,28 @@ t_group *get_group(t_tokens *list, char **envp)
 		perror("malloc problem");
 		return (NULL);
 	}
-	group->cmd[0] = cmd_check(group->cmd, envp); //детальнее разобраться, когда NULL
-	if(group->cmd == NULL)
-		group->flag_fail = 1; //так ли нужен flag_fail ?
-	else
+	if(group->cmd[0][0] == '/')
+		group->cmd[0] = clean_cmd(group->cmd[0]);
+	// ajouter une condition pour cmd[0] === builtins
+	if(is_built(group->cmd[0]))
+	{
 		group->flag_fail = 0;
+	}
+	else
+	{
+		group->cmd[0] = cmd_check(group->cmd, envp); //детальнее разобраться, когда NULL
+		if(group->cmd == NULL)
+			group->flag_fail = 1; //так ли нужен flag_fail ?
+		else
+			group->flag_fail = 0;
+	}
 	return (group);
 }
 
 t_group *invalid_group(void)
 {
 	t_group *group;
-	group = malloc(sizeof(group));
+	group = malloc(sizeof(t_group));
 	if(!group || group == NULL)
 	{
 		perror("group malloc");
