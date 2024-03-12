@@ -1,5 +1,22 @@
 #include "../inc/parsing.h"
 
+int not_in_path(char *str)
+{
+	int i;
+	char *tab[2];
+
+	i = 0;
+	tab[0] = "unset";
+    tab[1] = "export";
+	while (str[i] && i <= 1)
+    {
+        if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
 int    is_built(char *str)
 {
     int        i;
@@ -10,9 +27,7 @@ int    is_built(char *str)
     tab[1] = "env";
     tab[2] = "pwd";
     tab[3] = "echo";
-    tab[4] = "unset";
-    tab[5] = "export";
-    while (str[i] && i <= 5)
+    while (str[i] && i <= 3)
     {
         if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
             return (1);
@@ -21,7 +36,7 @@ int    is_built(char *str)
     return (0);
 }
 
-char *clean_cmd(char *str)
+char *clean_cmd(char *str) //добавить проверку, что переданный path absolut существует
 {
 	int i;
 
@@ -261,39 +276,6 @@ t_tokens *lexer(char **token_tab)
 	return (begin);
 }
 
-t_group *get_group(t_tokens *list, char **envp)
-{
-	t_group *group;
-	group = malloc(sizeof(t_group));
-	if(!group)
-	{
-		perror("group malloc");
-		return (NULL);
-	}
-	group->cmd = get_tab(list);
-	if(!group->cmd)
-	{
-		perror("malloc problem");
-		return (NULL);
-	}
-	if(group->cmd[0][0] == '/')
-		group->cmd[0] = clean_cmd(group->cmd[0]);
-	// ajouter une condition pour cmd[0] === builtins
-	if(is_built(group->cmd[0]))
-	{
-		group->flag_fail = 0;
-	}
-	else
-	{
-		group->cmd[0] = cmd_check(group->cmd, envp); //детальнее разобраться, когда NULL
-		if(group->cmd == NULL)
-			group->flag_fail = 1; //так ли нужен flag_fail ?
-		else
-			group->flag_fail = 0;
-	}
-	return (group);
-}
-
 t_group *invalid_group(void)
 {
 	t_group *group;
@@ -309,6 +291,44 @@ t_group *invalid_group(void)
 	return (group);
 }
 
+t_group *get_group(t_tokens *list, char **envp)
+{
+	t_group *group;
+	group = malloc(sizeof(t_group));
+	if(!group)
+	{
+		perror("group malloc");
+		return (NULL);
+	}
+	group->cmd = get_tab(list);
+	if(!group->cmd)
+	{
+		perror("malloc problem");
+		return (NULL);
+	}
+	if(not_in_path(group->cmd[0]))
+		group->flag_fail = 0;
+	else
+	{
+		group->cmd[0] = cmd_check(group->cmd, envp); //детальнее разобраться, когда NULL
+		if(group->cmd[0] == NULL)
+		{
+			free(group);
+			perror("Error");
+			return (invalid_group());
+		}
+		else
+		{
+			char *copy = ft_strdup(group->cmd[0]);
+			if(is_built(clean_cmd(copy))) //&& group->cmd[0][0] == '/')
+				group->cmd[0] = clean_cmd(group->cmd[0]);
+			group->flag_fail = 0;
+			free(copy);
+		}
+	}
+	return (group);
+}
+
 t_group *parser(char *line, char **envp) //или эта функция, или get_group избыточная
 {
 	t_tokens *list;
@@ -320,7 +340,7 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 	{
 		return (invalid_group()); //make more explicite
 	}
-	printf("new line : %s\n", line);
+	//printf("new line : %s\n", line);
 
 	token_tab = ft_split1(line, 1);
 	if(token_tab == NULL)
