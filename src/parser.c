@@ -3,12 +3,13 @@
 int not_in_path(char *str)
 {
 	int i;
-	char *tab[2];
+	char *tab[3];
 
 	i = 0;
 	tab[0] = "unset";
     tab[1] = "export";
-	while (str[i] && i <= 1)
+	tab[2] = "cd";
+	while (str[i] && i <= 2)
     {
         if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
             return (1);
@@ -23,11 +24,10 @@ int    is_built(char *str)
     char    *tab[6];
 
     i = 0;
-    tab[0] = "cd";
-    tab[1] = "env";
-    tab[2] = "pwd";
-    tab[3] = "echo";
-    while (str[i] && i <= 3)
+    tab[0] = "env";
+    tab[1] = "pwd";
+    tab[2] = "echo";
+    while (str[i] && i <= 2)
     {
         if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
             return (1);
@@ -36,7 +36,7 @@ int    is_built(char *str)
     return (0);
 }
 
-char *clean_cmd(char *str) //добавить проверку, что переданный path absolut существует
+char *clean_cmd(char *str)
 {
 	int i;
 
