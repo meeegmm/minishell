@@ -51,5 +51,6 @@ int			ft_strlen(const char *s);
 int			ft_strncmp(const char *s1, const char *s2, int n);
 char		*ft_strjoin(char *s1, char *s2);
 char		**ft_split1(char *str, int flag);
+int    		is_built2(char *str);
 
 #endif

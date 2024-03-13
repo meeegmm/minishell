@@ -23,6 +23,16 @@ int	is_char(char *str, char c)
 		return (0);
 }
 
+int	tab_size(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
 void	print_token_lst(t_tokens *token_lst)
 {
 	while (token_lst != NULL)

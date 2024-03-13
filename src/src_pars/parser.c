@@ -17,7 +17,7 @@ int not_in_path(char *str)
     return (0);
 }
 
-int    is_built(char *str)
+int    is_built2(char *str)
 {
     int        i;
     char    *tab[6];
@@ -320,7 +320,7 @@ t_group *get_group(t_tokens *list, char **envp)
 		else
 		{
 			char *copy = ft_strdup(group->cmd[0]);
-			if(is_built(clean_cmd(copy))) //&& group->cmd[0][0] == '/')
+			if(is_built2(clean_cmd(copy))) //&& group->cmd[0][0] == '/')
 				group->cmd[0] = clean_cmd(group->cmd[0]);
 			group->flag_fail = 0;
 			free(copy);

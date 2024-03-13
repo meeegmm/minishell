@@ -16,16 +16,16 @@
 //new_envp must not be in main!
 
 ////////////////// BUILT_INS //////////////////
-int		builtin_echo(t_tokens *token_lst);
-int		builtin_pwd(t_tokens *token_lst);
-int		builtin_cd(t_tokens *token_lst, char *path);
-int		builtin_env(t_tokens *token_lst, char **envp);
-void	ft_builtins(t_tokens *token_lst, t_group *group, char **envp);
+int		builtin_echo(t_group *group);
+int		builtin_pwd(t_group *group);
+int		builtin_cd(t_group *group, char *path);
+int		builtin_env(t_group *group, char **envp);
+void	ft_builtins(t_group *group, char **envp);
 
 ////////////////// EXEC //////////////////
-void	simple_cmd(t_tokens *token_lst, t_group *group, char **envp);
-void	ft_s_exec(t_tokens *token_lst, t_group *group, char **envp);
-void	ft_r_exec(t_tokens *token_lst, t_group *group, char **envp);
+void	simple_cmd(t_group *group, char **envp);
+void	ft_s_exec(t_group *group, char **envp);
+void	ft_r_exec(t_group *group, char **envp);
 
 ////////////////// REDIRECTION //////////////////
 // void	ft_redir(t_tokens *token_lst, t_group *group, int *pipe_fd, char **envp);
@@ -39,6 +39,7 @@ void	ft_r_exec(t_tokens *token_lst, t_group *group, char **envp);
 //built_ins
 char	*set_dir(char *path);
 int		is_char(char *str, char c);
+int		tab_size(char **tab);
 void	print_token_lst(t_tokens *token_lst);
 int		is_built(char *str);
 

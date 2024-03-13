@@ -10,68 +10,72 @@
 //		error returns: format = 2 / path = 3 / fail = 4
 
 //__echo__
-//remove "" at display
+//invalid read when space after ""
 //function is_option?
-int	builtin_echo(t_tokens *token_lst)
+int	builtin_echo(t_group *group)
 {
-	int		option;
-	char	*cmd;
+	int	i;
+	int	option;
 
+	i = 0;
 	option = 0;
-	cmd = token_lst->value;
-	if (ft_strncmp(token_lst->value, "echo", 4) == 0)
+	if (ft_strncmp(group->cmd[0], "echo", 4) == 0)
 	{
-		if (get_tokens_nb(token_lst) < 2)
+		if (tab_size(group->cmd) < 2)
 		{
 			printf("\n");
 			return (0);
 		}
-		token_lst = token_lst->next;
-		while (token_lst != NULL)
+		i++;
+		while (group->cmd[i])
 		{
-			if (ft_strncmp(token_lst->value, "-n", 2) == 0 \
-											&& is_char(token_lst->value, 'n'))
+			if (ft_strncmp(group->cmd[i], "-n", 2) == 0 \
+											&& is_char(group->cmd[i], 'n'))
 			{
 				option = 1;
-				token_lst = token_lst->next;
+				i++;
 			}
 			else
 				break ;
 		}
-		print_token_lst(token_lst);
+		while (group->cmd[i])
+		{
+			printf("%s", group->cmd[i]);
+			if (group->cmd[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
 		if (!option)
 			printf("\n");
 		return (0);
 	}
 	else
-		ft_putstr_fd(cmd, ": Command failed\n", 2);
+		ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
 	return (4);
 }
 
 // __pwd__
-int	builtin_pwd(t_tokens *token_lst)
+int	builtin_pwd(t_group *group)
 {
-	char	*cmd;
 	size_t	size;
 	char	*buf;
 	char	*dir;
 
 	size = 2048; /* look for optimal value */
 	buf = malloc(sizeof(char) * (size + 1));
-	cmd = token_lst->value;
 	if (!buf)
 		return (1);
-	if (get_tokens_nb(token_lst) > 1)
+	if (tab_size(group->cmd) > 1)
 	{
-		if (ft_strncmp(token_lst->next->value, "-", 1) == 0 \
-								&& !is_char(token_lst->next->value, '-'))
+		if (ft_strncmp(group->cmd[1], "-", 1) == 0 \
+								&& !is_char(group->cmd[1], '-'))
 		{
-			ft_putstr_fd(cmd, token_lst->next->value, 2);
+			ft_putstr_fd(group->cmd[0], group->cmd[1], 2);
 			//invalid option
 			return (2);
 		}
 	}
-	if (ft_strncmp(token_lst->value, "pwd", 3) == 0)
+	if (ft_strncmp(group->cmd[0], "pwd", 3) == 0)
 	{
 		dir = getcwd(buf, size);
 		printf("%s", dir);
@@ -80,29 +84,62 @@ int	builtin_pwd(t_tokens *token_lst)
 		return (0);
 	}
 	free(buf);
-	ft_putstr_fd(cmd, ": Command failed\n", 2);
+	ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
 	return (4);
 }
 
+// int	builtin_cd(t_tokens *token_lst, char *path)
+// {
+// 	char	*cmd;
+
+// 	cmd = token_lst->value;
+// 	if (get_tokens_nb(token_lst) > 2)
+// 	{
+// 		ft_putstr_fd("minishell", cmd, 2);
+// 		//too many arguments
+// 		return (2);
+// 	}
+// 	if (ft_strncmp(token_lst->value, "cd", 2) == 0)
+// 	{
+// 		if (token_lst->next == NULL \
+// 			|| ft_strncmp(token_lst->next->value, "~", 1) == 0)
+// 			path = set_dir("HOME");
+// 		else if (ft_strncmp(token_lst->next->value, "-", 1) == 0)
+// 		{
+// 			path = set_dir("OLDPWD");
+// 			printf("%s\n", path);
+// 		}
+// 		if (access(path, F_OK | X_OK) == 0)
+// 			chdir(path);
+// 		else
+// 		{
+// 			ft_putstr_fd(cmd, token_lst->next->value, 2);
+// 			perror(NULL);
+// 			return (3);
+// 		}
+// 		return (0);
+// 	}
+// 	ft_putstr_fd(cmd, ": Command failed\n", 2);
+// 	return (4);
+// }
+
+
 //__cd__
 // change $OLDPWD
-int	builtin_cd(t_tokens *token_lst, char *path)
+int	builtin_cd(t_group *group, char *path)
 {
-	char	*cmd;
-
-	cmd = token_lst->value;
-	if (get_tokens_nb(token_lst) > 2)
+	if (tab_size(group->cmd) > 2)
 	{
-		ft_putstr_fd("minishell", cmd, 2);
+		ft_putstr_fd("minishell", group->cmd[0], 2);
 		//too many arguments
 		return (2);
 	}
-	if (ft_strncmp(token_lst->value, "cd", 2) == 0)
+	if (ft_strncmp(group->cmd[0], "cd", 2) == 0)
 	{
-		if (token_lst->next == NULL \
-			|| ft_strncmp(token_lst->next->value, "~", 1) == 0)
+		if (tab_size(group->cmd) == 1 \
+			|| ft_strncmp(group->cmd[1], "~", 1) == 0)
 			path = set_dir("HOME");
-		else if (ft_strncmp(token_lst->next->value, "-", 1) == 0)
+		else if (ft_strncmp(group->cmd[1], "-", 1) == 0)
 		{
 			path = set_dir("OLDPWD");
 			printf("%s\n", path);
@@ -111,41 +148,38 @@ int	builtin_cd(t_tokens *token_lst, char *path)
 			chdir(path);
 		else
 		{
-			ft_putstr_fd(cmd, token_lst->next->value, 2);
+			ft_putstr_fd(group->cmd[0], group->cmd[1], 2);
 			perror(NULL);
 			return (3);
 		}
 		return (0);
 	}
-	ft_putstr_fd(cmd, ": Command failed\n", 2);
+	ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
 	return (4);
 }
 
 //__env__
-int	builtin_env(t_tokens *token_lst, char **envp)
+int	builtin_env(t_group *group, char **envp)
 {
-	char	*cmd;
-
-	cmd = token_lst->value;
-	if (get_tokens_nb(token_lst) > 1)
+	if (tab_size(group->cmd) > 1)
 	{
-		if (ft_strcmp(token_lst->next->value, "env") != 0)
+		if (ft_strcmp(group->cmd[1], "env") != 0)
 		{
-			if (access(token_lst->next->value, F_OK | X_OK) == -1)
+			if (access(group->cmd[1], F_OK | X_OK) == -1)
 			{
-				ft_putstr_fd(cmd, token_lst->next->value, 2);
+				ft_putstr_fd(group->cmd[0], group->cmd[1], 2);
 				perror(NULL);
 				return (3);
 			}
 		}
 	}
-	if (ft_strncmp(token_lst->value, "env", 3) == 0)
+	if (ft_strncmp(group->cmd[0], "env", 3) == 0)
 	{
 		print_tab(envp);
 		return (0);
 	}
 	else
-		ft_putstr_fd(cmd, ": Command failed\n", 2);
+		ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
 	return (4);
 }
 
@@ -184,16 +218,16 @@ int	builtin_env(t_tokens *token_lst, char **envp)
 //process then only contain return status
 //go to parent or end shell
 
-void	ft_builtins(t_tokens *token_lst, t_group *group, char **envp)
+void	ft_builtins(t_group *group, char **envp)
 {
-	if (ft_strncmp(token_lst->value, "cd", 2) == 0)
-		builtin_cd(token_lst, group->cmd[1]);
-	else if (ft_strncmp(token_lst->value, "env", 3) == 0)
-		builtin_env(token_lst, envp);
-	else if (ft_strncmp(token_lst->value, "pwd", 3) == 0)
-		builtin_pwd(token_lst);
-	else if (ft_strncmp(token_lst->value, "echo", 4) == 0)
-		builtin_echo(token_lst);
+	if (ft_strncmp(group->cmd[0], "cd", 2) == 0)
+		builtin_cd(group, group->cmd[1]);
+	if (ft_strncmp(group->cmd[0], "env", 3) == 0)
+		builtin_env(group, envp);
+	else if (ft_strncmp(group->cmd[0], "pwd", 3) == 0)
+		builtin_pwd(group);
+	else if (ft_strncmp(group->cmd[0], "echo", 4) == 0)
+		builtin_echo(group);
 	else
 		return ;
 }
