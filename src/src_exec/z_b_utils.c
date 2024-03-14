@@ -2,46 +2,71 @@
 #include "../../inc/exec.h"
 #include "../../inc/parsing.h"
 
-char	*set_dir(char *path)
+
+char	*set_dir(t_list_env *env_lst, char *key)
 {
-	path = getenv(path);
-	if (access(path, F_OK | X_OK) == 0)
-		return (path);
+	char	*path;
+
+	while (env_lst != NULL)
+	{
+		if (ft_strcmp(env_lst->key, key) == 0)
+		{
+			path = ft_strdup(env_lst->value);
+			return (path);
+		}
+		else
+			env_lst = env_lst->next;
+	}
 	return (NULL);
 }
 
-int	is_char(char *str, char c)
+//v2
+// char	*set_dir(t_list_env *env_lst, char *path)
+// {
+// 	char	*res;
+//
+// 	while (env_lst != NULL)
+// 	{
+// 		if (ft_strcmp(env_lst->key, path) == 0)
+// 		{
+// 			res = ft_strdup(env_lst->value);
+// 			return (res);
+// 		}
+// 		else
+// 			env_lst = env_lst->next;
+// 	}
+// 	return (path);
+// }
+
+//not used
+char	*mod_var(t_list_env *env_lst, char *key, char *new)
 {
-	int	i;
+	t_list_env	*head;
+	char		*res;
 
-	i = 1;
-	while (str[i] && str[i] == c)
-		i++;
-	if (i == ft_strlen(str))
-			return (1);
-	else
-		return (0);
-}
-
-int	tab_size(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-void	print_token_lst(t_tokens *token_lst)
-{
-	while (token_lst != NULL)
+	head = env_lst;
+	while (env_lst != NULL)
 	{
-		printf("%s", token_lst->value);
-		if (token_lst->next != NULL)
-			printf(" ");
-		token_lst = token_lst->next;
+		if (ft_strcmp(env_lst->key, new) == 0)
+		{
+			res = ft_strdup(env_lst->value);
+			break ;
+		}
+		else
+			env_lst = env_lst->next;
 	}
+	env_lst = head;
+	while (env_lst != NULL)
+	{
+		if (ft_strcmp(env_lst->key, key) == 0)
+		{
+			env_lst->value = ft_strdup(res);
+			return (env_lst->value);
+		}
+		else
+			env_lst = env_lst->next;
+	}
+	return (NULL);
 }
 
 int	is_built(char *str)

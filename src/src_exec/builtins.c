@@ -1,5 +1,7 @@
 #include "../../inc/exec.h"
 
+//$PWD au lancement + SHLVL (> 1000 ou != nb  == 0)
+
 //TODO: assign good exit status if fail
 //		choose a function for error messages to write on good fd
 //		add checks: think about quotes
@@ -8,6 +10,7 @@
 //		pass by tmp for each?
 //		error function (define values in .h)
 //		error returns: format = 2 / path = 3 / fail = 4
+//		join env + export + unset?
 
 //__echo__
 //invalid read when space after ""
@@ -88,46 +91,11 @@ int	builtin_pwd(t_group *group)
 	return (4);
 }
 
-// int	builtin_cd(t_tokens *token_lst, char *path)
-// {
-// 	char	*cmd;
-
-// 	cmd = token_lst->value;
-// 	if (get_tokens_nb(token_lst) > 2)
-// 	{
-// 		ft_putstr_fd("minishell", cmd, 2);
-// 		//too many arguments
-// 		return (2);
-// 	}
-// 	if (ft_strncmp(token_lst->value, "cd", 2) == 0)
-// 	{
-// 		if (token_lst->next == NULL \
-// 			|| ft_strncmp(token_lst->next->value, "~", 1) == 0)
-// 			path = set_dir("HOME");
-// 		else if (ft_strncmp(token_lst->next->value, "-", 1) == 0)
-// 		{
-// 			path = set_dir("OLDPWD");
-// 			printf("%s\n", path);
-// 		}
-// 		if (access(path, F_OK | X_OK) == 0)
-// 			chdir(path);
-// 		else
-// 		{
-// 			ft_putstr_fd(cmd, token_lst->next->value, 2);
-// 			perror(NULL);
-// 			return (3);
-// 		}
-// 		return (0);
-// 	}
-// 	ft_putstr_fd(cmd, ": Command failed\n", 2);
-// 	return (4);
-// }
-
-
 //__cd__
 // change $OLDPWD
-int	builtin_cd(t_group *group, char *path)
+int	builtin_cd(t_group *group, char *path, t_list_env *env_lst)
 {
+	// mod_var(env_lst, "PWD", set_dir(env_lst, path));
 	if (tab_size(group->cmd) > 2)
 	{
 		ft_putstr_fd("minishell", group->cmd[0], 2);
@@ -138,15 +106,13 @@ int	builtin_cd(t_group *group, char *path)
 	{
 		if (tab_size(group->cmd) == 1 \
 			|| ft_strncmp(group->cmd[1], "~", 1) == 0)
-			path = set_dir("HOME");
+			path = set_dir(env_lst, "HOME");
 		else if (ft_strncmp(group->cmd[1], "-", 1) == 0)
 		{
-			path = set_dir("OLDPWD");
+			path = set_dir(env_lst, "OLDPWD");
 			printf("%s\n", path);
 		}
-		if (access(path, F_OK | X_OK) == 0)
-			chdir(path);
-		else
+		if (chdir(path) == -1)
 		{
 			ft_putstr_fd(group->cmd[0], group->cmd[1], 2);
 			perror(NULL);
@@ -159,7 +125,7 @@ int	builtin_cd(t_group *group, char *path)
 }
 
 //__env__
-int	builtin_env(t_group *group, char **envp)
+int	builtin_env(t_group *group, t_list_env *env_lst)
 {
 	if (tab_size(group->cmd) > 1)
 	{
@@ -175,7 +141,7 @@ int	builtin_env(t_group *group, char **envp)
 	}
 	if (ft_strncmp(group->cmd[0], "env", 3) == 0)
 	{
-		print_tab(envp);
+		print_env_list(env_lst);
 		return (0);
 	}
 	else
@@ -184,12 +150,34 @@ int	builtin_env(t_group *group, char **envp)
 }
 
 //__export__
+//exported env in .h?
 //can modify variable value
 //set export attributs (= make var available for child processes)
 //need to get current process
 //duplicate in a tab, set this tab as **envp, add if "export"
-//w/out options, export all var + display env token_lst
 //free when process ends
+int	builtin_export(t_group *group, t_list_env *env_lst)
+{
+	if (ft_strncmp(group->cmd[0], "export", 3) == 0)
+	{
+		if (tab_size(group->cmd) == 1)
+		{
+			while (env_lst != NULL)
+			{
+				printf("declare -x %s=\"%s\"\n", env_lst->key, env_lst->value);
+				env_lst = env_lst->next;
+			}
+			return (0);
+		}
+		// else
+		// {
+			
+		// }
+	}
+	else
+		ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
+	return (4);
+}
 
 //__unset__
 //unset + args (= variables)
@@ -218,16 +206,18 @@ int	builtin_env(t_group *group, char **envp)
 //process then only contain return status
 //go to parent or end shell
 
-void	ft_builtins(t_group *group, char **envp)
+void	ft_builtins(t_group *group, t_list_env *env_lst)
 {
 	if (ft_strncmp(group->cmd[0], "cd", 2) == 0)
-		builtin_cd(group, group->cmd[1]);
-	if (ft_strncmp(group->cmd[0], "env", 3) == 0)
-		builtin_env(group, envp);
+		builtin_cd(group, group->cmd[1], env_lst);
+	else if (ft_strncmp(group->cmd[0], "env", 3) == 0)
+		builtin_env(group, env_lst);
 	else if (ft_strncmp(group->cmd[0], "pwd", 3) == 0)
 		builtin_pwd(group);
 	else if (ft_strncmp(group->cmd[0], "echo", 4) == 0)
 		builtin_echo(group);
+	else if (ft_strncmp(group->cmd[0], "export", 6) == 0)
+		builtin_export(group, env_lst);
 	else
 		return ;
 }

@@ -1,5 +1,6 @@
 #include "../../inc/exec.h"
 
+//!! si redir = deja fork
 //not for bultins
 //browse line and check for pipes
 //get index of pipe
@@ -12,13 +13,12 @@
 void	ft_s_exec(t_group *group, char **envp)
 {
 	pid_t	pid;
-
-	// if (!group->cmd)
-	// {
-	// 	ft_putstr_fd("minishell", cmd, 2);
-	// 	//cmd not found
-	// 	return ;
-	// }
+	// // if (!group->cmd)
+	// // {
+	// // 	ft_putstr_fd("minishell", cmd, 2);
+	// // 	//cmd not found
+	// // 	return ;
+	// // }
 	pid = fork();
 	if (pid)
 		wait(NULL);
@@ -34,8 +34,13 @@ void	ft_s_exec(t_group *group, char **envp)
 
 void	simple_cmd(t_group *group, char **envp)
 {
+	char		**new_envp;
+	t_list_env	*env_lst;
+
+	new_envp = set_envp(envp);
+	env_lst = get_list(envp);
 	if (is_built(group->cmd[0]))
-		ft_builtins(group, envp);
+		ft_builtins(group, env_lst);
 	else
-		ft_s_exec(group, envp);
+		ft_s_exec(group, new_envp);
 }
