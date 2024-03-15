@@ -33,11 +33,16 @@ typedef struct s_tokens
 char	**get_tab(t_tokens *list);
 //int		syntax_pb(char *line);
 char *remove_quotes(char *str);
+void print_token_list(t_tokens *list);
 
 //parser_outils
 int    is_built(char *str);
 int only_spaces(char *str);
 char **file_access(char **tab);
+
+//token_list
+t_tokens *lexer(char **token_tab);
+
 
 //get_group
 t_group *invalid_group(int flag);

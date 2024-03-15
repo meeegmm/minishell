@@ -13,6 +13,7 @@ t_group *invalid_group(int flag)
 	group->next = NULL;
     group->source = NULL;
     group->destination = NULL;
+	group->next = NULL;
 	group->flag_fail = flag;
 	return (group);
 }
@@ -24,7 +25,7 @@ int get_group_nb(t_tokens *list)
     group_nb = 1;
     while(list != NULL)
     {
-        if(list->type == PIPE)
+        if(list->type == 5)
             group_nb++;
         list = list->next;
     }
@@ -34,6 +35,7 @@ int get_group_nb(t_tokens *list)
 t_group *get_group(t_tokens *list, char **envp)
 {
 	t_group *group;
+
 	group = malloc(sizeof(t_group));
 	if(!group)
 	{
@@ -56,7 +58,27 @@ t_group *get_group(t_tokens *list, char **envp)
 		}
 	}
 	group->flag_fail = 0;
+	group->next = NULL;
 	return (group);
 }
 
 //get_group_list
+// t_group *get_group_list(t_tokens *list, char **envp)
+// {
+// 	int i;
+// 	t_group *begin;
+// 	t_group *curr;
+
+// 	begin = get_group(list, envp);
+// 	curr = begin;
+// 	i = 1;
+// 	while( i <= get_group_nb(list))
+// 	{
+// 		while(list)
+// 		list = list->next;
+// 		curr->next = get_group(list, envp);
+// 		curr = curr->next;
+// 		i++;
+// 	}
+// 	return (begin);
+// }

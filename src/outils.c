@@ -84,6 +84,17 @@ void print_list(t_list_env *list)
 	}
 }
 
+void print_token_list(t_tokens *list)
+{
+	while(list != NULL)
+	{
+		printf("%u", list->type);
+		printf("=");
+		printf("%s\n", list->value);
+		list=list->next;
+	}
+}
+
 void print_tab(char **tab)
 {
 	int i;
