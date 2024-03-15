@@ -11,7 +11,7 @@
 
 ////////////////// STRUCTS //////////////////
 
-//parsed ligne struct
+//parsed ligne struct : REDO!!
 
 // enum in
 // {
@@ -31,14 +31,13 @@ typedef struct s_group
 {
 int flag_fail;
 char **cmd; 
-//enum redir_in;
-//enum redir_out;
-//char *source;
-//char *destination;
+// enum redir_in;
+// enum redir_out;
+char **source; 			//reassigner la 1re ligne par la derniere et free le reste
+char **destination;
 struct s_group *next;
 } t_group;
 
-// struct s_list for envp
 
 typedef struct s_list_env
 {

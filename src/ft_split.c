@@ -75,3 +75,12 @@ char	**ft_split1(char *str, int flag)
 	split[idx] = NULL;
 	return (split);
 }
+
+/*
+int main()
+{
+	char *str = " ";
+	char **tab = ft_split1(str, 1);
+	printf("%s\n", tab[0]);
+	return 0;
+}*/

@@ -83,7 +83,6 @@ char	*cmd_check(char **cmd, char **envp)
 		perror("Error");
 		return (NULL);
 	}
-	
 	if (cmd[0][0] == '/' && (access(cmd[0], F_OK) == 0))
 		arg_w_path = ft_strdup(cmd[0]);
 	else

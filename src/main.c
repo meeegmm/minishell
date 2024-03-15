@@ -26,7 +26,7 @@ int	main(int ac, char **av, char **envp)
 		group = parser(line, envp);
 		if(!group)
 			exit(EXIT_FAILURE); //malloc pb
-		if(group->flag_fail !=  0)
+		if(group->flag_fail != 0)
 			line = NULL;
 		else
 		{

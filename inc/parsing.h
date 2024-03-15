@@ -31,7 +31,17 @@ typedef struct s_tokens
 
 //line parsing
 char	**get_tab(t_tokens *list);
-int		syntax_pb(char *line);
+//int		syntax_pb(char *line);
+char *remove_quotes(char *str);
+
+//parser_outils
+int    is_built(char *str);
+int only_spaces(char *str);
+char **file_access(char **tab);
+
+//get_group
+t_group *invalid_group(int flag);
+t_group *get_group(t_tokens *list, char **envp);
 
 //сheck cmd and files
 char	**get_path(char **envp);
