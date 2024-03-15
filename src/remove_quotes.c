@@ -63,19 +63,23 @@ char *quotes_ok(char *str) //faire plus court
 int new_spaces_nb(char *str)
 {
 	int nb;
+	int i;
 
 	nb = 0;
-	while(*str)
+	i = 0;
+	while(str[i] != '\0')
 	{
-		if(*str == 31)
+		if(str[i] == 31)
 		{
-			while(*str != 30)
-				str++;
-			str++;
+			while(str[i] != 30 && str[i])
+				i++;
+			if(str[i])
+				i++;
 		}
-		if(is_meta(*str) == 1)
+		if(is_meta(str[i]))
 			nb++;
-		str++;
+		if(str[i])
+			i++;
 	}
 	return (nb * 2);
 }
@@ -101,20 +105,17 @@ char *spaces_before_meta(char *str) //+ remove quotes
 	{
 		if(str[k] == 31)
 		{
-			new_str[i] = ' ';
-			i++;
 			k++;
-			while(str[k] != 30)
+			while(str[k] != 30 && str[k] && i < len)
 			{
 				new_str[i] = str[k];
 				k++;
 				i++;
 			}
-			new_str[i] = ' ';
-			i++;
-			k++;
+			if(str[k])
+				k++;
 		}
-		if(is_meta(str[k]) == 1 && (i + 2 < len))
+		if(is_meta(str[k]) == 1 && (i + 2 < len) && str[k])
 		{
 			new_str[i] = ' ';
 			new_str[i + 1] = str[k];
@@ -123,8 +124,10 @@ char *spaces_before_meta(char *str) //+ remove quotes
 			k++;
 		}
 		new_str[i] = str[k];
-		i++;
-		k++;
+		if(i < len)
+			i++;
+		if(str[k])
+			k++;
 	}
 	new_str[i] = '\0';
 	return (new_str);

@@ -1,43 +1,45 @@
 #include "../inc/parsing.h"
 
+t_tokens *get_node(char **token_tab, int i)
+{
+	t_tokens *node;
+
+	node = malloc(sizeof(t_tokens));
+	if(!node)
+	{
+		free_tab(token_tab);
+		node = NULL;
+	}
+	node->value = token_tab[i];
+	if(ft_strncmp(node->value, "|", 1) == 0)
+		node->type = PIPE;
+	else if(ft_strncmp(node->value, "<", 1) == 0)
+		node->type = REDIR_IN;
+	else if(ft_strncmp(node->value, ">", 1) == 0)
+		node->type = REDIR_OUT;
+	else if(ft_strncmp(node->value, "<<", 1) == 0)
+		node->type = APP_IN;
+	else if(ft_strncmp(node->value, ">>", 1) == 0)
+		node->type = APP_OUT;
+	else
+		node->type = WORD;
+	node->next = NULL;
+	return (node);
+}
+
 t_tokens *lexer(char **token_tab)
 {
 	int i;
 	t_tokens *begin;
 	t_tokens *curr;
 
-	begin = malloc(sizeof(t_tokens));
-	if (!begin)
-		return (NULL);
-	begin->type = WORD;
-	begin->value = token_tab[0];
-	begin->next = NULL;
+	begin = get_node(token_tab, 0);
 	curr = begin;
 	i = 1;
 	while(token_tab[i] != NULL)
 	{
-		curr->next = malloc(sizeof(t_tokens));
-		if(!curr->next)
-		{
-			//free_token_list(begin);
-			free_tab(token_tab);
-			return (NULL);
-		}
+		curr->next = get_node(token_tab, i);
 		curr = curr->next;
-		curr->value = token_tab[i];
-		if(curr->value == "|")
-			curr->type = PIPE;
-		else if(curr->value == "<")
-			curr->type = REDIR_IN;
-		else if(curr->value == ">")
-			curr->type = REDIR_OUT;
-		else if(curr->value == "<<")
-			curr->type = APP_IN;
-		else if(curr->value == ">>")
-			curr->type = APP_OUT;
-		else
-			curr->type = WORD;
-		curr->next = NULL;
 		i++;
 	}
 	return (begin);
