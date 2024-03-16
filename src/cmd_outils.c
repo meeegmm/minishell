@@ -5,7 +5,7 @@ int get_tokens_nb(t_tokens *list)
 	int node_nb;
 
 	node_nb = 0;
-	while(list != NULL)
+	while(list->type == 0)
 	{
 		list = list->next;
 		node_nb++;
@@ -13,16 +13,18 @@ int get_tokens_nb(t_tokens *list)
 	return (node_nb);
 }
 
-char **get_tab(t_tokens *list) //разбить на функции поменьше
+char **get_tab(t_tokens *list)
 {
 	char **tab;
 	int i;
+	int len;
 
 	i = 0;
-	tab = malloc(sizeof(char*) * (get_tokens_nb(list) + 1));
+	len = get_tokens_nb(list) + 1;
+	tab = malloc(sizeof(char*) * len);
 	if(!tab)
 		return (NULL);
-	while(list != NULL)
+	while(i < len && list->type == 0)
 	{
 		tab[i] = ft_strdup(list->value);
 		list = list->next;

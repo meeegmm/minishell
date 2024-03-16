@@ -1,6 +1,6 @@
 #include "../inc/parsing.h"
 
-t_group *parser(char *line, char **envp) //или эта функция, или get_group избыточная
+t_group *parser(char *line) //или эта функция, или get_group избыточная
 {
 	char **token_tab;
 	t_tokens *token_list;
@@ -37,7 +37,8 @@ t_group *parser(char *line, char **envp) //или эта функция, или 
 		printf("Token list:\n");
 		print_token_list(token_list);
 		printf("\n");
-		group = get_group(token_list, envp); //shoudn't work for non-existing cmd
+		group = get_group_list(token_list);
+		print_group(group); //shoudn't work for non-existing cmd
 		//free_tokens(list);
 	}
 	return (group);

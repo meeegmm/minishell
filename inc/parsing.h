@@ -38,7 +38,7 @@ void print_token_list(t_tokens *list);
 //parser_outils
 int    is_built(char *str);
 int only_spaces(char *str);
-char **file_access(char **tab);
+char *file_access(t_tokens *list, char *str);
 
 //token_list
 t_tokens *lexer(char **token_tab);
@@ -46,7 +46,7 @@ t_tokens *lexer(char **token_tab);
 
 //get_group
 t_group *invalid_group(int flag);
-t_group *get_group(t_tokens *list, char **envp);
+t_group *get_group_list(t_tokens *list);
 
 //сheck cmd and files
 char	**get_path(char **envp);
@@ -59,6 +59,7 @@ void free_tokens(t_tokens *list);
 //outils
 void	print_tab(char **tab);
 void	print_list(t_list_env *list);
+void	print_group(t_group *group);
 char	*ft_strdup(char *s1);
 int		ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, int n);

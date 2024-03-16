@@ -72,38 +72,3 @@ char	*ft_strjoin(char *s1, char *s2)
 	res[i + k] = '\0';
 	return (res);
 }
-
-void print_list(t_list_env *list)
-{
-	while(list != NULL)
-	{
-		printf("%s", list->key);
-		printf("=");
-		printf("%s\n", list->value);
-		list=list->next;
-	}
-}
-
-void print_token_list(t_tokens *list)
-{
-	while(list != NULL)
-	{
-		printf("%u", list->type);
-		printf("=");
-		printf("%s\n", list->value);
-		list=list->next;
-	}
-}
-
-void print_tab(char **tab)
-{
-	int i;
-
-	i = 0;
-	while(tab[i])
-	{
-		printf("%s ", tab[i]);
-		i++;
-	}
-	printf("\n");
-}

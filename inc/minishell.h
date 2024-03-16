@@ -13,28 +13,14 @@
 
 //parsed ligne struct : REDO!!
 
-// enum in
-// {
-//     REDIR_IN,
-//     APP_IN,
-//     ZERO_IN
-// };
-
-// enum out
-// {
-//     REDIR_OUT,
-//     APP_OUT,
-//     ZERO_OUT
-// };
-
 typedef struct s_group
 {
 int flag_fail;
 char **cmd; 
-// enum redir_in;
-// enum redir_out;
-char **source; 			//reassigner la 1re ligne par la derniere et free le reste
-char **destination;
+char *redir_in;
+char *redir_out;
+char *app_in;
+// app_out (heredoc)
 struct s_group *next;
 } t_group;
 
@@ -49,7 +35,7 @@ typedef struct s_list_env
 ////////////////// FONCTIONS //////////////////
 
 //parsing
-t_group *parser(char *line, char **envp);
+t_group *parser(char *line);
 
 //envp parsing
 t_list_env *get_list(char **tab);

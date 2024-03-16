@@ -9,7 +9,7 @@ int	is_exit(const char *line)
 		return (1);
 }
 
-int	main(int ac, char **av, char **envp)
+int	main(int ac, char **av)
 {
 	char	*line;
 	t_group *group;
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **envp)
 		if (line && *line)
 			add_history(line);
 		
-		group = parser(line, envp);
+		group = parser(line);
 		if(!group)
 			exit(EXIT_FAILURE); //malloc pb
 		if(group->flag_fail != 0)
