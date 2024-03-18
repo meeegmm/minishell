@@ -2,8 +2,8 @@
 #include "../../inc/exec.h"
 #include "../../inc/parsing.h"
 
-
-char	*set_dir(t_list_env *env_lst, char *key)
+//get path from varname
+char	*set_path(t_list_env *env_lst, char *key)
 {
 	char	*path;
 
@@ -13,55 +13,6 @@ char	*set_dir(t_list_env *env_lst, char *key)
 		{
 			path = ft_strdup(env_lst->value);
 			return (path);
-		}
-		else
-			env_lst = env_lst->next;
-	}
-	return (NULL);
-}
-
-//v2
-// char	*set_dir(t_list_env *env_lst, char *path)
-// {
-// 	char	*res;
-//
-// 	while (env_lst != NULL)
-// 	{
-// 		if (ft_strcmp(env_lst->key, path) == 0)
-// 		{
-// 			res = ft_strdup(env_lst->value);
-// 			return (res);
-// 		}
-// 		else
-// 			env_lst = env_lst->next;
-// 	}
-// 	return (path);
-// }
-
-//not used
-char	*mod_var(t_list_env *env_lst, char *key, char *new)
-{
-	t_list_env	*head;
-	char		*res;
-
-	head = env_lst;
-	while (env_lst != NULL)
-	{
-		if (ft_strcmp(env_lst->key, new) == 0)
-		{
-			res = ft_strdup(env_lst->value);
-			break ;
-		}
-		else
-			env_lst = env_lst->next;
-	}
-	env_lst = head;
-	while (env_lst != NULL)
-	{
-		if (ft_strcmp(env_lst->key, key) == 0)
-		{
-			env_lst->value = ft_strdup(res);
-			return (env_lst->value);
 		}
 		else
 			env_lst = env_lst->next;

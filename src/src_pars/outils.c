@@ -96,7 +96,7 @@ void	print_cmd_tab(char **tab)
 		printf("%s ", tab[i]);
 		i++;
 	}
-	printf("\n");
+	write(1, "\n", 1);
 }
 
 void	print_tab(char **tab)

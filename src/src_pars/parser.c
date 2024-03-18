@@ -3,31 +3,16 @@
 int	not_in_path(char *str)
 {
 	int		i;
-	char	*tab[3];
-
-	i = 0;
-	tab[0] = "cd";
-	tab[1] = "unset";
-	tab[2] = "export";
-	while (str[i] && i <= 2)
-	{
-		if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	is_built2(char *str)
-{
-	int		i;
 	char	*tab[6];
 
 	i = 0;
-	tab[0] = "env";
-	tab[1] = "pwd";
-	tab[2] = "echo";
-	while (str[i] && i <= 2)
+	tab[0] = "cd";
+	tab[1] = "env";
+	tab[2] = "pwd";
+	tab[3] = "echo";
+	tab[4] = "unset";
+	tab[5] = "export";
+	while (str[i] && i <= 5)
 	{
 		if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
 			return (1);
@@ -35,6 +20,24 @@ int	is_built2(char *str)
 	}
 	return (0);
 }
+
+// int	is_built2(char *str)
+// {
+// 	int		i;
+// 	char	*tab[6];
+
+// 	i = 0;
+// 	tab[0] = "env";
+// 	tab[1] = "pwd";
+// 	tab[2] = "echo";
+// 	while (str[i] && i <= 2)
+// 	{
+// 		if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 char	*clean_cmd(char *str)
 {
@@ -243,38 +246,37 @@ char *remove_quotes(char *str)
 }
 
 //do a list of tokens
+// t_tokens *lexer(char **token_tab)
+// {
+// 	int			i;
+// 	t_tokens	*begin;
+// 	t_tokens	*curr;
 
-t_tokens *lexer(char **token_tab)
-{
-	int			i;
-	t_tokens	*begin;
-	t_tokens	*curr;
-
-	begin = malloc(sizeof(t_tokens));
-	if (!begin)
-		return (NULL);
-	begin->type = WORD;
-	begin->value = token_tab[0];
-	begin->next = NULL;
-	curr = begin;
-	i = 1;
-	while (token_tab[i] != NULL)
-	{
-		curr->next = malloc(sizeof(t_tokens));
-		if (!curr->next)
-		{
-			//free_token_list(begin);
-			free_tab(token_tab);
-			return (NULL);
-		}
-		curr = curr->next;
-		curr->type = WORD;
-		curr->value = token_tab[i];
-		curr->next = NULL;
-		i++;
-	}
-	return (begin);
-}
+// 	begin = malloc(sizeof(t_tokens));
+// 	if (!begin)
+// 		return (NULL);
+// 	begin->type = WORD;
+// 	begin->value = token_tab[0];
+// 	begin->next = NULL;
+// 	curr = begin;
+// 	i = 1;
+// 	while (token_tab[i] != NULL)
+// 	{
+// 		curr->next = malloc(sizeof(t_tokens));
+// 		if (!curr->next)
+// 		{
+// 			//free_token_list(begin);
+// 			free_tab(token_tab);
+// 			return (NULL);
+// 		}
+// 		curr = curr->next;
+// 		curr->type = WORD;
+// 		curr->value = token_tab[i];
+// 		curr->next = NULL;
+// 		i++;
+// 	}
+// 	return (begin);
+// }
 
 t_group *invalid_group(void)
 {
@@ -295,7 +297,7 @@ t_group *invalid_group(void)
 t_group *get_group(t_tokens *list, char **envp)
 {
 	t_group	*group;
-	char	*copy;
+	// char	*copy;
 
 	group = malloc(sizeof(t_group));
 	if (!group)
@@ -320,14 +322,14 @@ t_group *get_group(t_tokens *list, char **envp)
 			perror("Error"); //cmd not found
 			return (invalid_group());
 		}
-		else
-		{
-			copy = ft_strdup(group->cmd[0]);
-			if (is_built2(clean_cmd(copy))) //&& group->cmd[0][0] == '/')
-				group->cmd[0] = clean_cmd(group->cmd[0]);
-			group->flag_fail = 0;
-			free(copy);
-		}
+		// else
+		// {
+		// 	copy = ft_strdup(group->cmd[0]);
+		// 	if (is_built2(clean_cmd(copy))) //&& group->cmd[0][0] == '/')
+		// 		group->cmd[0] = clean_cmd(group->cmd[0]);
+		// 	group->flag_fail = 0;
+		// 	free(copy);
+		// }
 	}
 	return (group);
 }

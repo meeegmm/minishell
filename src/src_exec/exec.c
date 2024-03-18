@@ -32,15 +32,10 @@ void	ft_s_exec(t_group *group, char **envp)
 	}
 }
 
-void	simple_cmd(t_group *group, char **envp)
+void	simple_cmd(t_group *group, t_list_env *env_lst, char **envp)
 {
-	char		**new_envp;
-	t_list_env	*env_lst;
-
-	new_envp = set_envp(envp);
-	env_lst = get_list(envp);
 	if (is_built(group->cmd[0]))
 		ft_builtins(group, env_lst);
 	else
-		ft_s_exec(group, new_envp);
+		ft_s_exec(group, envp);
 }

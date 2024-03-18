@@ -51,6 +51,8 @@ typedef struct s_list_env
 t_group 	*parser(char *line, char **envp);
 
 //envp parsing
+char	*get_key(char *str);
+char	*get_value(char *str);
 t_list_env *get_list(char **tab);
 char **get_envp(t_list_env *list);
 

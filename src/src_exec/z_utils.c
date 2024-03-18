@@ -13,6 +13,18 @@ void	ft_putstr_fd(char *cmd, char *s, int fd)
 	write(fd, ": ", 2);
 }
 
+void	ft_putstr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
@@ -52,15 +64,29 @@ int	tab_size(char **tab)
 	return (i);
 }
 
-//not used
-void	print_token_lst(t_tokens *token_lst)
+t_list_env	*ft_lstlast(t_list_env *lst)
 {
-	while (token_lst != NULL)
+	if (lst)
+		while (lst->next)
+			lst = lst->next;
+	return (lst);
+}
+
+void	ft_lstadd_back(t_list_env **lst, t_list_env *new)
+{
+	t_list_env	*tmp;
+
+	if (!new)
+		return ;
+	if (lst)
 	{
-		printf("%s", token_lst->value);
-		if (token_lst->next != NULL)
-			printf(" ");
-		token_lst = token_lst->next;
+		if (*lst)
+		{
+			tmp = ft_lstlast(*lst);
+			tmp->next = new;
+		}
+		else if (!*lst)
+			*lst = new;
 	}
 }
 

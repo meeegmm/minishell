@@ -41,7 +41,7 @@ fclean: clean
 	rm -rf $(NAME)
 
 valgrind: all
-		valgrind -q --suppressions=$(PWD)/ignore_readline --trace-children=yes \
+		valgrind --suppressions=$(PWD)/ignore_readline --trace-children=yes \
 		--leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes \
     	./minishell
 
