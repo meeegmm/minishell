@@ -27,7 +27,7 @@ void print_tab(char **tab)
 	int i;
 
 	i = 0;
-	while(tab[i])
+	while(tab[i] != NULL)
 	{
 		printf("%s ", tab[i]);
 		i++;
@@ -39,12 +39,13 @@ void print_group(t_group *group)
 {
 	while(group != NULL)
 	{
-		printf("cmd:\n");
+		printf("\ncmd: ");
 		print_tab(group->cmd);
 		printf("flag: %d\n", group->flag_fail);
+
 		printf("fichier redir_in: %s\n", group->redir_in);
 		printf("fichier redir_out: %s\n", group->redir_out);
-		printf("fichier app_in: %s\n", group->app_in);
+		printf("fichier app_out: %s\n", group->app_out);
 		group = group->next;
 	}
 }

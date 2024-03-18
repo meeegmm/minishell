@@ -28,6 +28,26 @@ char	*ft_strdup(char *s1)
 	return (s);
 }
 
+char **copy_tab(char **tab)
+{
+	int nb_line;
+	int i;
+	char **copy;
+
+	nb_line = 0;
+	i = 0;
+	while(tab[nb_line])
+		nb_line++;
+	copy = malloc(sizeof(char **) * (nb_line));
+	while(i < nb_line && tab[i])
+	{
+		copy[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
+}
+
 int		ft_strncmp(const char *s1, const char *s2, int n)
 {
 	int i;

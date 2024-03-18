@@ -42,6 +42,8 @@ char *file_access(t_tokens *list, char *str);
 
 //token_list
 t_tokens *lexer(char **token_tab);
+char *outfile_access(t_tokens *list, char *str);
+char *infile_access(t_tokens *list, char *str);
 
 
 //get_group
@@ -65,5 +67,6 @@ int		ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, int n);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split1(char *str, int flag);
+char	**copy_tab(char **tab);
 
 #endif

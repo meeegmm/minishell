@@ -19,8 +19,8 @@ int flag_fail;
 char **cmd; 
 char *redir_in;
 char *redir_out;
-char *app_in;
-// app_out (heredoc)
+char *app_out;
+// app_in (heredoc)
 struct s_group *next;
 } t_group;
 
@@ -36,6 +36,7 @@ typedef struct s_list_env
 
 //parsing
 t_group *parser(char *line);
+t_group *invalid_group(int flag);
 
 //envp parsing
 t_list_env *get_list(char **tab);
