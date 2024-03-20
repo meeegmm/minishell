@@ -1,24 +1,19 @@
 #include "../../inc/exec.h"
 
-//!! si redir = deja fork
-//not for bultins
-//browse line and check for pipes
-//get index of pipe
-//group before and after
 //add dup function
 //1 simple cmd
-//2 background exec (fork()), redir
-//3 pipes
+//2 pipes
+//3 background exec (fork()), redir
 
 void	ft_s_exec(t_group *group, char **envp)
 {
 	pid_t	pid;
-	// // if (!group->cmd)
-	// // {
-	// // 	ft_putstr_fd("minishell", cmd, 2);
-	// // 	//cmd not found
-	// // 	return ;
-	// // }
+	if (group->flag_fail)
+	{
+		ft_putstr_fd("minishell", "error", 2);
+		write(2, "Command not found\n", 18);
+		return ;
+	}
 	pid = fork();
 	if (pid)
 		wait(NULL);

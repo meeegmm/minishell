@@ -1,4 +1,4 @@
-// #include "../inc/exec.h"
+// #include "../../inc/exec.h"
 
 /*Варианты использования : 
 
@@ -20,9 +20,9 @@
 // 	int len;
 
 // 	len = ft_strlen(to_key);
-// 	while(list->next != 0)
+// 	while (list->next != 0)
 // 	{
-// 		if(ft_strncmp(list->key, to_key, len) == 0)
+// 		if (ft_strncmp(list->key, to_key, len) == 0)
 // 		{
 // 			//сначала сохранить в tmp
 // 			free(list->value);
@@ -30,7 +30,7 @@
 // 			break;
 // 		}
 // 		list = list->next;
-// 		if(ft_strncmp(list->key, to_key, len) == 0)
+// 		if (ft_strncmp(list->key, to_key, len) == 0)
 // 		{
 // 			free(list->value);
 // 			list->value = ft_strdup(to_value);

@@ -1,53 +1,25 @@
-#include "../../inc/exec.h"
+// #include "../../inc/exec.h"
+// #include "../../inc/parsing.h"
 
-//will get structure between each pipe
-
-// int	cmds_nb(char *line)
+// void	ft_pipes(t_tokens *token_lst, t_group *group, int *pipe_fd, char **envp)
 // {
-// 	int	i;
-// 	int	count;
+// 	int	pid;
 
-// 	i = 0;
-// 	count = 0;
-// 	while (line[i])
+// 	if (pipe(pipe_fd) == -1)
+// 		exit (-1);
+// 	pid = fork();
+// 	if (token_lst->type == REDIR_IN)
 // 	{
-// 		while (line[i] && (line[i] == ' '))
-// 			i++;
-// 		if (line[i])
-// 			count++;
-// 		while (line[i] && (line[i] != '|'))
-// 			i++;
-// 		if (line[i] == '|')
-// 			i++;
+// 		close(pipe_fd[0]);
+// 		dup2(pipe_fd[1], STDOUT_FILENO);
+// 		ft_s_exec(token_lst, group);
 // 	}
-// 	return (count);
-// }
-
-// char	**split_cmds(char *line)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		k;
-// 	char	**cmds;
-
-// 	i = 0;
-// 	j = 0;
-// 	k = 0;
-// 	cmds = malloc(sizeof (char *) * (cmds_nb(line) + 1));
-// 	while (line[i])
+// 	else if (token_lst->type == REDIR_OUT)
 // 	{
-// 		j = i;
-// 		while (line[i] && (line[i] != '|'))
-// 			i++;
-// 		if (i > j)
-// 		{
-// 			cmds[k] = malloc(sizeof(char) * ((i - j) + 1));
-// 			ft_strncpy(cmds[k], &line[j], i - j);
-// 			k++;
-// 		}
-// 		while (line[i] == '|' || line[i] == ' ')
-// 			i++;
+// 		close(pipe_fd[1]);
+// 		dup2(pipe_fd[0], STDIN_FILENO);
+// 		ft_s_exec(token_lst, group);
 // 	}
-// 	cmds[k] = NULL;
-// 	return (cmds);
+// 	else
+// 		exit(1);
 // }

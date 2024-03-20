@@ -45,9 +45,10 @@ int			is_built(char *str);
 //env
 char		**set_envp(char **envp);
 t_list_env	*env_lst_sos(void);
-t_list_env	*check_var(t_list_env *env_lst, char *var);
-void		mod_var(t_list_env **env_lst, char *key, char *value);
-void		remove_var(t_list_env *env_lst);
+t_list_env	*check_var(t_list_env **env_lst, char *var);
+void		mod_var(t_list_env **env_lst, char *var);
+t_list_env	*remove_first(t_list_env **env_lst);
+void		remove_var(t_list_env **env_lst);
 
 //exec
 char		**split_cmds(char *line);

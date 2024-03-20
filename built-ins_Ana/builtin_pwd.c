@@ -1,4 +1,4 @@
-// #include "../inc/exec.h"
+// #include "../../inc/exec.h"
 
 //какое поведение в случае, если PWD не найден?
 
@@ -10,13 +10,13 @@
 
 // 	size = 1024; //какой размер лучше выделить? не стоит ли выделять его динамически?
 // 	buf = malloc(sizeof(char) * (size + 1));
-// 	if(!buf)
+// 	if (!buf)
 // 		exit(EXIT_FAILURE);
 // 	path = getcwd(buf, size);
 
-// 	while(list != 0)
+// 	while (list != 0)
 // 	{
-// 		if(ft_strncmp(list->key, "PWD", 3) == 0)
+// 		if (ft_strncmp(list->key, "PWD", 3) == 0)
 // 		{
 // 			free(list->value);
 // 			list->value = ft_strdup(path);
@@ -24,7 +24,7 @@
 // 		}
 // 		list = list->next;
 // 	}
-	// if(!list)
+	// if (!list)
 	// {
 	// 	perror("PWD не найдена\n");
 	// 	return (1);

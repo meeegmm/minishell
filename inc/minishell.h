@@ -1,42 +1,29 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 ////////////////// STRUCTS //////////////////
 
-//parsed ligne struct
-
-// enum in
-// {
-//     REDIR_IN,
-//     APP_IN,
-//     ZERO_IN
-// };
-
-// enum out
-// {
-//     REDIR_OUT,
-//     APP_OUT,
-//     ZERO_OUT
-// };
+//parsed ligne struct : REDO!!
 
 typedef struct s_group
 {
 int flag_fail;
 char **cmd; 
-//enum redir_in;
-//enum redir_out;
-//char *source;
-//char *destination;
+char *redir_in;
+char *redir_out;
+char *app_out;
+// app_in (heredoc)
 struct s_group *next;
 } t_group;
 
-// struct s_list for envp
 
 typedef struct s_list_env
 {
@@ -48,11 +35,10 @@ typedef struct s_list_env
 ////////////////// FONCTIONS //////////////////
 
 //parsing
-t_group 	*parser(char *line, char **envp);
+t_group *parser(char *line, char **envp);
+t_group *invalid_group(int flag);
 
 //envp parsing
-char	*get_key(char *str);
-char	*get_value(char *str);
 t_list_env *get_list(char **tab);
 char **get_envp(t_list_env *list);
 

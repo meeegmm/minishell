@@ -26,14 +26,16 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (line && *line)
 			add_history(line);
+		//update new_envp
 		group = parser(line, new_envp);
 		if (group->flag_fail != 0)
 			line = NULL;
 		else
 		{
-			// printf("Parsed: ");		
+			// printf("Parsed: \n");		
 			// print_tab(group->cmd);
 			simple_cmd(group, env_lst, new_envp);
+			//set_envp?
 			line = NULL;
 		}
 		line = readline(">$ ");

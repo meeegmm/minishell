@@ -20,6 +20,7 @@ char	*set_path(t_list_env *env_lst, char *key)
 	return (NULL);
 }
 
+//changed
 int	is_built(char *str)
 {
 	int		i;
@@ -34,7 +35,7 @@ int	is_built(char *str)
 	tab[5] = "export";
 	while (str[i] && i <= 5)
 	{
-		if (ft_strcmp(str, tab[i]) == 0)
+		if (ft_strncmp(str, tab[i], ft_strlen(str)) == 0)
 			return (1);
 		i++;
 	}

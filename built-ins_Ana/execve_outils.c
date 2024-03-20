@@ -1,4 +1,4 @@
-// #include "../inc/exec.h"
+// #include "../../inc/exec.h"
 
 // char	**get_path(char **envp)
 // {

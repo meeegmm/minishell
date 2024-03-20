@@ -1,4 +1,4 @@
-// #include "../inc/exec.h"
+// #include "../../inc/exec.h"
 
 /*
 unset VARIABLE_NAME
@@ -10,9 +10,9 @@ unset -- VARIABLE_NAME (если имя переменной начинаетс�
 
 // int ft_unset(t_list_env *list)
 // {
-// 	while(list != NULL)
+// 	while (list != NULL)
 // 	{
-// 		if(ft_strncmp(list->key, lg->cmd[1], ft_strlen(lg->cmd[1]) == 0))
+// 		if (ft_strncmp(list->key, lg->cmd[1], ft_strlen(lg->cmd[1]) == 0))
 // 		{
 // 			///
 // 			break;

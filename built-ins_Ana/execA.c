@@ -1,4 +1,4 @@
-// #include "../inc/exec.h"
+// #include "../../inc/exec.h"
 
 // int exec(t_group *lg, t_exec *p)
 // {
@@ -10,7 +10,7 @@
 
 // 	new_envp = get_tab(p->envp_list);
 	
-// 	while(reserved[i])
+// 	while (reserved[i])
 // 	{
 // 		if (ft_strncmp(lg->cmd[0], (char*)reserved[i], ft_strlen(lg->cmd[0])) == 0)
 // 		{
@@ -21,10 +21,10 @@
 // 		}
 // 		i++;
 // 	}
-// 	if(reserved[i] == NULL)
+// 	if (reserved[i] == NULL)
 // 	{
 // 		cmd_w_path = cmd_check(lg->cmd, new_envp); //вызвать раньше
-// 		if(cmd_w_path == NULL)
+// 		if (cmd_w_path == NULL)
 // 		{
 // 			printf("cmd не распознано\n");
 // 			free_tab(new_envp);
