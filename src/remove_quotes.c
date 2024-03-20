@@ -48,12 +48,13 @@ char *quotes_ok(char *str) //faire plus court
 				}
 			}
 		}
-		i++;
+		if(str[i])
+			i++;
 	}
 	if(res == 0)
 	{
 		printf("Invalid syntax: quotes\n");
-		free(str);
+		// free(str);
 		return (NULL);
 	}
 	else
