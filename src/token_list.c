@@ -10,7 +10,7 @@ t_tokens *get_node(char **token_tab, int i)
 		free_tab(token_tab);
 		node = NULL;
 	}
-	node->value = token_tab[i];
+	node->value = ft_strdup(token_tab[i]); //!!!!
 	if(ft_strncmp(node->value, "|", ft_strlen(node->value)) == 0)
 		node->type = PIPE;
 	else if(ft_strncmp(node->value, "<", ft_strlen(node->value)) == 0)

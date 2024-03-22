@@ -38,7 +38,6 @@ void print_token_list(t_tokens *list);
 //parser_outils
 int    is_built(char *str);
 int only_spaces(char *str);
-char *file_access(t_tokens *list, char *str);
 
 //token_list
 t_tokens *lexer(char **token_tab);

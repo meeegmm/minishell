@@ -89,6 +89,7 @@ t_group *get_group(t_tokens *list, char **envp)
 {
 	t_tokens *start;
 	t_group *group;
+	// char **new_envp;
 
 	start = list;
 	group = malloc(sizeof(t_group));
@@ -101,8 +102,9 @@ t_group *get_group(t_tokens *list, char **envp)
 		return (invalid_group(1)); //malloc pb
 	if(is_built(group->cmd[0]) == 0)
 	{
-		//
+		//convertir liste envp en char **new_envp
 		group->cmd[0] = cmd_check(group->cmd, envp);
+		printf("%s", group->cmd[0]);
 		if(group->cmd[0] == NULL)
 		{
 			// free(group);
@@ -122,9 +124,9 @@ t_group *get_group_list(t_tokens *list, char **envp)
 
 	begin_gr = get_group(list, envp);
 
-    // printf("Print first group : \n");
-    // print_group(begin_gr);
-    // printf("\n");
+    printf("Print first group : \n");
+    print_group(begin_gr);
+    printf("\n");
 
     if(get_group_nb(list) == 1)
         return (begin_gr);

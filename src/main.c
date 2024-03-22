@@ -21,7 +21,8 @@ int	main(int ac, char **av, char **envp)
 
 		if(!group) //malloc pb
 		{
-			free(line);
+			if(line)
+				free(line);
 			exit(EXIT_FAILURE); //to think abt builtin exit application here
 		}
 		
@@ -37,6 +38,9 @@ int	main(int ac, char **av, char **envp)
 				//exec magic
 				//changer global var en fonction de flag_fail
 			}
+			printf("Parsed :\n");
+			print_group(group);
+			printf("\n");
 			group = group->next;
 		}
 		if(line)

@@ -176,8 +176,3 @@ int main()
     free(tab);
     return (0);
 }
-
-
-// printf("Parsed :\n");
-// print_group(group);
-// printf("\n");
