@@ -19,7 +19,7 @@ void free_group(t_group *lg)
 	{
 		if(lg->cmd)
 			free_tab(lg->cmd);
-		// if(lg->source != NULL)
+		// if(lg->app_out != NULL)
 		// 	free(lg->source);
 		// if(lg->destination != NULL)
 		// 	free(lg->destination);

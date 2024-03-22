@@ -93,7 +93,7 @@ t_group *get_group(t_tokens *list, char **envp)
 	start = list;
 	group = malloc(sizeof(t_group));
 	if(!group)
-		return (NULL); //malloc pb
+		return (NULL); //malloc pb 
     group = invalid_group(0);
 	group->cmd = get_cmd_tab(list);
 
@@ -101,6 +101,7 @@ t_group *get_group(t_tokens *list, char **envp)
 		return (invalid_group(1)); //malloc pb
 	if(is_built(group->cmd[0]) == 0)
 	{
+		//
 		group->cmd[0] = cmd_check(group->cmd, envp);
 		if(group->cmd[0] == NULL)
 		{
@@ -137,6 +138,8 @@ t_group *get_group_list(t_tokens *list, char **envp)
             if(list == NULL) //должно входить в проверку синтаксиса раньше
                 break;		
 			begin_gr->next = get_group(list, envp);
+			if(!begin_gr->next)
+				break;
 			begin_gr = begin_gr->next;
 		}
     }

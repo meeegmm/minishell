@@ -23,7 +23,7 @@ int is_special_if_bonded(char c)
     i = 0;    
     while(s[i])
     {
-        if(s[i] = c)
+        if(s[i] == c)
             return (1);
         i++;
     }
@@ -38,7 +38,7 @@ int no_continue_if_not_bonded(char c)
     i = 0;    
     while(s[i])
     {
-        if(s[i] = c)
+        if(s[i] == c)
             return (1);
         i++;
     }

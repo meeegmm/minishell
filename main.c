@@ -18,7 +18,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av[0];
 	//$SHLVL
 	line = readline(">$ ");
-	while (is_exit(line))
+	while (is_exit(line)) //поменять на while(1) ?
 	{
 		if (line && *line)
 			add_history(line);
