@@ -1,5 +1,10 @@
 #include "../inc/parsing.h"
 
+void ft_putstr_err(char *str)
+{
+	write(2, str, ft_strlen(str));
+}
+
 void print_list(t_list_env *list)
 {
 	while(list != NULL)

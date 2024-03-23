@@ -53,7 +53,7 @@ char *quotes_ok(char *str) //faire plus court
 	}
 	if(res == 0)
 	{
-		printf("Invalid syntax: quotes\n");
+		ft_putstr_err("Invalid syntax: unclosed quotes\n");
 		// free(str);
 		return (NULL);
 	}
@@ -97,7 +97,7 @@ char *spaces_before_meta(char *str) //+ remove quotes
 	str = quotes_ok(str);
 	if(str == NULL)
 		return (NULL);
-	len = new_spaces_nb(str) + ft_strlen(str) + 1;
+	len = new_spaces_nb(str) + ft_strlen(str) + 2; //why 2?
 
 	new_str = malloc(sizeof(char) * len);
 	if(!new_str)
@@ -150,8 +150,9 @@ int quotes_nb(char *str)
 
 char *remove_quotes(char *str)
 {
-	str = spaces_before_meta(str);
-	if(str == NULL)
+	char *new;
+	new = spaces_before_meta(str);
+	if(new == NULL)
 		return (NULL);
-	return (str);
+	return (new);
 }

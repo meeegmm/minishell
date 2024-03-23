@@ -7,7 +7,6 @@ t_group *invalid_group(int flag)
 	group = malloc(sizeof(t_group));
 	if(!group || group == NULL) //to remove "group == NULL" ?
 	{
-		perror("group malloc");
 		return (NULL);
 	}
 	group->flag_fail = flag;
