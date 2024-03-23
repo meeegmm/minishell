@@ -101,14 +101,17 @@ t_group *get_group(t_tokens *list, char **envp)
 	// char **new_envp;
 
 	start = list;
-	group = malloc(sizeof(t_group));
-	if(!group)
-		return (NULL); //malloc pb 
+	printf("debut de get_group\n");
     group = invalid_group(0);
+	if(group == NULL)
+		return (NULL);
 	group->cmd = get_cmd_tab(list);
 
 	if(!group->cmd)
+	{
+		free(group);
 		return (invalid_group(1)); //malloc pb
+	}
 	if(is_built(group->cmd[0]) == 0)
 	{
 		//convertir liste envp en char **new_envp
@@ -116,6 +119,7 @@ t_group *get_group(t_tokens *list, char **envp)
 		// printf("%s", group->cmd[0]);
 		if(group->cmd[0] == NULL)
 		{
+			free(group->cmd);
 			free(group);
 			group = invalid_group(127); //cmd not found
 			ft_putstr_err("Command not found\n");
@@ -142,9 +146,12 @@ t_group *get_group_list(t_tokens *list, char **envp)
     // printf("Print first group : \n");
     // print_group(begin_gr);
     // printf("\n");
-
+	printf("HERE! %s\n", list->value);
     if(get_group_nb(list) == 1)
-        return (begin_gr);
+	{
+		free_tokens(list);
+		return (begin_gr);
+	}
     else
 	{
 		curr_gr = begin_gr;
@@ -162,7 +169,8 @@ t_group *get_group_list(t_tokens *list, char **envp)
 			}
 			begin_gr = begin_gr->next;
 		}
+		free_tokens(list);
     }
-	free_tokens(list);
+	print_token_list(list);
 	return (curr_gr); //change to begin_gr
 }

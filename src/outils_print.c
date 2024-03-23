@@ -46,10 +46,12 @@ void print_group(t_group *group)
 {
 	if(group == NULL)
 		return ;
-
-	printf("\ncmd: ");
-	print_tab(group->cmd);
-	printf("flag: %d\n", group->flag_fail);
+	if(group->cmd)
+	{
+		printf("\ncmd: ");
+		print_tab(group->cmd);
+		printf("flag: %d\n", group->flag_fail);
+	}
 
 	printf("fichier redir_in: %s\n", group->redir_in);
 	printf("fichier redir_out: %s\n", group->redir_out);

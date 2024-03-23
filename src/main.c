@@ -1,6 +1,17 @@
 #include "../inc/minishell.h"
 #include "../inc/parsing.h"
 
+int	is_exit(char *line)
+{
+	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
+	{
+		free(line);
+		return (0);
+	}
+	else
+		return (1);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
@@ -13,7 +24,7 @@ int	main(int ac, char **av, char **envp)
 	//obtenir t_env_list envp + changer $SHLVL
 
 	line = readline(">$ ");
-	while (1)
+	while (is_exit(line))
 	{
 		if (line && *line)
 			add_history(line);
@@ -46,6 +57,7 @@ int	main(int ac, char **av, char **envp)
 			printf("\n");
 			group = group->next;
 		}
+		print_group(start);
 		free_group_list(start);
 		if(line)
 			free(line); //do we really need it? (recheck with no other leaks)

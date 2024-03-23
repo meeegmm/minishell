@@ -74,7 +74,7 @@ t_group *parser(char *input, char **envp)
 	{
 		free(line);
 		free_tab(token_tab);
-		// free_tokens(token_list);
+		free_tokens(token_list);
 		return(invalid_group(2));
 	}
 

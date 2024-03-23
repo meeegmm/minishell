@@ -60,6 +60,8 @@ char	*cmd_check(char **cmd, char **envp)
 		arg_w_path = ft_strdup(cmd[0]);
 	else
 		arg_w_path = path_check(path_list, cmd);
+	free(cmd[0]);
+	// free_tab(cmd);
 	free_tab(path_list);
 	return (arg_w_path);
 }
