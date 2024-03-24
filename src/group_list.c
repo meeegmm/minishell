@@ -110,6 +110,7 @@ t_group *get_group(t_tokens *list, char **envp)
 	if(!group->cmd)
 	{
 		free(group);
+		free_tokens(list); //???
 		return (invalid_group(1)); //malloc pb
 	}
 	if(is_built(group->cmd[0]) == 0)
@@ -122,6 +123,7 @@ t_group *get_group(t_tokens *list, char **envp)
 			free(group->cmd);
 			free(group);
 			group = invalid_group(127); //cmd not found
+			free_tokens(list);
 			ft_putstr_err("Command not found\n");
 			// return (invalid_group(127)); //cmd not found
 		}
@@ -139,14 +141,15 @@ t_group *get_group_list(t_tokens *list, char **envp)
 	begin_gr = get_group(list, envp);
 	if(!begin_gr)
 	{
-		//
+		free_tokens(list);
 		return (NULL);
 	}
 
     // printf("Print first group : \n");
     // print_group(begin_gr);
     // printf("\n");
-	printf("HERE! %s\n", list->value);
+	// printf("HERE! %s\n", list->value);
+
     if(get_group_nb(list) == 1)
 	{
 		free_tokens(list);
@@ -171,6 +174,5 @@ t_group *get_group_list(t_tokens *list, char **envp)
 		}
 		free_tokens(list);
     }
-	print_token_list(list);
 	return (curr_gr); //change to begin_gr
 }

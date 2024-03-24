@@ -81,7 +81,8 @@ t_group *parser(char *input, char **envp)
 	group = get_group_list(token_list, envp);
 	if(line)
 		free(line);
-	// free_tokens(token_list);
+	// if(token_list)
+	// 	free_tokens(token_list);
 	free_tab(token_tab);
 	return (group);
 }
