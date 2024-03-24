@@ -60,7 +60,7 @@ t_group *get_files(t_tokens *list, t_group *group)
 				group->redir_in = infile_access(list, group->redir_in);
 				if(group->redir_in == NULL)
 				{
-					free(group);
+					free_group_list(group);
 					group = invalid_group(1);
 				}
 			}
@@ -69,7 +69,7 @@ t_group *get_files(t_tokens *list, t_group *group)
 				group->redir_out = outfile_access(list, group->redir_out);
 				if(group->redir_out == NULL)
 				{
-					free(group);
+					free_group_list(group);
 					group = invalid_group(1);
 				}
 			}
@@ -78,7 +78,7 @@ t_group *get_files(t_tokens *list, t_group *group)
 				group->app_out = outfile_access(list, group->app_out);
 				if(group->app_out == NULL)
 				{
-					free(group);
+					free_group_list(group);
 					group = invalid_group(1);
 				}
 			}

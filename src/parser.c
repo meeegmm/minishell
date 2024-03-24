@@ -77,12 +77,13 @@ t_group *parser(char *input, char **envp)
 		free_tokens(token_list);
 		return(invalid_group(2));
 	}
-
-	group = get_group_list(token_list, envp);
+	else
+	{
+		group = get_group_list(token_list, envp);
+		free_tokens(token_list);
+	}
 	if(line)
 		free(line);
-	// if(token_list)
-	// 	free_tokens(token_list);
 	free_tab(token_tab);
 	return (group);
 }

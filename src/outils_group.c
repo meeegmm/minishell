@@ -27,10 +27,13 @@ char *outfile_access(t_tokens *list, char *str)
 		str = NULL;
 	}
 	str = ft_strdup(list->next->value);
+	if(!str)
+		return (NULL);
 	if(access(str, F_OK ) != 0)
 		return (str);
 	else if(access(str, R_OK | W_OK ) != 0)
 	{
+		free(str);
 		printf("Permission denied\n");
 		return (NULL);
 	}
@@ -45,13 +48,17 @@ char *infile_access(t_tokens *list, char *str)
 		str = NULL;
 	}
 	str = ft_strdup(list->next->value);
+	if(!str)
+		return (NULL);
 	if(access(str, F_OK) != 0)
 	{
+		free(str);
 		printf("No such file or directory\n");
 		return (NULL);
 	}
 	else if(access(str, R_OK | W_OK ) != 0)
 	{
+		free(str);
 		printf("Permission denied\n");
 		return (NULL);
 	}
