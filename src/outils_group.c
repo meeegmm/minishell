@@ -3,14 +3,13 @@
 
 t_group *invalid_group(int flag)
 {
-	t_group *group;
-	group = malloc(sizeof(t_group));
+	t_group *group; //static + проверка на NULL
+	group = malloc(sizeof(t_group)); //ПЕРЕПИСАТЬ БЕЗ ВЫДЕЛЕНИЯ MALLOC в этой функции
 	if(!group || group == NULL) //to remove "group == NULL" ?
 	{
 		return (NULL);
 	}
 	group->flag_fail = flag;
-	//free(group);
 	group->cmd = NULL;
 	group->redir_in = NULL;
 	group->redir_out = NULL;

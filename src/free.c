@@ -45,7 +45,8 @@ void free_tokens(t_tokens *list)
 	while(list != NULL)
 	{
 		tmp = list->next;
-		free(list->value);
+		if(list->value)
+			free(list->value);
 		// if(list->next)
 		// 	free(list->next);
 		free(list);				//should we have it here?

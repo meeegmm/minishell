@@ -98,11 +98,10 @@ t_group *get_group(t_tokens *list, char **envp)
 {
 	t_tokens *start;
 	t_group *group;
-	// char **new_envp;
 
 	start = list;
-	printf("debut de get_group\n");
-    group = invalid_group(0);
+	// printf("debut de get_group\n");
+    group = invalid_group(0); ///!!!!!
 	if(group == NULL)
 		return (NULL);
 	group->cmd = get_cmd_tab(list);

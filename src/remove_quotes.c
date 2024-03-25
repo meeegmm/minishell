@@ -27,6 +27,7 @@ char *quotes_ok(char *str) //faire plus court
 					res = 1;
 					str[start] = 31;
 					str[i] = 30;
+					//
 					break;
 				}
 

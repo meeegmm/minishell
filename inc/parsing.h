@@ -43,7 +43,8 @@ int only_spaces(char *str);
 t_tokens *lexer(char **token_tab);
 char *outfile_access(t_tokens *list, char *str);
 char *infile_access(t_tokens *list, char *str);
-
+// char *expanded_line(char *line, char **envp);
+char *ft_expand(char *str, char **envp);
 
 //get_group
 t_group *invalid_group(int flag);

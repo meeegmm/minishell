@@ -6,6 +6,8 @@ int	ft_is_delimiter1(char c, int flag)
 		return (c == ' ' || c == '\t');
 	else if (flag == 2)
 		return (c == ':');
+	else if (flag == 3)
+		return (c == 30);
 	else
 		return (0);
 }
