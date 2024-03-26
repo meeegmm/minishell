@@ -20,7 +20,7 @@ char **cmd;
 char *redir_in;
 char *redir_out;
 char *app_out;
-// app_in (heredoc)
+char *app_in; //heredoc
 struct s_group *next;
 } t_group;
 

@@ -144,10 +144,10 @@ t_group *get_group_list(t_tokens *list, char **envp)
 		return (NULL);
 	}
 
-    // printf("Print first group : \n");
-    // print_group(begin_gr);
-    // printf("\n");
-	// printf("HERE! %s\n", list->value);
+    printf("Print first group : \n");
+    print_group(begin_gr);
+    printf("\n");
+	printf("HERE! %s\n", list->value);
 
     if(get_group_nb(list) == 1)
 	{

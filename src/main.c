@@ -52,13 +52,13 @@ int	main(int ac, char **av, char **envp)
 				//exec magic
 				//changer global var en fonction de flag_fail
 			}
-			// printf("\nParsed :\n");
-			// print_group(group);
-			// printf("\n");
+			printf("\nParsed :\n");
+			print_group(group);
+			printf("\n");
 			group = group->next;
 		}
 		// print_group(start);
-		free_group_list(start);
+		free_group_list(start); //FREE
 		if(line)
 			free(line); //do we really need it? (recheck with no other leaks)
 		line = readline(">$ ");

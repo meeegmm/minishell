@@ -43,9 +43,9 @@ t_group *parser(char *input, char **envp)
 	if(only_spaces(input))
 		return(invalid_group(2));
 
-	line = ft_expand(input, envp);
-	if(line == NULL)
-		return(invalid_group(2)); //temporary solution
+	// line = ft_expand(input, envp);
+	// if(line == NULL)
+	// 	return(invalid_group(2)); //temporary solution
 
 	// printf("expanded line: %s\n", line); //move after quotes check + check the case when no expand needed + check the case when not founded
 

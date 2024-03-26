@@ -1,11 +1,39 @@
 #include "../inc/parsing.h"
 
-int is_meta(char c) //gere tout sauf >> <<
+int is_meta(char **str)
 {
-	return(c == '>' || c == '<' || c == '|');
+	if(**str == '|')
+	{
+		(*str)++;
+		return (5);
+	}
+	else if(**str == '>')
+	{
+		(*str)++;
+		if(**str && **str == '>')
+		{
+			(*str)++;
+			return (4);
+		}
+		else
+			return (2);
+	}
+	else if(**str == '<')
+	{
+		(*str)++;
+		if(**str && **str == '<')
+		{
+			(*str)++;
+			return (3);
+		}
+		else
+			return (1);
+	}
+	else
+		return (0);
 }
 
-char *quotes_ok(char *str) //faire plus court
+char *quotes_ok(char *str) //faire plus court + убедиться, что замена происходит + подумать, что возвращать
 {
 	int i;
 	int res;
@@ -25,8 +53,8 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '"') //do expand inside
 				{
 					res = 1;
-					str[start] = 31;
-					str[i] = 30;
+					str[start] = 29;
+					str[i] = 31;
 					//
 					break;
 				}
@@ -43,8 +71,8 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '\'')
 				{
 					res = 1;
-					str[start] = 31;
-					str[i] = 30;
+					str[start] = 30;
+					str[i] = 31;
 					break;
 				}
 			}
@@ -55,105 +83,89 @@ char *quotes_ok(char *str) //faire plus court
 	if(res == 0)
 	{
 		ft_putstr_err("Invalid syntax: unclosed quotes\n");
-		// free(str);
-		return (NULL);
+		//free(?)
+		return (NULL); //подумать, как записать это во flag_fail
 	}
 	else
+	{
 		return (str);
+	}
 }
 
 int new_spaces_nb(char *str)
 {
-	int nb;
-	int i;
-
-	nb = 0;
-	i = 0;
-	while(str[i] != '\0')
+	int counter;
+	
+	counter = 0;
+	while(*str)
 	{
-		if(str[i] == 31)
-		{
-			while(str[i] != 30 && str[i])
-				i++;
-			if(str[i])
-				i++;
-		}
-		if(is_meta(str[i]))
-			nb++;
-		if(str[i])
-			i++;
+		if(is_meta(&str) > 0)
+			counter++;
+		else
+			str++; //как будто тоже можно включить в саму is_meta, но неясно, как изменить тогда
 	}
-	return (nb * 2);
+	return (counter * 2);
 }
 
-char *spaces_before_meta(char *str) //+ remove quotes
+char *remove_quotes(char *str) //+ remove quotes
 {
 	char *new_str;
 	int len;
 	int i;
-	int k;
 	
 	i = 0;
-	k = 0;
 	str = quotes_ok(str);
 	if(str == NULL)
 		return (NULL);
-	len = new_spaces_nb(str) + ft_strlen(str) + 2; //why 2?
+
+	len = new_spaces_nb(str) + ft_strlen(str) + 1; 
 
 	new_str = malloc(sizeof(char) * len);
 	if(!new_str)
 		return (NULL);
-	while(i < len && str[k])
+
+	while(i < len && *str)
 	{
-		if(str[k] == 31)
+		if(*str == 29 || *str == 30)
 		{
-			k++;
-			while(str[k] != 30 && str[k] && i < len)
+			str++;
+			while(*str && *str != 30 && i < len)
 			{
-				new_str[i] = str[k];
-				k++;
+				new_str[i] = *str;
+				str++;
 				i++;
 			}
-			if(str[k])
-				k++;
+			if(*str)
+				str++;
 		}
-		if(is_meta(str[k]) == 1 && (i + 2 < len) && str[k])
+		if(*str && (is_meta(&str) > 0) && (i + 2 < len))
 		{
 			new_str[i] = ' ';
-			new_str[i + 1] = str[k];
+			new_str[i + 1] = *str;
 			new_str[i + 2] = ' ';
 			i += 3;
-			k++;
 		}
-		new_str[i] = str[k];
+		new_str[i] = *str;
 		if(i < len)
 			i++;
-		if(str[k])
-			k++;
+		if(*str)
+			str++;
 	}
 	new_str[i] = '\0';
+	printf("NEW_STRING : %s\n", new_str);
 	return (new_str);
 }
 
-int quotes_nb(char *str)
+int quotes_nb(char *str) // количество пар закрытых кавычек (зачем?)
 {
 	int nb;
 
 	nb = 0;
 	while(*str)
 	{
-		if(*str == 31)
+		if(*str == 28 || *str == 30)
 			nb++;
 		str++;
 	}
 	return (nb);
-}
-
-char *remove_quotes(char *str)
-{
-	char *new;
-	new = spaces_before_meta(str);
-	if(new == NULL)
-		return (NULL);
-	return (new);
 }
