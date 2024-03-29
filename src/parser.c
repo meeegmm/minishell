@@ -33,7 +33,7 @@ int syntax_pb(t_tokens *list)
 	return (0);
 }
 
-t_group *parser(char *input, char **envp)
+t_group *parser(char *input, t_list_env *env)
 {
 	char **token_tab;
 	t_tokens *token_list;
@@ -43,19 +43,19 @@ t_group *parser(char *input, char **envp)
 	if(only_spaces(input))
 		return(invalid_group(2));
 
-	// line = ft_expand(input, envp);
+	// line = ft_expand(input, env);
 	// if(line == NULL)
 	// 	return(invalid_group(2)); //temporary solution
 
 	// printf("expanded line: %s\n", line); //move after quotes check + check the case when no expand needed + check the case when not founded
 
-	line = remove_quotes(input);
+	line = remove_quotes(input, env);
 	if(line == NULL)
 	{
 		return (invalid_group(2)); //malloc pb or unclosed quotes
 	}
 
-	// printf("no quotes + expand: %s\n", line); //do expand
+	printf("no quotes + expand: %s\n", line); //do expand
 
 	token_tab = ft_split1(line, 1);
 	if(token_tab == NULL)
@@ -85,7 +85,7 @@ t_group *parser(char *input, char **envp)
 	}
 	else
 	{
-		group = get_group_list(token_list, envp);
+		group = get_group_list(token_list, env);
 		// free_tokens(token_list); 				надо бы раскомментить
 	}
 	if(line)

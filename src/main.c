@@ -17,11 +17,13 @@ int	main(int ac, char **av, char **envp)
 	char	*line;
 	t_group *group;
 	t_group *start;
+	t_list_env *env;
 
 	(void)ac;
 	(void)av[0];
 
 	//obtenir t_env_list envp + changer $SHLVL
+	env = get_list(envp);
 
 	line = readline(">$ ");
 	while (is_exit(line))
@@ -29,7 +31,7 @@ int	main(int ac, char **av, char **envp)
 		if (line && *line)
 			add_history(line);
 		
-		group = parser(line, envp); //group_list is here
+		group = parser(line, env); //group_list is here
 
 		if(!group) //malloc pb
 		{
@@ -52,9 +54,9 @@ int	main(int ac, char **av, char **envp)
 				//exec magic
 				//changer global var en fonction de flag_fail
 			}
-			printf("\nParsed :\n");
-			print_group(group);
-			printf("\n");
+			// printf("\nParsed :\n");
+			// print_group(group);
+			// printf("\n");
 			group = group->next;
 		}
 		// print_group(start);

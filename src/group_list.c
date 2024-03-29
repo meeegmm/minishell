@@ -94,10 +94,11 @@ t_tokens *move_after_pipe(t_tokens *list)
 	return (list->next);
 }
 
-t_group *get_group(t_tokens *list, char **envp)
+t_group *get_group(t_tokens *list, t_list_env *env)
 {
 	t_tokens *start;
 	t_group *group;
+	char **new_envp;
 
 	start = list;
 	// printf("debut de get_group\n");
@@ -114,8 +115,8 @@ t_group *get_group(t_tokens *list, char **envp)
 	}
 	if(is_built(group->cmd[0]) == 0)
 	{
-		//convertir liste envp en char **new_envp
-		group->cmd[0] = cmd_check(group->cmd, envp);
+		new_envp = get_envp(env);
+		group->cmd[0] = cmd_check(group->cmd, new_envp);
 		// printf("%s", group->cmd[0]);
 		if(group->cmd[0] == NULL)
 		{
@@ -132,22 +133,22 @@ t_group *get_group(t_tokens *list, char **envp)
 	return (group);
 }
 
-t_group *get_group_list(t_tokens *list, char **envp)
+t_group *get_group_list(t_tokens *list, t_list_env *env)
 {
 	t_group *begin_gr;
 	t_group *curr_gr;
 
-	begin_gr = get_group(list, envp);
+	begin_gr = get_group(list, env);
 	if(!begin_gr)
 	{
 		free_tokens(list);
 		return (NULL);
 	}
 
-    printf("Print first group : \n");
-    print_group(begin_gr);
-    printf("\n");
-	printf("HERE! %s\n", list->value);
+    // printf("Print first group : \n");
+    // print_group(begin_gr);
+    // printf("\n");
+	// printf("HERE! %s\n", list->value);
 
     if(get_group_nb(list) == 1)
 	{
@@ -163,7 +164,7 @@ t_group *get_group_list(t_tokens *list, char **envp)
 
             if(list == NULL) //должно входить в проверку синтаксиса раньше
                 break;		
-			begin_gr->next = get_group(list, envp);
+			begin_gr->next = get_group(list, env);
 			if(!begin_gr->next)
 			{
 				free_group_list(curr_gr);

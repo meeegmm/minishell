@@ -33,7 +33,7 @@ int is_meta(char **str)
 		return (0);
 }
 
-char *quotes_ok(char *str) //faire plus court + убедиться, что замена происходит + подумать, что возвращать
+char *quotes_ok(char *str) //faire plus court + подумать, что возвращать
 {
 	int i;
 	int res;
@@ -50,7 +50,7 @@ char *quotes_ok(char *str) //faire plus court + убедиться, что за�
 			while(str[i])
 			{
 				i++;
-				if(str[i] == '"') //do expand inside
+				if(str[i] == '"')
 				{
 					res = 1;
 					str[start] = 29;
@@ -68,7 +68,7 @@ char *quotes_ok(char *str) //faire plus court + убедиться, что за�
 			while(str[i])
 			{
 				i++;
-				if(str[i] == '\'')
+				if(str[i] == '\'') //don't do expand inside
 				{
 					res = 1;
 					str[start] = 30;
@@ -83,13 +83,10 @@ char *quotes_ok(char *str) //faire plus court + убедиться, что за�
 	if(res == 0)
 	{
 		ft_putstr_err("Invalid syntax: unclosed quotes\n");
-		//free(?)
 		return (NULL); //подумать, как записать это во flag_fail
 	}
 	else
-	{
 		return (str);
-	}
 }
 
 int new_spaces_nb(char *str)
@@ -107,7 +104,7 @@ int new_spaces_nb(char *str)
 	return (counter * 2);
 }
 
-char *remove_quotes(char *str) //+ remove quotes
+char *remove_quotes(char *str, t_list_env *env)
 {
 	char *new_str;
 	int len;
@@ -117,6 +114,8 @@ char *remove_quotes(char *str) //+ remove quotes
 	str = quotes_ok(str);
 	if(str == NULL)
 		return (NULL);
+
+	str = ft_expand(str, env);
 
 	len = new_spaces_nb(str) + ft_strlen(str) + 1; 
 
@@ -129,7 +128,7 @@ char *remove_quotes(char *str) //+ remove quotes
 		if(*str == 29 || *str == 30)
 		{
 			str++;
-			while(*str && *str != 30 && i < len)
+			while(*str && *str != 31 && i < len)
 			{
 				new_str[i] = *str;
 				str++;
@@ -156,16 +155,16 @@ char *remove_quotes(char *str) //+ remove quotes
 	return (new_str);
 }
 
-int quotes_nb(char *str) // количество пар закрытых кавычек (зачем?)
-{
-	int nb;
+// int quotes_nb(char *str) // количество пар закрытых кавычек (why do you need it now?)
+// {
+// 	int nb;
 
-	nb = 0;
-	while(*str)
-	{
-		if(*str == 28 || *str == 30)
-			nb++;
-		str++;
-	}
-	return (nb);
-}
+// 	nb = 0;
+// 	while(*str)
+// 	{
+// 		if(*str == 29 || *str == 30)
+// 			nb++;
+// 		str++;
+// 	}
+// 	return (nb);
+// }

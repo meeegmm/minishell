@@ -32,7 +32,7 @@ typedef struct s_tokens
 //line parsing
 // char	**get_tab(t_tokens *list);
 //int		syntax_pb(char *line);
-char *remove_quotes(char *str);
+char *remove_quotes(char *str, t_list_env *env);
 void print_token_list(t_tokens *list);
 
 //parser_outils
@@ -43,12 +43,11 @@ int only_spaces(char *str);
 t_tokens *lexer(char **token_tab);
 char *outfile_access(t_tokens *list, char *str);
 char *infile_access(t_tokens *list, char *str);
-// char *expanded_line(char *line, char **envp);
-char *ft_expand(char *str, char **envp);
+char *ft_expand(char *str, t_list_env *env);
 
 //get_group
 t_group *invalid_group(int flag);
-t_group *get_group_list(t_tokens *list, char **envp);
+t_group *get_group_list(t_tokens *list, t_list_env *env);
 
 //сheck cmd and files
 char	**get_path(char **envp);
@@ -69,5 +68,6 @@ char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split1(char *str, int flag);
 char	**copy_tab(char **tab);
 void	ft_putstr_err(char *str);
+char *from_tab_to_line(char **tab);
 
 #endif
