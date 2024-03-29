@@ -7,7 +7,8 @@ char *no_null()
 	str = malloc(sizeof(char) * 2);
 	if(!str)
 		return (NULL);
-	str[0] = 28;
+	str[0] = 'X';
+	str[1] = '\0';
 	return (str);
 }
 
@@ -36,7 +37,7 @@ int delimiter_nb(char *str)
 
 	while(str[i])
 	{
-		if(str[i] == '$' || is_special(str[i]) || str[i] == 30)
+		if(str[i] == '$' || (is_special(str[i])) || str[i] == 30)
 			nb++;
 		if(str[i] == '$' && str[i + 1] && is_digit(str[i + 1]))
 			nb++;
@@ -62,22 +63,21 @@ char *temp_tokenizer(char *str)
 	{
 		if((str[i] == '$' || is_special(str[i]) || str[i] == 30) && (k + 1 < len))
 		{
-			new[k] = 28;
+			new[k] = 'X';
 			new[k + 1] = str[i];
 			k += 2;
 			i++;
 		}
-		if(str[i] == '$' && str[i + 1] && is_digit(str[i + 1]) && (k + 2 < len)) //решить проблему с тем, что пробел не сохраняется тут
+		if(str[i - 1] && str[i - 1]== '$' && is_digit(str[i]) && (k + 1 < len)) //решить проблему с тем, что пробел не сохраняется тут
 		{
-			new[k] = 28;
-			new[k + 1] = '$';
-			new[k + 2] = str[i + 1]; 
-			k += 3;
-			i += 2;
+			new[k] = str[i];
+			new[k + 1] = 'X';
+			k += 2;
+			i += 1;
 		}
 		if(str[i] == 30 && k + 1 < len)
 		{
-			new[k] = 28;
+			new[k] = 'X';
 			new[k + 1] = str[i];
 			i++;
 			k += 2;
@@ -98,12 +98,13 @@ char *expanded_token(char *str, t_list_env *env)
 {
 	char *res;
 	
-	res = NULL;
+	res = no_null();
 
 	while(env != NULL)
 	{
 		if(ft_strncmp(env->key, str, ft_strlen(str)) == 0)
 		{
+			free(res);
 			res = ft_strdup(env->value);
 			break;
 		}
@@ -114,27 +115,25 @@ char *expanded_token(char *str, t_list_env *env)
 	return (res);
 }
 
-char *replace_token(char *str, t_list_env *env)
+void replace_token(char **str, t_list_env *env)
 {
 	int i;
 	char *new;
 
 	i = 0;
-	if(str[i] != '$')
-		new = ft_strdup(str);
-	else if(str[i] == '$' && (str[i + 1] == '\0' || (str[i + 1] && (str[i + 1] == ' ' || str[i + 1] == '\t'))))
-		new = ft_strdup(str);
+	if((*str)[i] != '$')
+		new = ft_strdup((*str));
+	else if((*str)[i] == '$' && ((*str)[i + 1] == '\0' || ((*str)[i + 1] && ((*str)[i + 1] == ' ' || (*str)[i + 1] == '\t'))))
+		new = ft_strdup((*str));
 	else
 	{
-		if(str[i + 1] && is_digit(str[i + 1]))
+		if((*str)[i + 1] && is_digit((*str)[i + 1]))
 		{
 			new = no_null();
 		}
-		else if(str[i + 1] && is_alpha(str[i + 1]))
+		else if((*str)[i + 1] && is_alpha((*str)[i + 1]))
 		{
-			str++;
-			new = expanded_token(str, env);
-			str--;
+			new = expanded_token((*str) + 1, env);
 		}
 		//else if(str[i + 1] && str[i + 1] == '?')
 			//int status
@@ -143,8 +142,9 @@ char *replace_token(char *str, t_list_env *env)
 			new = no_null(); //???
 		}
 	}
+	free((*str));
+	(*str) = new;
 	// free(str);
-	return (new);
 }
 
 char *from_tab_to_line(char **tab)
@@ -171,7 +171,7 @@ char *ft_expand(char *str, t_list_env *env)
 	char *temp;
 	char **token_tab;
 	int i;
-	char **copy; //copy of token_tab
+	// char **copy; //copy of token_tab
 
 	temp = temp_tokenizer(str);
 	if(!temp)
@@ -183,20 +183,20 @@ char *ft_expand(char *str, t_list_env *env)
 	printf("before-expand tokens :\n");
 	print_tab(token_tab);
 	
-	copy = copy_tab (token_tab);
+	// copy = copy_tab (token_tab);
 
 	// printf("copy tab :\n");
 	// print_tab(copy);
 	i = 0;
-	while(copy[i] && token_tab[i]) 
+	while(token_tab[i]) 
 	{
-		copy[i] = NULL;
-		copy[i] = replace_token(token_tab[i], env);
+		replace_token(token_tab + i, env);
 		i++;
 	}
 	printf("after-expand tokens :\n");
-	print_tab(copy);
+	print_tab(token_tab);
 	temp = NULL;
-	temp = from_tab_to_line(copy);
+	temp = from_tab_to_line(token_tab);
+	printf("TEMP %s", temp);
 	return(temp);
 }

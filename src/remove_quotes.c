@@ -117,7 +117,7 @@ char *remove_quotes(char *str, t_list_env *env)
 
 	str = ft_expand(str, env);
 
-	len = new_spaces_nb(str) + ft_strlen(str) + 1; 
+	len = new_spaces_nb(str) + ft_strlen(str) + 1;
 
 	new_str = malloc(sizeof(char) * len);
 	if(!new_str)

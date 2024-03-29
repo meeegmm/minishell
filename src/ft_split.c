@@ -7,7 +7,7 @@ int	ft_is_delimiter1(char c, int flag)
 	else if (flag == 2)
 		return (c == ':');
 	else if (flag == 3)
-		return (c == 28);
+		return (c == 'X');
 	else
 		return (0);
 }
