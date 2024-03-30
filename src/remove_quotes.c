@@ -233,5 +233,8 @@ char *quotes_expand(char *str, t_list_env *env)
 	// no_single = no_quotes(spaces, 30);
 	// printf("no_single : %s\n", no_single);
 
+	free(no_double);
+	// free(str);
+
 	return(spaces);
 }
