@@ -89,7 +89,7 @@ char *quotes_ok(char *str) //faire plus court + подумать, что воз�
 		return (str);
 }
 
-int new_spaces_nb(char *str)
+int spaces_nb(char *str)
 {
 	int counter;
 	
@@ -104,7 +104,7 @@ int new_spaces_nb(char *str)
 	return (counter * 2);
 }
 
-char *remove_quotes(char *str, t_list_env *env)
+char *add_spaces(char *str)
 {
 	char *new_str;
 	int len;
@@ -115,9 +115,7 @@ char *remove_quotes(char *str, t_list_env *env)
 	if(str == NULL)
 		return (NULL);
 
-	str = ft_expand(str, env);
-
-	len = new_spaces_nb(str) + ft_strlen(str) + 1;
+	len = spaces_nb(str) + ft_strlen(str) + 1;
 
 	new_str = malloc(sizeof(char) * len);
 	if(!new_str)
@@ -127,15 +125,18 @@ char *remove_quotes(char *str, t_list_env *env)
 	{
 		if(*str == 29 || *str == 30)
 		{
-			str++;
 			while(*str && *str != 31 && i < len)
 			{
 				new_str[i] = *str;
 				str++;
 				i++;
 			}
-			if(*str)
+			if(*str && i < len)
+			{
+				new_str[i] = *str;
 				str++;
+				i++;
+			}
 		}
 		if(*str && (is_meta(&str) > 0) && (i + 2 < len))
 		{
@@ -151,20 +152,86 @@ char *remove_quotes(char *str, t_list_env *env)
 			str++;
 	}
 	new_str[i] = '\0';
-	printf("NEW_STRING : %s\n", new_str);
+	// printf("\nNEW_STRING : %s\n", new_str);
 	return (new_str);
 }
 
-// int quotes_nb(char *str) // количество пар закрытых кавычек (why do you need it now?)
-// {
-// 	int nb;
+int quotes_nb(char *str, char c)
+{
+	int nb;
 
-// 	nb = 0;
-// 	while(*str)
-// 	{
-// 		if(*str == 29 || *str == 30)
-// 			nb++;
-// 		str++;
-// 	}
-// 	return (nb);
-// }
+	nb = 0;
+	while(*str)
+	{
+		if(*str == c)
+			nb++;
+		str++;
+	}
+	return (nb * 2);
+}
+
+char *no_quotes(char *str, char c)
+{
+	char *new;
+	int i;
+	int k;
+	int len;
+	
+	i = 0;
+	k = 0;
+	len = ft_strlen(str) - quotes_nb(str, c) + 1;
+	new = malloc(sizeof(char) * len);
+	if(!new)
+		return NULL; // ??
+
+	while(str[i] && k < len)				//echo "" => ??
+	{
+		if(str[i] == c)
+		{
+			i++;
+			while(str[i] && str[i] != 31 && k < len)
+			{
+				new[k] = str[i];
+				k++;
+				i++;
+			}
+			if(str[i] && str[i] == 31)
+				i++;
+		}
+		if(str[i] && k < len)
+		{
+			new[k] = str[i];
+			k++;
+			i++;
+		}
+	}
+	new[k] = '\0';
+	return (new);
+}
+
+
+char *quotes_expand(char *str, t_list_env *env)
+{
+	char *first_expand;
+	char *no_double; // ??
+	char *spaces;
+	// char *no_single;
+
+
+	first_expand = ft_expand(str, env); //???
+	printf("first_expand : %s\n", first_expand);
+
+	no_double = no_quotes(first_expand, 29);
+	printf("no_double : %s\n", no_double);
+
+	spaces = add_spaces(no_double);
+	printf("spaces : %s\n", spaces);
+
+	spaces = ft_expand(spaces, env);
+	printf("afer expand : %s\n", spaces);
+
+	// no_single = no_quotes(spaces, 30);
+	// printf("no_single : %s\n", no_single);
+
+	return(spaces);
+}

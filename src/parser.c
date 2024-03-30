@@ -49,7 +49,7 @@ t_group *parser(char *input, t_list_env *env)
 
 	// printf("expanded line: %s\n", line); //move after quotes check + check the case when no expand needed + check the case when not founded
 
-	line = remove_quotes(input, env);
+	line = quotes_expand(input, env);
 	if(line == NULL)
 	{
 		return (invalid_group(2)); //malloc pb or unclosed quotes
