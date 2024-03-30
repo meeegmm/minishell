@@ -212,16 +212,16 @@ char *no_quotes(char *str, char c)
 
 char *quotes_expand(char *str, t_list_env *env)
 {
-	char *first_expand;
+	// char *first_expand;
 	char *no_double; // ??
 	char *spaces;
 	// char *no_single;
 
 
-	first_expand = ft_expand(str, env); //???
-	printf("first_expand : %s\n", first_expand);
+	// first_expand = ft_expand(str, env); //???
+	// printf("first_expand : %s\n", first_expand);
 
-	no_double = no_quotes(first_expand, 29);
+	no_double = no_quotes(str, 29);
 	printf("no_double : %s\n", no_double);
 
 	spaces = add_spaces(no_double);
