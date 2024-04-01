@@ -54,8 +54,6 @@ char	*clean_cmd(char *str)
 	return (str);
 }
 
-#include "../../inc/parsing.h"
-
 t_group *parser(char *line, char **envp)
 {
 	char **token_tab;

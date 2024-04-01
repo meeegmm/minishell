@@ -15,6 +15,17 @@
 //check flag fail, if 1 = fail
 //new_envp must not be in main!
 
+// typedef struct	s_exec
+// {
+// 	t_group		*group;
+// 	t_list_env	*env_lst; //**?
+// 	int			infile;
+// 	int			outfile;
+// 	int			pfd_in;
+// 	int			pfd_out;
+// 	pid_t		pid;
+// }				t_exec;
+
 ////////////////// BUILT_INS //////////////////
 int			builtin_echo(t_group *group);
 int			builtin_pwd(t_group *group);
@@ -22,15 +33,23 @@ int			builtin_cd(t_group *group, char *path, t_list_env *env_lst);
 int			builtin_env(t_group *group, t_list_env *env_lst);
 int			builtin_export(t_group *group, t_list_env *env_lst);
 int			builtin_unset(t_group *group, t_list_env *env_lst);
-void		ft_builtins(t_group *group, t_list_env *env_lst);
 
 ////////////////// EXEC //////////////////
-void		simple_cmd(t_group *group, t_list_env *env_lst, char **envp);
-void		ft_s_exec(t_group *group, char **envp);
-void		ft_r_exec(t_group *group, char **envp);
+t_exec		init_exec(void);
+void		ft_builtins(t_group *group, t_list_env *env_lst);
+void		ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
+void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
+void		ft_exec(t_exec *exec, t_group *group, t_list_env *env_ls);
+void		minish(t_exec *exec, t_group *group);
+
+////////////////// REDIRECTION //////////////////
+void			ft_pipe(t_exec *exec);
 
 ////////////////// REDIRECTION //////////////////
 // void	ft_redir(t_tokens *token_lst, t_group *group, int *pipe_fd, char **envp);
+void		redir_in(t_exec *exec, t_group *group);
+void		redir_out(t_exec *exec, t_group *group);
+void		append_out(t_exec *exec, t_group *group);
 
 ////////////////// SIGNALS //////////////////
 
@@ -52,8 +71,13 @@ void		remove_var(t_list_env **env_lst);
 
 //exec
 char		**split_cmds(char *line);
+void		init_fds(t_exec *exec);
+void		close_fds(t_exec *exec);
 
-//redirection  (for now = PIPEX)
+//pipes
+void		ft_pipes(t_group *group, int *pipe_fd);
+
+//redirection
 int			open_file(char *file, int std_no);
 
 //signals

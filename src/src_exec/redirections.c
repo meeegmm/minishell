@@ -6,18 +6,38 @@
 //do it for all redir
 //exec
 
-// void	ft_r_exec(t_tokens *token_lst, t_group *group, char **envp)
-// {
-// 	int	pipe_fd[2];
-// 	int	pid;
+void	redir_in(t_exec *exec, t_group *group)
+{
+	close(exec->infile);
+	exec->infile = open(group->redir_in, O_RDONLY | S_IRWXU);
+	if (exec->infile == -1)
+	{
+		//errors
+		return ;
+	}
+	dup2(exec->infile, STDIN_FILENO);
+}
 
-// 	if (pipe(pipe_fd) == -1)
-// 		exit (-1);
-// 	pipe_fd[0] = open_file(token_lst->next->value, 0);
-// 	pipe_fd[1] = open_file(token_lst->next->value, 1);
-// 	pid = fork();
-// 	if (pid == -1)
-// 		exit(-1);
-// 	if (pid == 0)
-// 		ft_redir(token_lst, group, pipe_fd, envp);
-// }
+void	redir_out(t_exec *exec, t_group *group)
+{
+	close(exec->outfile);
+	exec->outfile = open(group->redir_out, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	if (exec->outfile == -1)
+	{
+		//errors
+		return ;
+	}
+	dup2(exec->outfile, STDOUT_FILENO);
+}
+
+void	append_out(t_exec *exec, t_group *group)
+{
+	close(exec->outfile);
+	exec->outfile = open(group->app_out, O_APPEND | S_IRWXU);
+	if (exec->outfile == -1)
+	{
+		//errors
+		return ;
+	}
+	dup2(exec->outfile, STDOUT_FILENO);
+}

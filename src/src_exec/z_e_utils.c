@@ -86,15 +86,15 @@ void	mod_var(t_list_env **env_lst, char *var)
 	// free_envp_list(new);
 }
 
-
+//handle = + void?
 t_list_env	*remove_first(t_list_env **env_lst)
 {
 	t_list_env	*tmp;
 
-	tmp = (*env_lst)->next;
-	free((*env_lst)->key);
-	free((*env_lst)->value);
-	(*env_lst) = tmp;
+	tmp = *env_lst;
+	(*env_lst) = (*env_lst)->next;
+	free(tmp->key);
+	free(tmp->value);
 	return(*env_lst);
 }
 

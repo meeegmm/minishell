@@ -89,4 +89,3 @@ void	ft_lstadd_back(t_list_env **lst, t_list_env *new)
 			*lst = new;
 	}
 }
-

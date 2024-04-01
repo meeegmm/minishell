@@ -1,14 +1,34 @@
 #include "../../inc/exec.h"
 
-int	open_file(char *file, int std_no)
+void	init_fds(t_exec *exec)
 {
-	int	opnd_fd;
+	exec->infile = -1;
+	exec->outfile = -1;
+	exec->pfd_in = -1;
+	exec->pfd_out = -1;
+	exec->pid = -1;
+}
 
-	if (std_no == 0)
-		opnd_fd = open(file, O_RDONLY, 0644);
-	if (std_no == 1)
-		opnd_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (opnd_fd == -1)
-		exit(0);
-	return (opnd_fd);
+void	close_fds(t_exec *exec)
+{
+	if (exec->infile > 0)
+		close(exec->infile);
+	if (exec->outfile > 0)
+		close(exec->outfile);
+	if (exec->pfd_in > 0)
+		close(exec->pfd_in);
+	if (exec->pfd_out > 0)
+		close(exec->pfd_out);
+}
+
+t_exec	init_exec(void)
+{
+	t_exec	exec;
+
+	exec.infile = -1;
+	exec.outfile = -1;
+	exec.pfd_in = -1;
+	exec.pfd_out = -1;
+	exec.pid = -1;
+	return (exec);
 }
