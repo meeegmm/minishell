@@ -24,13 +24,16 @@ int	is_exit(char *line)
 // 	}
 // }
 
+//write on wrong fd?
+//background execution not showing
+//should not exit when \n
 int	main(int ac, char **av, char **envp)
 {
 	char		**new_envp;
 	t_list_env	*env_lst;
 	char		*line;
 	t_group 	*group;
-	t_group 	*start;
+	// t_group 	*start;
 	t_exec		exec;
 
 	(void)ac;
@@ -38,7 +41,8 @@ int	main(int ac, char **av, char **envp)
 	//obtenir t_env_list envp + changer $SHLVL
 	new_envp = set_envp(envp);
 	env_lst = get_list(new_envp);
-	exec = init_exec();
+	init_exec(&exec);
+	init_std(&exec);
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
@@ -51,7 +55,7 @@ int	main(int ac, char **av, char **envp)
 				free(line);
 			exit(EXIT_FAILURE); //to think abt builtin exit application here
 		}
-		start = group;
+		// start = group;
 		//change so recursive ft_exec(exec, group->next)
 		while(group != NULL) //on parcours la liste de groupes
 		{
@@ -59,25 +63,25 @@ int	main(int ac, char **av, char **envp)
 			{
 				//changer global var en fonction de flag_fail
 				line = NULL;
-				break; 
+				break;
 			}
 			else
 			{
-				if (group->next != NULL)
-				{
-					ft_pipe(&exec);
-				}
+				// if (group->next != NULL)
+				// 	ft_pipe(&exec);
 				ft_exec(&exec, group, env_lst);
+				// waitpid(exec.pid, &exec.pid, 0);
+				reset_std(&exec);
+				close_fds(&exec);
+				init_exec(&exec);
 				// simple_cmd(&exec, group, env_lst);
-				line = NULL;
 				//changer global var en fonction de flag_fail
 			}
 			group = group->next;
+			line = NULL;
 		}
-		close_fds(&exec);
-		init_fds(&exec);
-		free_group_list(start); //FREE
 		line = readline(">$ ");
+		// free_group_list(start); //FREE
 		// if(line)
 		// 	free(line); //do we really need it? (recheck with no other leaks)
 	}

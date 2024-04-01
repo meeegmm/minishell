@@ -1,6 +1,7 @@
 #include "../../inc/exec.h"
 #include "../../inc/parsing.h"
 
+//* for pid?
 void		ft_pipe(t_exec *exec)
 {
 	pid_t	pid;

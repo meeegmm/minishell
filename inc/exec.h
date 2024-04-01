@@ -10,15 +10,16 @@
 
 //TODO:
 //redir struct
-//exec struct
+//buuiltin struct
 //define error messages + code (exit status)
 //check flag fail, if 1 = fail
-//new_envp must not be in main!
 
 // typedef struct	s_exec
 // {
 // 	t_group		*group;
-// 	t_list_env	*env_lst; //**?
+// 	t_list_env	*env_lst;
+//	int			std_in;
+//	int			std_out;
 // 	int			infile;
 // 	int			outfile;
 // 	int			pfd_in;
@@ -35,7 +36,6 @@ int			builtin_export(t_group *group, t_list_env *env_lst);
 int			builtin_unset(t_group *group, t_list_env *env_lst);
 
 ////////////////// EXEC //////////////////
-t_exec		init_exec(void);
 void		ft_builtins(t_group *group, t_list_env *env_lst);
 void		ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
 void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
@@ -43,10 +43,9 @@ void		ft_exec(t_exec *exec, t_group *group, t_list_env *env_ls);
 void		minish(t_exec *exec, t_group *group);
 
 ////////////////// REDIRECTION //////////////////
-void			ft_pipe(t_exec *exec);
+void		ft_pipe(t_exec *exec);
 
 ////////////////// REDIRECTION //////////////////
-// void	ft_redir(t_tokens *token_lst, t_group *group, int *pipe_fd, char **envp);
 void		redir_in(t_exec *exec, t_group *group);
 void		redir_out(t_exec *exec, t_group *group);
 void		append_out(t_exec *exec, t_group *group);
@@ -71,7 +70,9 @@ void		remove_var(t_list_env **env_lst);
 
 //exec
 char		**split_cmds(char *line);
-void		init_fds(t_exec *exec);
+void		init_std(t_exec *exec);
+void		reset_std(t_exec *exec);
+void		init_exec(t_exec *exec);
 void		close_fds(t_exec *exec);
 
 //pipes

@@ -5,10 +5,7 @@
 //		add checks: think about quotes
 //		handle args
 //		1 struct for builtin?
-//		pass by tmp for each?
-//		error function (define values in .h)
 //		error returns: format = 2 / path = 3 / fail = 4
-//		join env + export + unset?
 
 //__echo__
 //function is_option?
