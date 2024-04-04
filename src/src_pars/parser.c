@@ -68,7 +68,7 @@ t_group *parser(char *line, char **envp)
 	if(line == NULL)
 		return (invalid_group(1)); //malloc pb or unclosed quotes
 
-	printf("no quotes + expand: %s\n", line); //do expand
+	// printf("no quotes + expand: %s\n", line); //do expand
 
 	token_tab = ft_split1(line, 1);
 	if(token_tab == NULL)
@@ -84,9 +84,9 @@ t_group *parser(char *line, char **envp)
 		return (NULL); //malloc pb
 	else
 	{
-		printf("Token list:\n");
-		print_token_list(token_list);
-		printf("\n");
+		// printf("Token list:\n");
+		// print_token_list(token_list);
+		// printf("\n");
 		token_list = start;
 		group = get_group_list(token_list, envp);
 		// print_group(group); //shoudn't work for non-existing cmd

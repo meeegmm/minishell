@@ -226,21 +226,3 @@ int	builtin_unset(t_group *group, t_list_env *env_lst)
 //end the process
 //process then only contain return status
 //go to parent or end shell
-
-void	ft_builtins(t_group *group, t_list_env *env_lst)
-{
-	if (ft_strncmp(group->cmd[0], "cd", 2) == 0)
-		builtin_cd(group, group->cmd[1], env_lst);
-	else if (ft_strncmp(group->cmd[0], "env", 3) == 0)
-		builtin_env(group, env_lst);
-	else if (ft_strncmp(group->cmd[0], "pwd", 3) == 0)
-		builtin_pwd(group);
-	else if (ft_strncmp(group->cmd[0], "echo", 4) == 0)
-		builtin_echo(group);
-	else if (ft_strncmp(group->cmd[0], "unset", 5) == 0)
-		builtin_unset(group, env_lst);
-	else if (ft_strncmp(group->cmd[0], "export", 6) == 0)
-		builtin_export(group, env_lst);
-	else
-		return ;
-}

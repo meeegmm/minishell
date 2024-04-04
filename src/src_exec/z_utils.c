@@ -64,6 +64,19 @@ int	tab_size(char **tab)
 	return (i);
 }
 
+int	group_size(t_group *group)
+{
+	int	size;
+
+	size = 0;
+	while (group != NULL)
+	{
+		group = group->next;
+		size += 1;
+	}
+	return (size);
+}
+
 t_list_env	*ft_lstlast(t_list_env *lst)
 {
 	if (lst)

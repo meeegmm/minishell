@@ -2,6 +2,7 @@
 #include "../../inc/parsing.h"
 
 //env when env -i
+//SHLVL += 1
 t_list_env	*env_lst_sos(void)
 {
 	char		*buf;
@@ -45,14 +46,9 @@ t_list_env	*check_var(t_list_env **env_lst, char *var)
 {
 	while ((*env_lst)->next != NULL)
 	{
-		printf("check key = %s\n", (*env_lst)->key);
+		// printf("check key = %s\n", (*env_lst)->key);
 		if (ft_strncmp((*env_lst)->key, get_key(var), ft_strlen(var)) == 0)
-		{
-				// printf("!!!!!\n");
-				// print_env_list(*env_lst);
-				// printf("!!!!!\n");
 				return (*env_lst);
-		}
 		else
 			*env_lst = (*env_lst)->next;
 	}
@@ -77,9 +73,6 @@ void	mod_var(t_list_env **env_lst, char *var)
 	}
 	else
 	{
-		printf("!!!!!\n");
-		print_env_list(*env_lst);
-		printf("!!!!!\n");
 		free((*env_lst)->value);
 		(*env_lst)->value = ft_strdup(get_value(var));
 	}

@@ -13,19 +13,19 @@ int	is_exit(char *line)
 		return (1);
 }
 
-// void	minish(t_exec *exec, t_group *group)
+// void	minish(t_exec *exec, t_group *group, t_list_env *env_lst)
 // {
+	//add checks
 // 	while (group->flag_fail == 0)
 // 	{
-// 		init_fds(exec);
-// 		ft_exec(exec, group);
-// 		close_fds(exec);
-// 		init_fds(exec);
+// 		ft_exec(&exec, group, env_lst);
+// 		reset_std(&exec);
+// 		close_fds(&exec);
+// 		init_exec(&exec);
 // 	}
+	//get signal
 // }
 
-//write on wrong fd?
-//background execution not showing
 //should not exit when \n
 int	main(int ac, char **av, char **envp)
 {
@@ -56,35 +56,31 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_FAILURE); //to think abt builtin exit application here
 		}
 		// start = group;
-		//change so recursive ft_exec(exec, group->next)
-		while(group != NULL) //on parcours la liste de groupes
+		//supposed to be in while
+		if(group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL)) //if syntax pb or the last cmd is not found
 		{
-			if(group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL)) //if syntax pb or the last cmd is not found
-			{
-				//changer global var en fonction de flag_fail
-				line = NULL;
-				break;
-			}
-			else
-			{
-				// if (group->next != NULL)
-				// 	ft_pipe(&exec);
-				ft_exec(&exec, group, env_lst);
-				// waitpid(exec.pid, &exec.pid, 0);
-				reset_std(&exec);
-				close_fds(&exec);
-				init_exec(&exec);
-				// simple_cmd(&exec, group, env_lst);
-				//changer global var en fonction de flag_fail
-			}
-			group = group->next;
+			//changer global var en fonction de flag_fail
 			line = NULL;
+			break;
 		}
+		else
+		{
+		// 	while(group != NULL) //on parcours la liste de groupes
+		// 	{
+			ft_exec(&exec, group, env_lst);
+			reset_std(&exec);
+			close_fds(&exec);
+			init_exec(&exec);
+			// waitpid(-1, NULL, 0);
+			line = NULL;
+				//changer global var en fonction de flag_fail
+		}
+		// group = group->next;
+		free_group_list(group); //FREE
 		line = readline(">$ ");
-		// free_group_list(start); //FREE
 		// if(line)
 		// 	free(line); //do we really need it? (recheck with no other leaks)
 	}
-	return 0;
+	return (0);
 }
 

@@ -40,10 +40,7 @@ void		ft_builtins(t_group *group, t_list_env *env_lst);
 void		ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
 void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
 void		ft_exec(t_exec *exec, t_group *group, t_list_env *env_ls);
-void		minish(t_exec *exec, t_group *group);
-
-////////////////// REDIRECTION //////////////////
-void		ft_pipe(t_exec *exec);
+void		minish(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 ////////////////// REDIRECTION //////////////////
 void		redir_in(t_exec *exec, t_group *group);
@@ -76,7 +73,7 @@ void		init_exec(t_exec *exec);
 void		close_fds(t_exec *exec);
 
 //pipes
-void		ft_pipes(t_group *group, int *pipe_fd);
+void		ft_pipe(t_exec *exec);
 
 //redirection
 int			open_file(char *file, int std_no);
@@ -91,5 +88,6 @@ int			is_char(char *str, char c);
 int			tab_size(char **tab);
 t_list_env	*ft_lstlast(t_list_env *lst);
 void		ft_lstadd_back(t_list_env **lst, t_list_env *new);
+int			group_size(t_group *group);
 
 #endif
