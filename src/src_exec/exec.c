@@ -61,5 +61,5 @@ void	ft_exec(t_exec *exec, t_group *group, t_list_env *env_lst)
 		ft_pipe(exec);
 		ft_exec(exec, group->next, env_lst);
 	}
-	simple_cmd(exec, group, env_lst);	
+	simple_cmd(exec, group, env_lst);
 }

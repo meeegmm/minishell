@@ -14,6 +14,7 @@ void	redir_in(t_exec *exec, t_group *group)
 	if (exec->std_in == -1)
 	{
 		//SIG
+		perror("open");
 		return ;
 	}
 	dup2(exec->std_in, STDIN_FILENO);
@@ -21,12 +22,13 @@ void	redir_in(t_exec *exec, t_group *group)
 
 void	redir_out(t_exec *exec, t_group *group)
 {
-	if (exec->std_in > 0)
+	if (exec->std_out > 0)
 		close(exec->std_out);
 	exec->std_out = open(group->redir_out, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	if (exec->std_out == -1)
 	{
 		//SIG
+		perror("open");
 		return ;
 	}
 	dup2(exec->std_out, STDOUT_FILENO);
@@ -34,7 +36,7 @@ void	redir_out(t_exec *exec, t_group *group)
 
 void	append_out(t_exec *exec, t_group *group)
 {
-	if (exec->std_in > 0)
+	if (exec->std_out > 0)
 		close(exec->std_out);
 	exec->std_out = open(group->app_out, O_APPEND | S_IRWXU);
 	if (exec->std_out == -1)

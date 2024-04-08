@@ -24,9 +24,9 @@ void	init_exec(t_exec *exec)
 void	close_fds(t_exec *exec)
 {
 	if (exec->std_in > 0)
-		close(exec->infile);
+		close(exec->std_in);
 	if (exec->std_out > 0)
-		close(exec->outfile);
+		close(exec->std_out);
 	if (exec->pfd_in > 0)
 		close(exec->pfd_in);
 	if (exec->pfd_out > 0)
