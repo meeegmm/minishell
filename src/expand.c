@@ -188,18 +188,13 @@ char *ft_expand(char *str, t_list_env *env)
 	char *temp;
 	char **token_tab;
 	int i;
-	// char **copy; //copy of token_tab
 
 	temp = temp_tokenizer(str);
-	// printf("\nTEMP :%s\n", temp);
 	if(!temp)
 		return (NULL);
 	token_tab = ft_split1(temp, 3);
 	if(!token_tab)
 		return (NULL);
-
-	// printf("before-expand tokens :\n");
-	// print_tab(token_tab);
 	
 	i = 0;
 	while(token_tab[i]) 
@@ -207,10 +202,7 @@ char *ft_expand(char *str, t_list_env *env)
 		replace_token(token_tab + i, env);
 		i++;
 	}
-	// printf("after-expand tokens :\n");
-	// print_tab(token_tab);
 	temp = NULL;
 	temp = from_tab_to_line(token_tab);
-	// printf("TEMP %s", temp);
 	return(temp);
 }
