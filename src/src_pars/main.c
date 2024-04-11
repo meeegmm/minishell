@@ -27,6 +27,7 @@ int	is_exit(char *line)
 // }
 
 //should not exit when \n
+//add print group
 int	main(int ac, char **av, char **envp)
 {
 	char		**new_envp;

@@ -19,7 +19,7 @@
 // 	t_group		*group;
 // 	t_list_env	*env_lst;
 //	int			std_in;
-//	int			std_out;
+//	int			fd_out;
 // 	int			infile;
 // 	int			outfile;
 // 	int			pfd_in;

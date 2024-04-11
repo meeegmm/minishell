@@ -35,6 +35,7 @@ int	builtin_echo(t_group *group)
 			else
 				break ;
 		}
+		//write on exec->fd_out?
 		while (group->cmd[i])
 		{
 			ft_putstr(group->cmd[i]);

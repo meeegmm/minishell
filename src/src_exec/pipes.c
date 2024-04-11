@@ -1,7 +1,7 @@
 #include "../../inc/exec.h"
 #include "../../inc/parsing.h"
 
-//* for pid?
+//doesn't close well when pipe
 void		ft_pipe(t_exec *exec)
 {
 	pid_t	pid;
@@ -15,6 +15,7 @@ void		ft_pipe(t_exec *exec)
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[0]);
 		exec->pfd_in = pipe_fd[0];
 		exec->pid = -1;
 		return ;
@@ -23,6 +24,7 @@ void		ft_pipe(t_exec *exec)
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);
 		exec->pfd_out = pipe_fd[1];
 		exec->pid = pid;
 		return ;
