@@ -38,6 +38,9 @@ void print_token_list(t_tokens *list);
 int    is_built(char *str);
 int only_spaces(char *str);
 
+//expand
+char *temp_tokenizer(char *str);
+
 //token_list
 t_tokens *lexer(char **token_tab);
 char *outfile_access(t_tokens *list, char *str);
@@ -68,6 +71,9 @@ char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split1(char *str, int flag);
 char	**copy_tab(char **tab);
 void	ft_putstr_err(char *str);
-char *from_tab_to_line(char **tab);
+char	*from_tab_to_line(char **tab);
+int		is_digit(char c);
+int		is_alpha(char c);
+
 
 #endif

@@ -1,5 +1,15 @@
 #include "../inc/parsing.h"
 
+int is_alpha(char c)
+{
+    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
+
+int is_digit(char c)
+{
+    return (c >= '1' && c <= '9');
+}
+
 int ft_strlen(const char *s)
 {
 	int i = 0;
