@@ -117,7 +117,7 @@ char *add_spaces(char *str)
 
 	len = spaces_nb(str) + ft_strlen(str) + 1;
 
-	new_str = malloc(sizeof(char) * len);
+	new_str = malloc(sizeof(char) * (len + 1));
 	if(!new_str)
 		return (NULL);
 

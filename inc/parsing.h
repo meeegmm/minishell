@@ -42,6 +42,7 @@ int only_spaces(char *str);
 char *temp_tokenizer(char *str);
 
 //token_list
+int syntax_pb(t_tokens *list);
 t_tokens *lexer(char **token_tab);
 char *outfile_access(t_tokens *list, char *str);
 char *infile_access(t_tokens *list, char *str);

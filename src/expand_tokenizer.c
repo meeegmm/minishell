@@ -42,7 +42,7 @@ char *temp_tokenizer(char *str)
 	{
 		if(str[i] == '$' && str[i + 1] && (str[i + 1] == 30 || str[i + 1] == 29))
 			i++;
-		if(str[i] == 30)
+		if(str[i] && str[i] == 30)
 		{
 			new[k] = 28;
 			k++;
@@ -59,21 +59,21 @@ char *temp_tokenizer(char *str)
 				i++;
 			}
 		}
-		else if((str[i] == '$' || is_special(str[i])) && (k + 1 < len))
+		else if(str[i] && (str[i] == '$' || is_special(str[i])) && (k + 1 < len))
 		{
 			new[k] = 28;
 			new[k + 1] = str[i];
 			k += 2;
 			i++;
 		}
-		else if(str[i - 1] && str[i - 1]== '$' && is_digit(str[i]) && (k + 1 < len))
+		else if(i > 0 && str[i - 1] && str[i] && str[i - 1]== '$' && is_digit(str[i]) && (k + 1 < len))
 		{
 			new[k] = str[i];
 			new[k + 1] = 28;
 			k += 2;
 			i++;
 		}
-		else if(str[i - 1] && str[i - 1]== 31 && str[i] && (k + 1 < len))
+		else if(i > 0 && str[i - 1] && str[i - 1] == 31 && str[i] && (k + 1 < len))
 		{
 			new[k] = 28;
 			new[k + 1] = str[i];
@@ -88,6 +88,7 @@ char *temp_tokenizer(char *str)
 		}
 	}
 	new[k] = '\0';
-	// free(str);
+	if(str && *str)
+		free(str);
 	return (new);
 }

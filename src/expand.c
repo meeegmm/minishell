@@ -81,6 +81,7 @@ char *from_tab_to_line(char **tab)
 		i++;
 	}
 	free(temp);
+	free_tab(tab);
 	return (res);
 }
 	
