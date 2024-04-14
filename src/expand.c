@@ -24,7 +24,7 @@ int is_digit(char c)
 
 int is_special(char c)
 {
-	return (!is_digit(c) && !is_alpha(c) && c != '*' && c != '#' && c != '?');
+	return (!is_digit(c) && !is_alpha(c) && c != '*' && c != '#' && c != '?'); //?? remove this : c != '*' && c != '#'
 }
 
 int delimiter_nb(char *str)
@@ -61,7 +61,9 @@ char *temp_tokenizer(char *str)
 		return (NULL);
 	while(k < len && str[i])
 	{
-		if(str[i] == 30) // || str[i] == 29
+		if(str[i] == '$' && str[i + 1] && (str[i + 1] == 30 || str[i + 1] == 29))
+			i++;
+		if(str[i] == 30)
 		{
 			new[k] = 28;
 			k++;
@@ -138,7 +140,7 @@ void replace_token(char **str, t_list_env *env)
 	char *new;
 
 	i = 0;
-	if((*str)[i] != '$') // && (*str)[i] != 29
+	if((*str)[i] != '$')
 		new = ft_strdup((*str));
 	else if((*str)[i] == '$' && (*str)[i + 1] == '\0')
 		new = ft_strdup((*str));

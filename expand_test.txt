@@ -1,15 +1,43 @@
+Does work :
+
 echo 123"456$USERlj"ig => 123456ig
 
 echo '$USER' => $USER
 
 echo 123"$USER"$1USER'$USER='123$ => 123abelosevUSER$USER=123$
 
+abelosev@paul-f3Ar3s3:~/minishell$ echo $'USER'
+USER
+abelosev@paul-f3Ar3s3:~/minishell$ echo $"USER"
+USER
+abelosev@paul-f3Ar3s3:~/minishell$ echo 123$'USER'
+123USER
+abelosev@paul-f3Ar3s3:~/minishell$ echo 123$
+123$
+abelosev@paul-f3Ar3s3:~/minishell$ echo 123$23
+1233
+abelosev@paul-f3Ar3s3:~/minishell$ echo $
+$
+abelosev@paul-f3Ar3s3:~/minishell$ echo $:$=$
+$:$=$
+abelosev@paul-f3Ar3s3:~/minishell$ echo $:$=$''
+$:$=
+abelosev@paul-f3Ar3s3:~/minishell$ echo $:$=$""
+$:$=
+abelosev@paul-f3Ar3s3:~/minishell$ echo $"":$=$""
+:$=
+abelosev@paul-f3Ar3s3:~/minishell$ echo $"":$""=$""
+:=
 
-Doesn't work : 
+abelosev@paul-f3Ar3s3:~/minishell$ echo $"$"USER""
+$USER
+abelosev@paul-f3Ar3s3:~/minishell$ echo $"$'USER'"
+$'USER'
+abelosev@paul-f3Ar3s3:~/minishell$ echo $'$'USER''
+$USER
 
-echo $'USER'
 
-echo $"USER"
+To fix :
 
 
 >$ echo 123 >>file1
