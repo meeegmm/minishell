@@ -1,0 +1,20 @@
+>$ echo $USER
+no_double : echo $USER
+spaces : echo $USER
+afer expand : echo abelosev
+no quotes + expand: echo abelosev
+Token list:
+0=echo
+0=abelosev
+
+==894157== Conditional jump or move depends on uninitialised value(s)
+==894157==    at 0x40236C: free_group_list (free.c:33)
+==894157==    by 0x403024: main (main.c:64)
+==894157==  Uninitialised value was created by a heap allocation
+==894157==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==894157==    by 0x403214: invalid_group (outils_group.c:7)
+==894157==    by 0x402C5E: get_group (group_list.c:105)
+==894157==    by 0x402DAC: get_group_list (group_list.c:141)
+==894157==    by 0x403DBA: parser (parser.c:49)
+==894157==    by 0x402F7C: main (main.c:34)
+==894157== 

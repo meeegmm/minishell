@@ -30,12 +30,10 @@ void free_group_list(t_group *group)
 			free(group->redir_in);
 		if(group->redir_out)
 			free(group->redir_out);
-		//if(group->app_in)
-		///
-		// if(group->next)
-		// 	free(group->next);
+		if(group->app_in)
+			free(group->app_in);
 		free(group);
-		group = tmp; 				//why dont't we free the starting node? 
+		group = tmp;
 	}
 }
 
@@ -47,9 +45,7 @@ void free_tokens(t_tokens *list)
 		tmp = list->next;
 		if(list->value)
 			free(list->value);
-		// if(list->next)
-		// 	free(list->next);
-		free(list);				//should we have it here?
+		free(list);
 		list = tmp;
 	}
 }
@@ -64,8 +60,7 @@ void free_envp_list(t_list_env *list)
 			free(list->key);
 		if(list->value)
 			free(list->value);
-		// if(list->next)
-		// 	free(list->next);
+		free(list);
 		list = tmp;
 	}
 }

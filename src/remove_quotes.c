@@ -214,7 +214,7 @@ char *quotes_expand(char *str, t_list_env *env)
 {
 	char *no_double;
 	char *spaces;
-	char *tmp;
+	char *res;
 
 	no_double = no_quotes(str, 29);
 	printf("no_double : %s\n", no_double);
@@ -222,15 +222,10 @@ char *quotes_expand(char *str, t_list_env *env)
 	spaces = add_spaces(no_double);
 	printf("spaces : %s\n", spaces);
 
-	tmp = ft_expand(spaces, env);
-	free(spaces);
-	printf("afer expand : %s\n", tmp);
-
-	// no_single = no_quotes(spaces, 30);
-	// printf("no_single : %s\n", no_single);
+	res = ft_expand(spaces, env);
+	printf("afer expand : %s\n", res);
 
 	free(no_double);
-	// free(str);
-
-	return(tmp);
+	free(spaces);
+	return(res);
 }

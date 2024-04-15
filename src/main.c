@@ -25,7 +25,6 @@ int	main(int ac, char **av, char **envp)
 	//obtenir t_env_list envp + changer $SHLVL
 	env = get_list(envp);
 
-
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
@@ -38,6 +37,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			if(line)
 				free(line);
+			free_envp_list(env);
 			exit(EXIT_FAILURE); //to think abt builtin exit application here
 		}
 		
@@ -67,5 +67,5 @@ int	main(int ac, char **av, char **envp)
 		line = readline(">$ ");
 	}
 	free_envp_list(env);
-	return 0;
+	return (0);
 }

@@ -29,7 +29,6 @@ char *expanded_token(char *str, t_list_env *env)
 		else
 			env = env->next;
 	}
-	// free(str);
 	return (res);
 }
 
@@ -57,7 +56,7 @@ void replace_token(char **str, t_list_env *env)
 			//int status
 		else
 		{
-			new = no_null(); //???
+			new = no_null();
 		}
 	}
 	free((*str));
@@ -78,12 +77,6 @@ char *from_tab_to_line(char **tab)
 	while(tab[i])
 	{
 		if(ft_strncmp(tab[i], temp, ft_strlen(tab[i]) != 0))
-		// {
-		// 	t = ft_strjoin(res, tab[i]);
-		// 	free(res);
-		// 	res = t;
-		// }
-
 		{
 			t = res;
 			res = ft_strjoin(t, tab[i]);
@@ -101,6 +94,7 @@ char *ft_expand(char *str, t_list_env *env)
 {
 	char *temp;
 	char **token_tab;
+	char *new;
 	int i;
 
 	temp = temp_tokenizer(str);
@@ -116,7 +110,7 @@ char *ft_expand(char *str, t_list_env *env)
 		replace_token(token_tab + i, env);
 		i++;
 	}
-	temp = NULL;
-	temp = from_tab_to_line(token_tab);
-	return(temp);
+	free(temp);
+	new = from_tab_to_line(token_tab);
+	return(new);
 }

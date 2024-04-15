@@ -11,6 +11,8 @@ t_group *parser(char *input, t_list_env *env)
 		return(invalid_group(2));
 
 	line = quotes_expand(input, env);
+	// free(input);
+
 	if(line == NULL)
 	{
 		return (invalid_group(2)); //malloc pb or unclosed quotes
