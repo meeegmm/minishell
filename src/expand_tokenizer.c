@@ -88,7 +88,5 @@ char *temp_tokenizer(char *str)
 		}
 	}
 	new[k] = '\0';
-	// if(str && *str)
-	// 	free(str);
 	return (new);
 }

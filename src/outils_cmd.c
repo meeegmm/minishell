@@ -33,23 +33,33 @@ int    is_built(char *str)
     return (0);
 }
 
-// char **get_tab(t_tokens *list)
-// {
-// 	char **tab;
-// 	int i;
-// 	int len;
+char **get_cmd_tab(t_tokens *list)
+{
+	int len;
+	int i;
+	t_tokens *start;
+    char **cmd_tab;
 
-// 	i = 0;
-// 	len = get_tokens_nb(list) + 1;
-// 	tab = malloc(sizeof(char*) * len);
-// 	if(!tab)
-// 		return (NULL);
-// 	while(i < len && list->type == 0)
-// 	{
-// 		tab[i] = ft_strdup(list->value);
-// 		list = list->next;
-// 		i++;
-// 	}
-// 	tab[i] = NULL;
-// 	return (tab);
-// }
+	len = 0;
+	i = 0;
+	while(list != NULL && list->next != 0 && list->type != 0 && list->next->type == 0)
+		list = list->next->next;
+	start = list;
+	while (list != NULL && list->type == 0) //найти кол-во элементов таблицы cmd
+	{
+		len++;
+		list = list->next;
+	}
+	cmd_tab = malloc(sizeof(char *) * (len + 1));
+	if(!cmd_tab)
+		return (NULL);
+	list = start;
+	while(i < len && list != NULL)
+	{
+		cmd_tab[i] = ft_strdup(list->value);
+		i++;
+		list = list->next;
+	}
+	cmd_tab[i] = NULL;
+	return (cmd_tab);
+}

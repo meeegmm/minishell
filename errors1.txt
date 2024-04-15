@@ -18,3 +18,331 @@ Token list:
 ==894157==    by 0x403DBA: parser (parser.c:49)
 ==894157==    by 0x402F7C: main (main.c:34)
 ==894157== 
+
+///////////////////////////////////////////////////////////////////////////
+
+cmd non-existant :
+
+>$ lkjh 123
+no_double : lkjh 123
+spaces : lkjh 123
+afer expand : lkjh 123
+Command not found
+==947252== Invalid read of size 4
+==947252==    at 0x402AA6: get_files (get_files.c:66)
+==947252==    by 0x402E51: get_group (group_list.c:65)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69910 is 0 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 8
+==947252==    at 0x402AB6: get_files (get_files.c:66)
+==947252==    by 0x402E51: get_group (group_list.c:65)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69920 is 16 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 4
+==947252==    at 0x402AD5: get_files (get_files.c:68)
+==947252==    by 0x402E51: get_group (group_list.c:65)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69910 is 0 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 4
+==947252==    at 0x402B2F: get_files (get_files.c:74)
+==947252==    by 0x402E51: get_group (group_list.c:65)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69910 is 0 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 4
+==947252==    at 0x402B89: get_files (get_files.c:80)
+==947252==    by 0x402E51: get_group (group_list.c:65)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69910 is 0 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 8
+==947252==    at 0x402BED: get_files (get_files.c:86)
+==947252==    by 0x402E51: get_group (group_list.c:65)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69920 is 16 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 4
+==947252==    at 0x402C8E: get_group_nb (group_list.c:21)
+==947252==    by 0x402ECA: get_group_list (group_list.c:81)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69910 is 0 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 8
+==947252==    at 0x402CA4: get_group_nb (group_list.c:23)
+==947252==    by 0x402ECA: get_group_list (group_list.c:81)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69920 is 16 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 8
+==947252==    at 0x4023BB: free_tokens (free.c:45)
+==947252==    by 0x402EDC: get_group_list (group_list.c:83)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69920 is 16 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 8
+==947252==    at 0x4023C7: free_tokens (free.c:46)
+==947252==    by 0x402EDC: get_group_list (group_list.c:83)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69918 is 8 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid read of size 8
+==947252==    at 0x4023D6: free_tokens (free.c:47)
+==947252==    by 0x402EDC: get_group_list (group_list.c:83)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69918 is 8 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid free() / delete / delete[] / realloc()
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023DE: free_tokens (free.c:47)
+==947252==    by 0x402EDC: get_group_list (group_list.c:83)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69970 is 0 bytes inside a block of size 5 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023DE: free_tokens (free.c:47)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4035B3: ft_strdup (outils_libft.c:29)
+==947252==    by 0x4048C9: get_node (token_list.c:13)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Invalid free() / delete / delete[] / realloc()
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402EDC: get_group_list (group_list.c:83)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Address 0x4b69910 is 0 bytes inside a block of size 24 free'd
+==947252==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4023E7: free_tokens (free.c:48)
+==947252==    by 0x402E28: get_group (group_list.c:60)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252==  Block was alloc'd at
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x404898: get_node (token_list.c:7)
+==947252==    by 0x404A86: lexer (token_list.c:37)
+==947252==    by 0x403DDF: parser (parser.c:40)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== Conditional jump or move depends on uninitialised value(s)
+==947252==    at 0x40236C: free_group_list (free.c:33)
+==947252==    by 0x40313F: main (main.c:64)
+==947252==  Uninitialised value was created by a heap allocation
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x402D41: get_group (group_list.c:42)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+>$ exit
+==947252== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==947252== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==947252==    <inherited from parent>
+==947252== 
+==947252== Open file descriptor 40: /usr/share/code/resources/app/node_modules.asar
+==947252==    <inherited from parent>
+==947252== 
+==947252== Open file descriptor 38: /mnt/nfs/homes/abelosev/.config/Code/logs/20240415T173500/ptyhost.log
+==947252==    <inherited from parent>
+==947252== 
+==947252== 
+==947252== 4 bytes in 1 blocks are definitely lost in loss record 3 of 69
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4035B3: ft_strdup (outils_libft.c:29)
+==947252==    by 0x403453: get_cmd_tab (outils_cmd.c:59)
+==947252==    by 0x402D7C: get_group (group_list.c:46)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== 2,890 bytes in 73 blocks are indirectly lost in loss record 43 of 69
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x40382D: ft_strjoin (outils_libft.c:87)
+==947252==    by 0x401831: get_envp (envp_parsing.c:125)
+==947252==    by 0x402DCF: get_group (group_list.c:54)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+==947252== 3,482 (592 direct, 2,890 indirect) bytes in 1 blocks are definitely lost in loss record 44 of 69
+==947252==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==947252==    by 0x4017DA: get_envp (envp_parsing.c:119)
+==947252==    by 0x402DCF: get_group (group_list.c:54)
+==947252==    by 0x402E9C: get_group_list (group_list.c:75)
+==947252==    by 0x403E5A: parser (parser.c:61)
+==947252==    by 0x40306C: main (main.c:34)
+==947252== 
+made-f0Ar10s11% 
+
+///////////////////////////////////////////////////////////////////////////
+
+> /////
+
+ 2,890 bytes in 73 blocks are definitely lost in loss record 42 of 67
+==951090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==951090==    by 0x40382D: ft_strjoin (outils_libft.c:87)
+==951090==    by 0x401831: get_envp (envp_parsing.c:125)
+==951090==    by 0x402DCF: get_group (group_list.c:54)
+==951090==    by 0x402E9C: get_group_list (group_list.c:76)
+==951090==    by 0x403E5A: parser (parser.c:61)
+==951090==    by 0x40306C: main (main.c:34)

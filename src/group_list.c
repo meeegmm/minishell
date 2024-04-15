@@ -1,6 +1,17 @@
 #include "../inc/parsing.h"
 #include "../inc/minishell.h"
 
+void invalid_group(t_group *group, int flag)
+{
+	group->flag_fail = flag;
+	group->cmd = NULL;
+	group->redir_in = NULL;
+	group->redir_out = NULL;
+	group->app_out = NULL;
+	group->app_in = NULL;
+	group->next = NULL;
+}
+
 int get_group_nb(t_tokens *list)
 {
     int group_nb;
@@ -15,78 +26,6 @@ int get_group_nb(t_tokens *list)
     return (group_nb);
 }
 
-char **get_cmd_tab(t_tokens *list)
-{
-	int len;
-	int i;
-	t_tokens *start;
-    char **cmd_tab;
-
-	len = 0;
-	i = 0;
-	while(list != NULL && list->next != 0 && list->type != 0 && list->next->type == 0)
-		list = list->next->next;
-	start = list;
-	while (list != NULL && list->type == 0) //найти кол-во элементов таблицы cmd
-	{
-		len++;
-		list = list->next;
-	}
-	cmd_tab = malloc(sizeof(char *) * (len + 1));
-	if(!cmd_tab)
-		return (NULL);
-	list = start;
-	while(i < len && list != NULL)
-	{
-		cmd_tab[i] = ft_strdup(list->value);
-		i++;
-		list = list->next;
-	}
-	cmd_tab[i] = NULL;
-
-    // printf("Here is the group->cmd : ");
-    // print_tab(cmd_tab);
-	// printf("\n\n");
-	return (cmd_tab);
-}
-
-
-t_group *get_files(t_tokens *list, t_group *group)
-{
-	while(list->type != 5 && list->next != NULL)
-	{
-		if (list->type == 1  && list->next->type == 0)
-			{
-				group->redir_in = infile_access(list, group->redir_in);
-				if(group->redir_in == NULL)
-				{
-					free_group_list(group);
-					group = invalid_group(1);
-				}
-			}
-			else if (list->type == 2  && list->next->type == 0)
-			{
-				group->redir_out = outfile_access(list, group->redir_out);
-				if(group->redir_out == NULL)
-				{
-					free_group_list(group);
-					group = invalid_group(1);
-				}
-			}
-			else if (list->type == 4  && list->next->type == 0)
-			{
-				group->app_out = outfile_access(list, group->app_out);
-				if(group->app_out == NULL)
-				{
-					free_group_list(group);
-					group = invalid_group(1);
-				}
-			}
-			list = list->next;
-	}
-	return (group);
-}
-
 t_tokens *move_after_pipe(t_tokens *list)
 {
 	while(list->type != 5 && list->next != NULL)
@@ -97,39 +36,41 @@ t_tokens *move_after_pipe(t_tokens *list)
 t_group *get_group(t_tokens *list, t_list_env *env)
 {
 	t_tokens *start;
-	t_group *group;
+	t_group *group; //static + проверка на NULL
 	char **new_envp;
 
 	start = list;
-	// printf("debut de get_group\n");
-    group = invalid_group(0); ///!!!!!
-	if(group == NULL)
+	group = malloc(sizeof(t_group));
+	if(!group || group == NULL) //to remove "group == NULL" ?
 		return (NULL);
+    invalid_group(group, 0);
 	group->cmd = get_cmd_tab(list);
-
-	if(!group->cmd)
+	if (!group->cmd)
 	{
-		free(group);
-		free_tokens(list); //???
-		return (invalid_group(1)); //malloc pb
+		free_tokens(list);
+		invalid_group(group, 1);
 	}
 	if(is_built(group->cmd[0]) == 0)
 	{
 		new_envp = get_envp(env);
 		group->cmd[0] = cmd_check(group->cmd, new_envp);
-		// printf("%s", group->cmd[0]);
 		if(group->cmd[0] == NULL)
 		{
 			free(group->cmd);
-			free(group);
-			group = invalid_group(127); //cmd not found
+			invalid_group(group, 127); //cmd not found
 			free_tokens(list);
 			ft_putstr_err("Command not found\n");
-			// return (invalid_group(127)); //cmd not found
 		}
+		free(new_envp);
 	}
 	list = start;
-	group = get_files(list, group);
+	if (get_files(list, group) != 0)
+	{
+		// free(group->cmd);
+		// free(group->cmd[0]);
+		invalid_group(group, 1);
+		// free_tokens(list);
+	}
 	return (group);
 }
 
@@ -144,12 +85,6 @@ t_group *get_group_list(t_tokens *list, t_list_env *env)
 		free_tokens(list);
 		return (NULL);
 	}
-
-    // printf("Print first group : \n");
-    // print_group(begin_gr);
-    // printf("\n");
-	// printf("HERE! %s\n", list->value);
-
     if(get_group_nb(list) == 1)
 	{
 		free_tokens(list);

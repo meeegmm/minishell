@@ -61,7 +61,6 @@ void replace_token(char **str, t_list_env *env)
 	}
 	free((*str));
 	(*str) = new;
-	// free(str);
 }
 
 char *from_tab_to_line(char **tab)

@@ -44,19 +44,19 @@ char *temp_tokenizer(char *str);
 //token_list
 int syntax_pb(t_tokens *list);
 t_tokens *lexer(char **token_tab);
-char *outfile_access(t_tokens *list, char *str);
-char *infile_access(t_tokens *list, char *str);
 char *ft_expand(char *str, t_list_env *env);
 char *quotes_expand(char *str, t_list_env *env);
 
 //get_group
-t_group *invalid_group(int flag);
 t_group *get_group_list(t_tokens *list, t_list_env *env);
+
 
 //сheck cmd and files
 char	**get_path(char **envp);
 char	*path_check(char **path_list, char **args_list);
 char	*cmd_check(char **cmd, char **envp);
+char **get_cmd_tab(t_tokens *list);
+int get_files(t_tokens *list, t_group *group);
 
 //free
 void free_tokens(t_tokens *list);

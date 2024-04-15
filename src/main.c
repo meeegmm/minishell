@@ -55,9 +55,9 @@ int	main(int ac, char **av, char **envp)
 				//exec magic
 				//changer global var en fonction de flag_fail
 			}
-			// printf("\nParsed :\n");
-			// print_group(group);
-			// printf("\n");
+			printf("\nParsed :\n");
+			print_group(group);
+			printf("\n");
 			group = group->next;
 		}
 		// print_group(start);
@@ -67,5 +67,6 @@ int	main(int ac, char **av, char **envp)
 		line = readline(">$ ");
 	}
 	free_envp_list(env);
+	//clean history !!!
 	return (0);
 }

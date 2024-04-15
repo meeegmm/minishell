@@ -90,8 +90,6 @@ t_list_env *get_list(char **tab)
 	return(begin);
 }
 
-//функция конвертации t_list_env *list в char **envp
-
 
 int get_line_len(char *s1, char *s2)
 {
