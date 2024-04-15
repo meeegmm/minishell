@@ -60,8 +60,10 @@ void free_envp_list(t_list_env *list)
 	while(list != NULL)
 	{
 		tmp = list->next;
-		free(list->key);
-		free(list->value);
+		if(list->key)
+			free(list->key);
+		if(list->value)
+			free(list->value);
 		// if(list->next)
 		// 	free(list->next);
 		list = tmp;

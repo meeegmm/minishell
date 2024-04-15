@@ -42,7 +42,7 @@ char *temp_tokenizer(char *str)
 	{
 		if(str[i] == '$' && str[i + 1] && (str[i + 1] == 30 || str[i + 1] == 29))
 			i++;
-		if(str[i] && str[i] == 30)
+		if(str[i] && str[i] == 30) //избыточное str[i] ???
 		{
 			new[k] = 28;
 			k++;
@@ -88,7 +88,7 @@ char *temp_tokenizer(char *str)
 		}
 	}
 	new[k] = '\0';
-	if(str && *str)
-		free(str);
+	// if(str && *str)
+	// 	free(str);
 	return (new);
 }

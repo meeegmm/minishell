@@ -70,6 +70,7 @@ char *from_tab_to_line(char **tab)
 	int i;
 	char *res;
 	char *temp;
+	char *t;
 	
 	temp = no_null();
 	res = ft_strdup(tab[0]);
@@ -77,7 +78,18 @@ char *from_tab_to_line(char **tab)
 	while(tab[i])
 	{
 		if(ft_strncmp(tab[i], temp, ft_strlen(tab[i]) != 0))
-			res = ft_strjoin(res, tab[i]);
+		// {
+		// 	t = ft_strjoin(res, tab[i]);
+		// 	free(res);
+		// 	res = t;
+		// }
+
+		{
+			t = res;
+			res = ft_strjoin(t, tab[i]);
+			free(t);
+		}
+		
 		i++;
 	}
 	free(temp);

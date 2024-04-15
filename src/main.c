@@ -25,6 +25,7 @@ int	main(int ac, char **av, char **envp)
 	//obtenir t_env_list envp + changer $SHLVL
 	env = get_list(envp);
 
+
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
@@ -61,10 +62,10 @@ int	main(int ac, char **av, char **envp)
 		}
 		// print_group(start);
 		free_group_list(start); //FREE
-		free_envp_list(env);
 		if(line)
 			free(line); //do we really need it? (recheck with no other leaks)
 		line = readline(">$ ");
 	}
+	free_envp_list(env);
 	return 0;
 }
