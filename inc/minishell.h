@@ -37,6 +37,7 @@ typedef struct s_exec
 {
 	// struct s_group		*group;
 	// struct s_list_env	*env_lst;
+	int				status;
 	int				infile;
 	int				outfile;
 	int				fd_in;

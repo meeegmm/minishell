@@ -32,11 +32,12 @@ int			builtin_echo(t_group *group);
 int			builtin_pwd(t_group *group);
 int			builtin_cd(t_group *group, char *path, t_list_env *env_lst);
 int			builtin_env(t_group *group, t_list_env *env_lst);
+void		builtin_exit(t_exec *exec, t_group *group);
 int			builtin_export(t_group *group, t_list_env *env_lst);
 int			builtin_unset(t_group *group, t_list_env *env_lst);
 
 ////////////////// EXEC //////////////////
-void		ft_builtins(t_group *group, t_list_env *env_lst);
+int			ft_builtins(t_exec *exec, t_group *group, t_list_env *env_lst);
 void		ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
 void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
 void		ft_exec(t_exec *exec, t_group *group);

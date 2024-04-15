@@ -47,7 +47,7 @@ void	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 		}
 	}
 	else
-		waitpid(0, NULL, 0);
+		waitpid(exec->pid, NULL, 0);
 	free_tab(envp); //add
 }
 
@@ -56,10 +56,19 @@ void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 	if (group->flag_fail)
 		//exit
 		return ;
-	if (is_built(group->cmd[0]))
-		ft_builtins(group, env_lst);
+	if (is_built(group->cmd[0]) && (exec->pid == 0 || group_size(group) == 1))
+	{
+		ft_builtins(exec, group, env_lst);
+	}
+	else if (is_built(group->cmd[0]) && exec->pid != 0)
+	{
+		waitpid(exec->pid, NULL, 0); //add leaks
+		ft_builtins(exec, group, env_lst);
+	}
 	else
 		ft_bin(exec, group, env_lst);
+	if (exec->status > 0)
+				builtin_exit(exec, group);
 	// close(exec->pfd_in);
 	// close(exec->pfd_out);
 	// exec->pfd_in = -1;

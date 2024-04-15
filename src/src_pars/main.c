@@ -6,7 +6,7 @@ int	is_exit(char *line)
 {
 	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
 	{
-		free(line);
+		// free(line);
 		return (0);
 	}
 	else
@@ -46,13 +46,13 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (line && *line)
 			add_history(line);
-		else
-		{
-			free(line);
-			free_tab(new_envp);
-			free_envp_list(env_lst);
-			return (2);
-		}
+		// else
+		// {
+		// 	free(line);
+		// 	free_tab(new_envp);
+		// 	free_envp_list(env_lst);
+		// 	return (2);
+		// }
 		group = parser(line, new_envp);
 		if(!group)
 		{
@@ -92,6 +92,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	free_envp_list(env_lst);
 	free_tab(new_envp);
+	builtin_exit(&exec, group);
 	return (0);
 }
 

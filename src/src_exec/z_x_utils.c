@@ -14,6 +14,7 @@ void	reset_std(t_exec *exec)
 
 void	init_exec(t_exec *exec)
 {
+	exec->status = -1;
 	exec->fd_in = -1;
 	exec->fd_out = -1;
 	exec->pfd_in = -1;
