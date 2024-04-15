@@ -58,39 +58,76 @@ t_group *parser(char *line, char **envp)
 {
 	char **token_tab;
 	t_tokens *token_list;
-	t_tokens *start;
 	t_group *group;
 	
 	if(only_spaces(line))
-		return(invalid_group(1)); //is this number ok?
-
+		return(invalid_group(1));
 	line = remove_quotes(line);
 	if(line == NULL)
-		return (invalid_group(1)); //malloc pb or unclosed quotes
-
-	// printf("no quotes + expand: %s\n", line); //do expand
-
+		return (invalid_group(1));
 	token_tab = ft_split1(line, 1);
+	free(line);
 	if(token_tab == NULL)
-		return (NULL); //malloc pb
-
-	// to check syntax problems here //
-		//if(syntax_pb(token_tab) != 0)
-			// group = invalid_group(); (bash: syntax error near unexpected token `>>')
-
+		return (NULL);
 	token_list = lexer(token_tab);
-	start = token_list;
-	if(token_list == NULL)
-		return (NULL); //malloc pb
-	else
+	if(!token_list)
 	{
-		// printf("Token list:\n");
-		// print_token_list(token_list);
-		// printf("\n");
-		token_list = start;
-		group = get_group_list(token_list, envp);
-		// print_group(group); //shoudn't work for non-existing cmd
-		//free_tokens(list);
+		free_tab(token_tab);
+		return (NULL);
 	}
+	group = get_group_list(token_list, envp);
+	if (!group)
+	{
+		free_tab(token_tab);
+		free_tokens(token_list);
+		return (NULL);
+	}
+	free_tab(token_tab);
 	return (group);
 }
+
+// t_group *parser(char *line, char **envp)
+// {
+// 	char **token_tab;
+// 	t_tokens *token_list;
+// 	// t_tokens *start; //removed
+// 	t_group *group;
+	
+// 	if(only_spaces(line))
+// 		return(invalid_group(1)); //is this number ok?
+
+// 	line = remove_quotes(line);
+// 	if(line == NULL)
+// 		return (invalid_group(1)); //malloc pb or unclosed quotes
+
+// 	// printf("no quotes + expand: %s\n", line); //do expand
+
+// 	token_tab = ft_split1(line, 1);
+// 	free(line); //leak fix
+// 	if(token_tab == NULL)
+// 		return (NULL); //malloc pb
+
+// 	// to check syntax problems here //
+// 		//if(syntax_pb(token_tab) != 0)
+// 			// group = invalid_group(); (bash: syntax error near unexpected token `>>')
+
+// 	token_list = lexer(token_tab);
+// 	// start = token_list; //removed
+// 	if(token_list == NULL)
+// 	{
+// 		free_tab(token_tab); //leak fix
+// 		return (NULL); //malloc pb
+// 	}
+// 	else
+// 	{
+// 		// printf("Token list:\n");
+// 		// print_token_list(token_list);
+// 		// printf("\n");
+// 		// token_list = start; //removed
+// 		group = get_group_list(token_list, envp);
+// 		// print_group(group); //shoudn't work for non-existing cmd
+// 	}
+// 	free_tab(token_tab); //leak fix
+// 	// free_tokens(token_list);
+// 	return (group);
+// }

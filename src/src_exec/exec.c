@@ -40,6 +40,7 @@ void	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 			if (access(group->cmd[0], F_OK | X_OK) == -1)
 			{
 				ft_putstr_fd("minishell", group->cmd[0], 2);
+				free_tab(envp); //add
 				perror("exec");
 				//exit
 			}
@@ -47,6 +48,7 @@ void	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	}
 	else
 		waitpid(0, NULL, 0);
+	free_tab(envp); //add
 }
 
 void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
@@ -66,7 +68,7 @@ void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 
 //last command = first
 //add print group
-void	ft_exec(t_exec *exec, t_group *group, t_list_env *env_lst)
+void	ft_exec(t_exec *exec, t_group *group)
 {
 	if (group->redir_in != NULL)
 		redir_in(exec, group);
@@ -74,11 +76,10 @@ void	ft_exec(t_exec *exec, t_group *group, t_list_env *env_lst)
 		redir_out(exec, group);
 	else if (group->app_out != NULL)
 		append_out(exec, group);
-	if (group->next != NULL)
-	{
-		ft_pipe(exec);
-		ft_exec(exec, group->next, env_lst);
-	}
-	if (group->next == NULL)
-		simple_cmd(exec, group, env_lst);
+	// if (group->next != NULL)
+	// {
+	// 	ft_pipe(exec);
+	// 	// ft_exec(exec, group, env_lst); //recursive removed
+	// }
+	// simple_cmd(exec, group, env_lst);
 }

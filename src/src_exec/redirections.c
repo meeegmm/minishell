@@ -11,16 +11,16 @@
 
 void	redir_in(t_exec *exec, t_group *group)
 {
-	if (exec->std_in > 0)
-		close(exec->std_in);
-	exec->std_in = open(group->redir_in, O_RDONLY | S_IRWXU);
-	if (exec->std_in == -1)
+	if (exec->fd_in > 0)
+		close(exec->fd_in);
+	exec->fd_in = open(group->redir_in, O_RDONLY | S_IRWXU);
+	if (exec->fd_in == -1)
 	{
 		//SIG
 		perror("open");
 		return ;
 	}
-	dup2(exec->std_in, STDIN_FILENO);
+	dup2(exec->fd_in, STDIN_FILENO);
 }
 
 void	redir_out(t_exec *exec, t_group *group)

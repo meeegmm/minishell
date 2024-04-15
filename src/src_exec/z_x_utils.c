@@ -14,7 +14,7 @@ void	reset_std(t_exec *exec)
 
 void	init_exec(t_exec *exec)
 {
-	exec->std_in = -1;
+	exec->fd_in = -1;
 	exec->fd_out = -1;
 	exec->pfd_in = -1;
 	exec->pfd_out = -1;
@@ -23,8 +23,8 @@ void	init_exec(t_exec *exec)
 
 void	close_fds(t_exec *exec)
 {
-	if (exec->std_in > 0)
-		close(exec->std_in);
+	if (exec->fd_in > 0)
+		close(exec->fd_in);
 	if (exec->fd_out > 0)
 		close(exec->fd_out);
 	if (exec->pfd_in > 0)

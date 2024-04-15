@@ -9,6 +9,7 @@
 
 //__echo__
 //function is_option?
+// echo \n word = \n word (sgould not print \)
 int	builtin_echo(t_group *group)
 {
 	int	i;
@@ -77,6 +78,7 @@ int	builtin_pwd(t_group *group)
 		ft_putstr(dir);
 		write(1, "\n", 1);
 		free(buf);
+		free(dir);
 		return (0);
 	}
 	free(buf);
@@ -111,6 +113,7 @@ int	builtin_cd(t_group *group, char *path, t_list_env *env_lst)
 			perror(NULL);
 			return (3);
 		}
+		//$OLDPWD = path
 		return (0);
 	}
 	ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
@@ -153,7 +156,7 @@ int	builtin_export(t_group *group, t_list_env *env_lst)
 		{
 			while (env_lst != NULL)
 			{
-				printf("declare -x %s=\"%s\"\n", env_lst->key, env_lst->value);
+				printf("export %s=\"%s\"\n", env_lst->key, env_lst->value);
 				env_lst = env_lst->next;
 			}
 			return (0);
@@ -162,13 +165,13 @@ int	builtin_export(t_group *group, t_list_env *env_lst)
 		{
 			while (group->cmd[i])
 			{
-				printf("key = %s\n", env_lst->key);
-				printf("\n\n\n");
+				// printf("key = %s\n", env_lst->key);
+				// printf("\n\n\n");
 				if (ft_strncmp(env_lst->key, get_key(group->cmd[i]), \
 												ft_strlen(env_lst->key) != 0))
 					env_lst = check_var(&env_lst, group->cmd[i]);
-				printf("key = %s\n", env_lst->key);
-				printf("\n\n\n");
+				// printf("key = %s\n", env_lst->key);
+				// printf("\n\n\n");
 				mod_var(&env_lst, group->cmd[i]);
 				env_lst = tmp;
 				i++;

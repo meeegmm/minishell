@@ -18,7 +18,10 @@ t_list_env	*env_lst_sos(void)
 	env_lst->value = getcwd(buf, size);
 	env_lst->next = malloc(sizeof(t_list_env));
 	if (!env_lst->next)
+	{
+		free(buf);
 		return (NULL);
+	}
 	env_lst->next->key = "SHLVL";
 	env_lst->next->value = "1";
 	env_lst->next->next = NULL;
@@ -37,7 +40,7 @@ char	**set_envp(char **envp)
 	else
 		env_lst = get_list(envp);
 	new_envp = get_envp(env_lst);
-	// free_envp_list(env_lst);?
+	free_envp_list(env_lst);
 	return (new_envp);
 }
 

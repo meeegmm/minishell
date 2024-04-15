@@ -35,11 +35,12 @@ typedef struct s_list_env
 
 typedef struct s_exec
 {
-	//*group + *env_lst
-	int				std_in;
-	int				fd_out;
+	// struct s_group		*group;
+	// struct s_list_env	*env_lst;
 	int				infile;
 	int				outfile;
+	int				fd_in;
+	int				fd_out;
 	int				pfd_in;
 	int				pfd_out;
 	pid_t			pid;

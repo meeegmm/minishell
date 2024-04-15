@@ -18,7 +18,7 @@
 // {
 // 	t_group		*group;
 // 	t_list_env	*env_lst;
-//	int			std_in;
+//	int			fd_in;
 //	int			fd_out;
 // 	int			infile;
 // 	int			outfile;
@@ -39,7 +39,7 @@ int			builtin_unset(t_group *group, t_list_env *env_lst);
 void		ft_builtins(t_group *group, t_list_env *env_lst);
 void		ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
 void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
-void		ft_exec(t_exec *exec, t_group *group, t_list_env *env_ls);
+void		ft_exec(t_exec *exec, t_group *group);
 void		minish(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 ////////////////// REDIRECTION //////////////////

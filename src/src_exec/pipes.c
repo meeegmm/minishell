@@ -13,7 +13,8 @@ void		ft_pipe(t_exec *exec)
 		exit(EXIT_FAILURE);
 	if (pid == 0)
 	{
-		close(pipe_fd[1]);
+		if (pipe_fd[1] > 0)
+			close(pipe_fd[1]);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		exec->pfd_in = pipe_fd[0];
@@ -22,7 +23,8 @@ void		ft_pipe(t_exec *exec)
 	}
 	else
 	{
-		close(pipe_fd[0]);
+		if (pipe_fd[0] > 0)
+			close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 		exec->pfd_out = pipe_fd[1];

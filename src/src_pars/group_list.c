@@ -87,29 +87,30 @@ t_tokens *move_after_pipe(t_tokens *list)
 
 t_group *get_group(t_tokens *list, char **envp)
 {
-	t_tokens *start;
+	// t_tokens *start; removed
 	t_group *group;
 
-	start = list;
-	group = malloc(sizeof(t_group));
-	if(!group)
-		return (NULL); //malloc pb
+	// start = list; removed
+	// group = malloc(sizeof(t_group));
+	// if(!group)
+	// 	return (NULL); //malloc pb (leak fix)
     group = invalid_group(0);
 	group->cmd = get_cmd_tab(list);
-
 	if(!group->cmd)
+	{
+		free_group_list(group);
 		return (invalid_group(1)); //malloc pb
+	}
 	if(is_built(group->cmd[0]) == 0)
 	{
 		group->cmd[0] = cmd_check(group->cmd, envp);
 		if(group->cmd[0] == NULL)
 		{
-			// free(group);
 			printf("Command not found\n");
 			return (invalid_group(127)); //cmd not found
 		}
 	}
-	list = start;
+	// list = start; removed
 	group = get_files(list, group);
 	return (group);
 }
