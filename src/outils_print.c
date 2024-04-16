@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:46 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:28:21 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:49:29 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	print_group(t_group *group)
 	{
 		printf("\ncmd: ");
 		print_tab(group->cmd);
-		printf("flag: %d\n", group->flag_fail);
 	}
 	printf("fichier redir_in: %s\n", group->redir_in);
 	printf("fichier redir_out: %s\n", group->redir_out);
 	printf("fichier app_out: %s\n", group->app_out);
+	printf("flag: %d\n", group->flag_fail);
 }

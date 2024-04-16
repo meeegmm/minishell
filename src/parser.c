@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:13:53 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:56:48 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ t_group *invalid_group2(int flag)
 	return (group);
 }
 
+int is_folder(char *line)
+{
+	int fd;
+	DIR *d;
+	int res;
+
+	fd = open(line, O_WRONLY);
+	d = opendir(line);
+	if(fd == -1 && d != NULL)
+	{
+		ft_putstr_err("minishell: ");
+		ft_putstr_err(line);
+		ft_putstr_err(": Is a directory\n");
+		res = 1;
+	}
+	else
+		res = 0;
+	if(fd > 0)
+		close(fd);
+	if(d)
+		closedir(d);
+	return (res);
+}
+
 t_group *parser(char *input, t_list_env *env)
 {
 	char **token_tab;
@@ -37,6 +61,8 @@ t_group *parser(char *input, t_list_env *env)
 	
 	if(only_spaces(input))
 		return (invalid_group2(2));
+	if(is_folder(input))
+		return (invalid_group2(126));
 	line = quotes_expand(input, env);
 	if(line == NULL)
 		return (invalid_group2(2)); //malloc pb or unclosed quotes
