@@ -115,5 +115,6 @@ char	*ft_expand(char *str, t_list_env *env)
 	}
 	free(temp);
 	new = from_tab_to_line(token_tab);
+	// free(d); // непонятно, как избежать доп параметра в main
 	return (new);
 }
