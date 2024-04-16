@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:13:31 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/16 22:02:47 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int ac, char **av, char **envp)
 		// print_group(start);
 		free_group_list(start); //FREE
 		if(line)
-			free(line); //do we really need it? (recheck with no other leaks)
+			free(line); //do we really need it? already freeing it in parser
 		line = readline(">$ ");
 	}
 	free_envp_list(env);

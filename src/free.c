@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:07 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:40:51 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:13:39 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,16 @@ void	free_envp_list(t_list_env *list)
 		free(list);
 		list = tmp;
 	}
+}
+
+void free_t_parser(t_parser *p)
+{
+	if(p->line)
+		free(p->line);
+	if(p->token_tab)
+		free_tab(p->token_tab);
+	if(p->token_list)
+		free_tokens(p->token_list);
+	if(p)
+		free(p);
 }

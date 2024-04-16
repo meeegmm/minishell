@@ -34,6 +34,13 @@ typedef struct s_tokenizer
 	char *new;
 } t_tokenizer;
 
+typedef struct s_parser
+{
+	char **token_tab;
+	t_tokens *token_list;
+	char *line;
+} t_parser;
+
 
 ////////////////// FONCTIONS //////////////////
 
@@ -59,7 +66,9 @@ char	*ft_expand(char *str, t_list_env *env);
 char *quotes_expand(char *str, t_list_env *env);
 
 //get_group
+void invalid_group(t_group *group, int flag);
 t_group *get_group_list(t_tokens *list, t_list_env *env);
+t_group *create_init_group(void);
 
 
 //сheck cmd and files
@@ -71,6 +80,7 @@ int get_files(t_tokens *list, t_group *group);
 
 //free
 void free_tokens(t_tokens *list);
+void free_t_parser(t_parser *p);
 
 //outils
 void	print_tab(char **tab);
