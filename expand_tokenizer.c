@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:56 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:12:57 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:58:20 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char *temp_tokenizer(char *str)
 	{
 		if(str[d->i] == '$' && str[d->i + 1] && (str[d->i + 1] == 30 || str[d->i + 1] == 29))
 			d->i++;
-		if(str[d->i] && str[d->i] == 30) //избыточное str[i] ???
+		if(str[d->i] == 30) //избыточное str[d->i] &&  ???
 			between_single(d, str);
 		else if(str[d->i] && (str[d->i] == '$' || is_special(str[d->i])) && (d->k + 1 < d->len))
 			before_expand_or_special(d, str);
@@ -66,6 +66,12 @@ char *temp_tokenizer(char *str)
 		else
 			par_defaut(d, str);
 	}
-	d->new[d->k] = '\0';
+	// if(d->k < d->len)
+	d->new[d->k] = '\0'; //smth is wrong here
+	// printf("HERE %s\n", d->new);
+	// printf("HERE %c\n", *d->new);
+	// res = ft_strdup(d->new);
+	// free(d->new);
+	// free(d);
 	return (d->new);
 }
