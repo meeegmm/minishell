@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/16 22:02:47 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 00:53:17 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ int	main(int ac, char **av, char **envp)
 			if(group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL)) //if syntax pb or the last cmd is not found
 			{
 				//changer global var en fonction de flag_fail
+				printf("\nParsed :\n");
+				print_group(group);
+				printf("\n");
 				break; 
 			}
 			else if(group->flag_fail == 0)

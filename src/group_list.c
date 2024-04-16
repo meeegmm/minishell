@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/16 23:45:39 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 00:46:27 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_group	*get_group(t_tokens *list, t_list_env *env)
 			invalid_group(group, 127); //cmd not found
 			ft_putstr_err("Command not found\n");
 		}
-		free(new_envp);
+		free_tab(new_envp);
 	}
 	list = start;
 	if (get_files(list, group) != 0)
