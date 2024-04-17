@@ -1,4 +1,4 @@
-obj/remove_quotes.o: src/remove_quotes.c src/../inc/parsing.h \
+obj/quotes_expand.o: src/quotes_expand.c src/../inc/parsing.h \
   src/../inc/minishell.h
 
 src/../inc/parsing.h:

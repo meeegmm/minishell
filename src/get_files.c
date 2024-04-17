@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:18 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:38:48 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:59:22 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,16 @@ char	*infile_access(t_tokens *list, char *str)
 	return (str);
 }
 
+void create_file(char *str)
+{
+	int fd;
+
+	fd = open(str, O_CREAT | O_WRONLY);
+	if(fd < 0)
+		return ;
+	close(fd);
+}
+
 int	get_files(t_tokens *list, t_group *group)
 {
 	while (list->type != 5 && list->next != NULL)
@@ -85,9 +95,10 @@ int	get_files(t_tokens *list, t_group *group)
 		}
 		else if (list->type == 2 && list->next->type == 0)
 		{
-			group->redir_out = outfile_access(list, group->redir_out);
+			group->redir_out = outfile_access(list, group->redir_out); //should I free here before reinitialize?
 			if (group->redir_out == NULL)
 				return (1);
+			create_file(group->redir_out); //???????
 		}
 		else if (list->type == 4 && list->next->type == 0)
 		{

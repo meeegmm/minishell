@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 00:53:17 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:06:52 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	main(int ac, char **av, char **envp)
 			printf("\n");
 			group = group->next;
 		}
-		// print_group(start);
 		free_group_list(start); //FREE
 		if(line)
 			free(line); //do we really need it? already freeing it in parser

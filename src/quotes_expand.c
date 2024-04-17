@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quotes.c                                    :+:      :+:    :+:   */
+/*   quotes_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:12:18 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:00:51 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
+
+int is_meta2(char *str)
+{
+	return(*str == '|' || *str == '<' || *str == '>');
+}
 
 int is_meta(char **str)
 {
@@ -150,10 +155,18 @@ char *add_spaces(char *str)
 				i++;
 			}
 		}
-		if(*str && (is_meta(&str) > 0) && (i + 2 < len))
+		if(*str && (is_meta2(str) > 0) && (i + 2 < len))
 		{
 			new_str[i] = ' ';
 			new_str[i + 1] = *str;
+			if(*str != '|' && (*str == *(str + 1)))
+			{
+				new_str[i + 2] = *(str + 1);
+				str++;
+				if(i + 3 < len)
+					i++;
+			}
+			str++;
 			new_str[i + 2] = ' ';
 			i += 3;
 		}
