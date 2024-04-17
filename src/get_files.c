@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:18 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 11:59:22 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:23:08 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	get_files(t_tokens *list, t_group *group)
 			group->app_out = outfile_access(list, group->app_out);
 			if (group->app_out == NULL)
 				return (1);
+			create_file(group->app_out);
 		}
 		list = list->next;
 	}

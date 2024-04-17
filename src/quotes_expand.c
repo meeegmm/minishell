@@ -6,49 +6,79 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 13:00:51 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:37:33 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-int is_meta2(char *str)
+int is_meta(char *str)
 {
 	return(*str == '|' || *str == '<' || *str == '>');
 }
 
-int is_meta(char **str)
+int is_meta_move(char **str)
 {
-	if(**str == '|')
+	if(is_meta(*str) > 0)
 	{
-		(*str)++;
-		return (5);
-	}
-	else if(**str == '>')
-	{
-		(*str)++;
-		if(**str && **str == '>')
-		{
+		if((**str == '>' || **str == '<') && *(*str + 1) && (**str == *(*str + 1)))
 			(*str)++;
-			return (4);
-		}
-		else
-			return (2);
-	}
-	else if(**str == '<')
-	{
 		(*str)++;
-		if(**str && **str == '<')
-		{
-			(*str)++;
-			return (3);
-		}
-		else
-			return (1);
+		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
+
+// int is_meta_move(char **str)
+// {
+// 	if(**str == '|')
+// 	{
+// 		(*str)++;
+// 		return (1);
+// 	}
+// 	else if(**str == '>' || **str == '<')
+// 	{
+// 		if(**str == *(*str + 1))
+// 			(*str)++;
+// 		(*str)++;
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+	
+
+// int is_meta_move(char **str)
+// {
+// 	if(**str == '|')
+// 	{
+// 		(*str)++;
+// 		return (1);
+// 	}
+// 	else if(**str == '>')
+// 	{
+// 		(*str)++;
+// 		if(**str && **str == '>')
+// 		{
+// 			(*str)++;
+// 			return (1);
+// 		}
+// 		else
+// 			return (1);
+// 	}
+// 	else if(**str == '<')
+// 	{
+// 		(*str)++;
+// 		if(**str && **str == '<')
+// 		{
+// 			(*str)++;
+// 			return (1);
+// 		}
+// 		else
+// 			return (1);
+// 	}
+// 	else
+// 		return (0);
+// }
 
 char *quotes_ok(char *str) //faire plus court + подумать, что возвращать
 {
@@ -113,7 +143,7 @@ int spaces_nb(char *str)
 	counter = 0;
 	while(*str)
 	{
-		if(is_meta(&str) > 0)
+		if(is_meta_move(&str) > 0)
 			counter++;
 		else
 			str++; //как будто тоже можно включить в саму is_meta, но неясно, как изменить тогда
@@ -155,7 +185,7 @@ char *add_spaces(char *str)
 				i++;
 			}
 		}
-		if(*str && (is_meta2(str) > 0) && (i + 2 < len))
+		if(*str && (is_meta(str) > 0) && (i + 2 < len))
 		{
 			new_str[i] = ' ';
 			new_str[i + 1] = *str;
