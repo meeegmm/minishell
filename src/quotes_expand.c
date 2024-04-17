@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 15:55:39 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:14:29 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ char *add_spaces(char *str)
 				str++;
 				i++;
 			}
+			// printf("HERE spaces are hidden %s\n", str);
 		}
 		if(*str && (is_meta(str) > 0) && (i + 2 < len))
 		{
