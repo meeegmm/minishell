@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 13:26:42 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:59:27 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,10 @@ t_group *parser(char *input, t_list_env *env)
 		free_t_parser(p);
 		return (NULL); //malloc pb	
 	}
+
+	printf("Token list:\n");
+	print_token_list(p->token_list);
+	printf("\n");
 
 	if(syntax_pb(p->token_list)) //may it cause pb for some syntax pb (?)
 	{
