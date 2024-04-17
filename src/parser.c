@@ -78,6 +78,11 @@ t_group *create_init_group(void)
 
 int pre_check(char *input, t_group *group)
 {
+	// if (!input)
+	// {
+	// 	invalid_group(group, 5);
+	// 	return (1);
+	// }
 	if(only_spaces(input))
 	{
 		invalid_group(group, 2);

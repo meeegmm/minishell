@@ -14,11 +14,9 @@
 
 int only_spaces(char *str)
 {
-	// if(!str[0])
-	// 	return (1);
 	while(*str == ' ' || *str == '\t')
 		str++;
-	if(*str == '\0')
+	if(*str == '\0') //обрабатывает пустую строку тоже
 		return (1);
 	return (0);
 }
@@ -57,7 +55,7 @@ char **get_cmd_tab(t_tokens *list)
 	while(list != NULL && list->next != 0 && list->type != 0 && list->next->type == 0)
 		list = list->next->next;
 	start = list;
-	while (list != NULL && list->type == 0) //найти кол-во элементов таблицы cmd
+	while (list != NULL && list->type == 0)
 	{
 		len++;
 		list = list->next;

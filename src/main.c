@@ -40,9 +40,15 @@ int	main(int ac, char **av, char **envp)
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
+		// if(!line)
+		// {
+		// 	if(line)
+		// 		free(line);
+		// 	printf("\n");
+		// 	continue ;
+		// }
 		if (line && *line)
 			add_history(line);
-		
 		group = parser(line, env); //group_list is here
 
 		if(!group) //malloc pb
@@ -75,12 +81,11 @@ int	main(int ac, char **av, char **envp)
 			printf("\n");
 			group = group->next;
 		}
-		free_group_list(start); //FREE
-		if(line)
-			free(line); //do we really need it? already freeing it in parser
+		free_group_list(start);
+		free(line);
 		line = readline(">$ ");
 	}
 	free_envp_list(env);
-	//clean history !!!
+	clear_history(); //??
 	return (0);
 }

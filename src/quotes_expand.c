@@ -249,14 +249,8 @@ char *quotes_expand(char *str, t_list_env *env)
 	char *res;
 
 	no_double = no_quotes(str, 29);
-	// printf("no_double : %s\n", no_double);
-
 	spaces = add_spaces(no_double);
-	// printf("spaces : %s\n", spaces);
-
 	res = ft_expand(spaces, env);
-	// printf("afer expand : %s\n", res);
-
 	free(no_double);
 	free(spaces);
 	return(res);
