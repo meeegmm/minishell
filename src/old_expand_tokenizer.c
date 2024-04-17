@@ -13,6 +13,14 @@
 #include "../inc/parsing.h"
 #include "../inc/minishell.h"
 
+// typedef struct s_tokenizer
+// {
+// 	int len;
+// 	int i;
+// 	int k;
+// 	char *new;
+// } t_tokenizer;
+
 int is_special(char c)
 {
 	return (!is_digit(c) && !is_alpha(c) && c != '*' && c != '#' && c != '?'); //?? remove this : c != '*' && c != '#'
