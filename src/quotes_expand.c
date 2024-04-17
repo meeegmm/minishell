@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 13:37:33 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:41:11 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,57 +28,6 @@ int is_meta_move(char **str)
 	}
 	return (0);
 }
-
-// int is_meta_move(char **str)
-// {
-// 	if(**str == '|')
-// 	{
-// 		(*str)++;
-// 		return (1);
-// 	}
-// 	else if(**str == '>' || **str == '<')
-// 	{
-// 		if(**str == *(*str + 1))
-// 			(*str)++;
-// 		(*str)++;
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-	
-
-// int is_meta_move(char **str)
-// {
-// 	if(**str == '|')
-// 	{
-// 		(*str)++;
-// 		return (1);
-// 	}
-// 	else if(**str == '>')
-// 	{
-// 		(*str)++;
-// 		if(**str && **str == '>')
-// 		{
-// 			(*str)++;
-// 			return (1);
-// 		}
-// 		else
-// 			return (1);
-// 	}
-// 	else if(**str == '<')
-// 	{
-// 		(*str)++;
-// 		if(**str && **str == '<')
-// 		{
-// 			(*str)++;
-// 			return (1);
-// 		}
-// 		else
-// 			return (1);
-// 	}
-// 	else
-// 		return (0);
-// }
 
 char *quotes_ok(char *str) //faire plus court + подумать, что возвращать
 {
