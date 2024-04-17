@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 14:59:27 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:56:24 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,26 @@ int pre_check(char *input, t_group *group)
 	return (0);
 }
 
+char **spaces_between_quotes(char ***tab)
+{
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	while((*tab)[i])
+	{
+		while((*tab)[i][k])
+		{
+			if((*tab)[i][k] == 27)
+				(*tab)[i][k] = ' ';
+			k++;
+		}
+		i++;
+	}
+	return (*tab);
+}
+
 t_group *parser(char *input, t_list_env *env)
 {
 	t_parser *p;
@@ -128,6 +148,17 @@ t_group *parser(char *input, t_list_env *env)
 		free_t_parser(p);
 		return (NULL); //malloc pb
 	}
+
+	// printf("Token tab:\n");
+	// print_tab(p->token_tab);
+	// printf("\n");
+
+	//replace 27 to space
+	spaces_between_quotes(&p->token_tab);
+
+	// printf("Token tab modified:\n");
+	// print_tab(p->token_tab);
+	// printf("\n");
 	
 	p->token_list = lexer(p->token_tab);
 	if(p->token_list == NULL)

@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:46 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/16 21:49:29 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:54:52 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	print_group(t_group *group)
 		return ;
 	if (group->cmd)
 	{
-		printf("\ncmd: ");
+		printf("\ncmd: \n");
 		print_tab(group->cmd);
 	}
 	printf("fichier redir_in: %s\n", group->redir_in);

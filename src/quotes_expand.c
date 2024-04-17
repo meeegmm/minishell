@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 15:02:35 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:55:39 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,28 @@ int spaces_nb(char *str)
 	return (counter * 2);
 }
 
+char *hide_spaces_between_quotes(char **str) //make void?
+{
+	int i;
+
+	i = 0;
+	while((*str)[i])
+	{
+		if((*str)[i] == 29 || (*str)[i] == 30)
+		{
+			while((*str)[i] && (*str)[i] != 31)
+			{
+				if((*str)[i] == ' ' || (*str)[i] == '\t')
+					(*str)[i] = 27;
+				i++;
+			}
+		}
+		if((*str)[i])
+			i++;
+	}
+	return (*str);
+}
+
 char *add_spaces(char *str)
 {
 	char *new_str;
@@ -110,6 +132,11 @@ char *add_spaces(char *str)
 	str = quotes_ok(str);
 	if(str == NULL)
 		return (NULL);
+
+	//from spaces to 28 between quotes
+
+	str = hide_spaces_between_quotes(&str);
+	// printf("HERE spaces are hidden %s\n", str);
 
 	len = spaces_nb(str) + ft_strlen(str) + 1;
 
