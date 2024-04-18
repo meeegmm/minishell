@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:56 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 11:38:39 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:48:04 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,24 @@ void par_defaut(t_tokenizer *d, char *s)
 	d->i++;
 }
 
+void between_single(t_tokenizer *d, char *s)
+{
+	d->new[d->k] = 28;
+	d->k++;
+	while(s[d->i] && s[d->i] != 31 && d->k < d->len)
+	{
+		d->new[d->k] = s[d->i];
+		d->k++;
+		d->i++;
+	}
+	if(d->k < d->len && s[d->i])
+	{
+		d->new[d->k] = 30;
+		d->k++;
+		d->i++;
+	}
+}
+
 char *temp_tokenizer(char *str)
 {
 	t_tokenizer *d;
@@ -71,8 +89,8 @@ char *temp_tokenizer(char *str)
 	d->new[d->k] = '\0'; //smth is wrong here
 	// printf("HERE %s\n", d->new);
 	// printf("HERE %c\n", *d->new);
-	res = ft_strdup(d->new);
-	free(d->new);
+	res = d->new;
+	// free(d->new);
 	free(d);
 	return (res);
 }

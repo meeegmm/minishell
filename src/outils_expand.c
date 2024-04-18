@@ -40,20 +40,3 @@ t_tokenizer *init_data(char *s)
 		return (NULL);
 	return (d);
 }
-
-void between_single(t_tokenizer *d, char *s)
-{
-	d->new[d->k] = 28;
-	d->k++;
-	while(s[d->i] && s[d->i] != 31 && d->k < d->len)
-	{
-		d->new[d->k] = s[d->i];
-		d->k++;
-	}
-	if(d->k < d->len && s[d->i])
-	{
-		d->new[d->k] = 30;
-		d->k++;
-		d->i++;
-	}
-}

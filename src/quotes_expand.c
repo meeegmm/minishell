@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 16:14:29 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:37:07 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int is_meta_move(char **str)
 	return (0);
 }
 
-char *quotes_ok(char *str) //faire plus court + подумать, что возвращать
+char *quotes_ok(char *str) //faire plus court
 {
 	int i;
 	int res;
@@ -112,7 +112,7 @@ char *hide_spaces_between_quotes(char **str) //make void?
 			while((*str)[i] && (*str)[i] != 31)
 			{
 				if((*str)[i] == ' ' || (*str)[i] == '\t')
-					(*str)[i] = 27;
+					(*str)[i] = 27; //change to 27
 				i++;
 			}
 		}
@@ -251,6 +251,7 @@ char *quotes_expand(char *str, t_list_env *env)
 	no_double = no_quotes(str, 29);
 	spaces = add_spaces(no_double);
 	res = ft_expand(spaces, env);
+	printf("RES AFTER EXPAND : %s\n", res);
 	free(no_double);
 	free(spaces);
 	return(res);

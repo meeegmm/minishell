@@ -98,3 +98,50 @@ flag: 0
 ==197025==    by 0x402ADC: main (main.c:46)
 ==197025== 
 paul-f5Br5s1% 
+
+/////////////////////////////////////////////
+
+>$ echo "123 45">file
+HERE spaces are hidden echo 123X45>file
+Token tab:
+echo
+123X45
+>
+file
+
+
+==240350== Invalid read of size 1
+==240350==    at 0x403E94: spaces_between_quotes (parser.c:108)
+==240350==    by 0x404006: parser (parser.c:162)
+==240350==    by 0x402B7C: main (main.c:52)
+==240350==  Address 0x4b69ec8 is 6 bytes after a block of size 2 alloc'd
+==240350==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==240350==    by 0x4021A0: ft_get_word1 (ft_split1.c:55)
+==240350==    by 0x402349: ft_split1 (ft_split1.c:83)
+==240350==    by 0x403FA1: parser (parser.c:150)
+==240350==    by 0x402B7C: main (main.c:52)
+==240350== 
+Token tab modified:
+echo
+123 45
+>
+file
+
+
+Token list:
+0=echo
+0=123 45
+2=>
+0=file
+
+
+Parsed :
+
+cmd: 
+echo
+123 45
+
+fichier redir_in: (null)
+fichier redir_out: file
+fichier app_out: (null)
+flag: 0

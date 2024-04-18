@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 15:56:24 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:35:04 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,7 @@ int pre_check(char *input, t_group *group)
 	// 	invalid_group(group, 5);
 	// 	return (1);
 	// }
-	if(only_spaces(input))
-	{
-		invalid_group(group, 2);
-		return (1);
-	}
+	
 	if(is_folder(input))
 	{
 		invalid_group(group, 126);
@@ -102,12 +98,12 @@ char **spaces_between_quotes(char ***tab)
 	int k;
 
 	i = 0;
-	k = 0;
 	while((*tab)[i])
 	{
-		while((*tab)[i][k])
+		k = 0;
+		while((*tab)[i][k] != '\0')
 		{
-			if((*tab)[i][k] == 27)
+			if((*tab)[i][k] == 27) //change to 27
 				(*tab)[i][k] = ' ';
 			k++;
 		}
@@ -159,7 +155,7 @@ t_group *parser(char *input, t_list_env *env)
 	// printf("\n");
 
 	//replace 27 to space
-	spaces_between_quotes(&p->token_tab);
+	spaces_between_quotes(&(p->token_tab));
 
 	// printf("Token tab modified:\n");
 	// print_tab(p->token_tab);

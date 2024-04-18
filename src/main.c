@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 13:17:19 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:44:51 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 int	is_exit(char *line)
 {
-	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
+	if(ft_strlen(line) != 4)
+		return (1);
+	if (ft_strncmp(line, "exit", 4) == 0)
 	{
-		free(line);
+		if(line)
+			free(line);
 		return (0);
 	}
 	else
@@ -40,13 +43,14 @@ int	main(int ac, char **av, char **envp)
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
-		// if(!line)
-		// {
-		// 	if(line)
-		// 		free(line);
-		// 	printf("\n");
-		// 	continue ;
-		// }
+		if(!line || *line == '\0' || only_spaces(line))
+		{
+			if(line)
+				free(line);
+			// printf("\n");
+			line = readline(">$ ");
+			continue ;
+		}
 		if (line && *line)
 			add_history(line);
 		group = parser(line, env); //group_list is here

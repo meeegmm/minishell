@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:40 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:34:46 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:15:51 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strlen(const char *s)
 {
 	int	i;
 
+	if(!s)
+		return (0);
 	i = 0;
 	while (s[i] != '\0')
 		i++;
