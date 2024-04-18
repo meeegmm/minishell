@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 16:32:19 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:48:00 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ int quotes_nb(char *str, char c)
 			nb++;
 		str++;
 	}
+	printf("quotes_nb %d\n", nb * 2);
 	return (nb * 2);
 }
 
@@ -214,25 +215,25 @@ char *no_quotes(char *str, char c)
 	len = ft_strlen(str) - quotes_nb(str, c) + 1;
 	new = malloc(sizeof(char) * len);
 	if(!new)
-		return NULL; // ??
+		return NULL;
 
-	while(str[i] && k < len)				//echo "" => ??
+	while((str)[i] && k < len)				//echo "" => ??
 	{
-		if(str[i] == c)
+		if((str)[i] == c)
 		{
 			i++;
-			while(str[i] && str[i] != 31 && k < len)
+			while((str)[i] && (str)[i] != 31 && k < len)
 			{
-				new[k] = str[i];
+				new[k] = (str)[i];
 				k++;
 				i++;
 			}
-			if(str[i] && str[i] == 31)
+			if((str)[i] && (str)[i] == 31)
 				i++;
 		}
-		if(str[i] && k < len)
+		if((str)[i] && k < len)
 		{
-			new[k] = str[i];
+			new[k] = (str)[i];
 			k++;
 			i++;
 		}
@@ -245,14 +246,20 @@ char *no_quotes(char *str, char c)
 char *quotes_expand(char *str, t_list_env *env)
 {
 	char *no_double;
+	char *no_single;
 	char *spaces;
 	char *res;
 
 	no_double = no_quotes(str, 29);
+	printf("The first element of your new line : %d\n", *no_double);
 	spaces = add_spaces(no_double);
 	res = ft_expand(spaces, env);
+	no_single = no_quotes(res, 30);
 	printf("RES AFTER EXPAND : %s\n", res);
+	printf("The first element of your new line : %d\n", res[0]);
+	printf("The sec element of your new line : %d\n", res[1]);
 	free(no_double);
 	free(spaces);
-	return(res);
+	free(res);
+	return(no_single);
 }

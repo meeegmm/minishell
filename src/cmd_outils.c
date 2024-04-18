@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   outils_cmd.c                                       :+:      :+:    :+:   */
+/*   cmd_outils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:35 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:13:36 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 22:14:54 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int only_spaces(char *str)
 {
 	while(*str == ' ' || *str == '\t')
 		str++;
-	if(*str == '\0') //обрабатывает пустую строку тоже
+	if(*str == '\0')
 		return (1);
 	return (0);
 }
@@ -34,7 +34,7 @@ int    is_built(char *str)
 	tab[4] = "export";
 	tab[5] = "cd";
 	tab[6] = "exit";
-    while (str[i] && i <= 6)
+    while (i <= 6)
     {
         if (ft_strncmp(str, tab[i], ft_strlen(str)) == 0)
             return (1);

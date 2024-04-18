@@ -118,3 +118,314 @@ flag: 127
 ==2535543==    by 0x404132: parser (parser.c:74)
 ==2535543==    by 0x403125: main (main.c:56)
 ==2535543== 
+
+////////////////////////////////////////////////
+
+
+>$ ls
+RES AFTER EXPAND : ls
+Token list:
+0=ls
+
+HERE ls
+
+Here cmd->tab
+==2544471== Invalid read of size 1
+==2544471==    at 0x402DAB: get_group (group_list.c:48)
+==2544471==    by 0x402F8C: get_group_list (group_list.c:91)
+==2544471==    by 0x4041C1: parser (parser.c:77)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==2544471== 
+==2544471== 
+==2544471== Process terminating with default action of signal 11 (SIGSEGV)
+==2544471==  Access not within mapped region at address 0x0
+==2544471==    at 0x402DAB: get_group (group_list.c:48)
+==2544471==    by 0x402F8C: get_group_list (group_list.c:91)
+==2544471==    by 0x4041C1: parser (parser.c:77)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471==  If you believe this happened as a result of a stack
+==2544471==  overflow in your program's main thread (unlikely but
+==2544471==  possible), you can try to increase the size of the
+==2544471==  main thread stack using the --main-stacksize= flag.
+==2544471==  The main thread stack size used in this run was 8388608.
+==2544471== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==2544471== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2544471==    <inherited from parent>
+==2544471== 
+==2544471== Open file descriptor 40: /dev/ptmx
+==2544471==    <inherited from parent>
+==2544471== 
+==2544471== Open AF_UNIX socket 39: <unknown>
+==2544471==    <inherited from parent>
+==2544471== 
+==2544471== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==2544471==    <inherited from parent>
+==2544471== 
+==2544471== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240418T164321/ptyhost.log
+==2544471==    <inherited from parent>
+==2544471== 
+==2544471== 
+==2544471== 3 bytes in 1 blocks are still reachable in loss record 1 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x403AB3: ft_strdup (outils_libft.c:35)
+==2544471==    by 0x401E70: from_tab_to_line (expand.c:80)
+==2544471==    by 0x401FE0: ft_expand (expand.c:117)
+==2544471==    by 0x404D8B: quotes_expand (quotes_expand.c:253)
+==2544471==    by 0x404084: parser (parser.c:46)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 3 bytes in 1 blocks are still reachable in loss record 2 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x402650: ft_get_word1 (ft_split1.c:55)
+==2544471==    by 0x4027F9: ft_split1 (ft_split1.c:83)
+==2544471==    by 0x4040CB: parser (parser.c:52)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 3 bytes in 1 blocks are still reachable in loss record 3 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x403AB3: ft_strdup (outils_libft.c:35)
+==2544471==    by 0x404F79: get_node (token_list.c:25)
+==2544471==    by 0x405136: lexer (token_list.c:48)
+==2544471==    by 0x40410E: parser (parser.c:59)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 3 bytes in 1 blocks are still reachable in loss record 4 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x403AB3: ft_strdup (outils_libft.c:35)
+==2544471==    by 0x401723: get_cmd_tab (cmd_outils.c:69)
+==2544471==    by 0x402D82: get_group (group_list.c:46)
+==2544471==    by 0x402F8C: get_group_list (group_list.c:91)
+==2544471==    by 0x4041C1: parser (parser.c:77)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 5 bytes in 1 blocks are still reachable in loss record 9 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x401800: get_key (envp_get_list.c:37)
+==2544471==    by 0x40199D: first_node (envp_get_list.c:79)
+==2544471==    by 0x4019F4: get_list (envp_get_list.c:91)
+==2544471==    by 0x4030D2: main (main.c:41)
+==2544471== 
+==2544471== 9 bytes in 1 blocks are still reachable in loss record 12 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x4018E2: get_value (envp_get_list.c:59)
+==2544471==    by 0x4019B3: first_node (envp_get_list.c:80)
+==2544471==    by 0x4019F4: get_list (envp_get_list.c:91)
+==2544471==    by 0x4030D2: main (main.c:41)
+==2544471== 
+==2544471== 16 bytes in 1 blocks are still reachable in loss record 21 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x4016C6: get_cmd_tab (cmd_outils.c:63)
+==2544471==    by 0x402D82: get_group (group_list.c:46)
+==2544471==    by 0x402F8C: get_group_list (group_list.c:91)
+==2544471==    by 0x4041C1: parser (parser.c:77)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 24 bytes in 1 blocks are still reachable in loss record 24 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x401975: first_node (envp_get_list.c:76)
+==2544471==    by 0x4019F4: get_list (envp_get_list.c:91)
+==2544471==    by 0x4030D2: main (main.c:41)
+==2544471== 
+==2544471== 24 bytes in 1 blocks are still reachable in loss record 29 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x4042B1: create_init_p (parser_outils.c:43)
+==2544471==    by 0x404034: parser (parser.c:38)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 24 bytes in 1 blocks are still reachable in loss record 30 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x402740: ft_split1 (ft_split1.c:74)
+==2544471==    by 0x4040CB: parser (parser.c:52)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 24 bytes in 1 blocks are still reachable in loss record 31 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x404F48: get_node (token_list.c:19)
+==2544471==    by 0x405136: lexer (token_list.c:48)
+==2544471==    by 0x40410E: parser (parser.c:59)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 56 bytes in 1 blocks are still reachable in loss record 40 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x404301: create_init_group (parser_outils.c:54)
+==2544471==    by 0x402D5C: get_group (group_list.c:44)
+==2544471==    by 0x402F8C: get_group_list (group_list.c:91)
+==2544471==    by 0x4041C1: parser (parser.c:77)
+==2544471==    by 0x403185: main (main.c:56)
+==2544471== 
+==2544471== 1,056 bytes in 72 blocks are still reachable in loss record 70 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x401800: get_key (envp_get_list.c:37)
+==2544471==    by 0x401A71: get_list (envp_get_list.c:103)
+==2544471==    by 0x4030D2: main (main.c:41)
+==2544471== 
+==2544471== 1,728 bytes in 72 blocks are still reachable in loss record 73 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x401A24: get_list (envp_get_list.c:96)
+==2544471==    by 0x4030D2: main (main.c:41)
+==2544471== 
+==2544471== 1,822 bytes in 72 blocks are still reachable in loss record 74 of 102
+==2544471==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2544471==    by 0x4018E2: get_value (envp_get_list.c:59)
+==2544471==    by 0x401A8C: get_list (envp_get_list.c:104)
+==2544471==    by 0x4030D2: main (main.c:41)
+==2544471== 
+make: *** [Makefile:39: valgrind] Segmentation fault (core dumped)
+paul-f3Ar4s9% 
+
+//////////////////////////// CD Problem
+
+>$ cd
+quotes_nb 0
+The first element of your new line : 99
+quotes_nb 0
+RES AFTER EXPAND : cd
+The first element of your new line : 99
+Token list:
+0=cd
+
+HERE LIST cd
+
+Here cmd->tab
+==2563837== Invalid read of size 1
+==2563837==    at 0x402DAB: get_group (group_list.c:49)
+==2563837==    by 0x402FAC: get_group_list (group_list.c:94)
+==2563837==    by 0x4041E1: parser (parser.c:77)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==2563837== 
+==2563837== 
+==2563837== Process terminating with default action of signal 11 (SIGSEGV)
+==2563837==  Access not within mapped region at address 0x0
+==2563837==    at 0x402DAB: get_group (group_list.c:49)
+==2563837==    by 0x402FAC: get_group_list (group_list.c:94)
+==2563837==    by 0x4041E1: parser (parser.c:77)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837==  If you believe this happened as a result of a stack
+==2563837==  overflow in your program's main thread (unlikely but
+==2563837==  possible), you can try to increase the size of the
+==2563837==  main thread stack using the --main-stacksize= flag.
+==2563837==  The main thread stack size used in this run was 8388608.
+==2563837== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==2563837== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563837==    <inherited from parent>
+==2563837== 
+==2563837== Open file descriptor 40: /dev/ptmx
+==2563837==    <inherited from parent>
+==2563837== 
+==2563837== Open AF_UNIX socket 39: <unknown>
+==2563837==    <inherited from parent>
+==2563837== 
+==2563837== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==2563837==    <inherited from parent>
+==2563837== 
+==2563837== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240418T164321/ptyhost.log
+==2563837==    <inherited from parent>
+==2563837== 
+==2563837== 
+==2563837== 3 bytes in 1 blocks are still reachable in loss record 3 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x404BF2: no_quotes (quotes_expand.c:216)
+==2563837==    by 0x404DF5: quotes_expand (quotes_expand.c:257)
+==2563837==    by 0x4040A4: parser (parser.c:46)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 3 bytes in 1 blocks are still reachable in loss record 4 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x402650: ft_get_word1 (ft_split1.c:55)
+==2563837==    by 0x4027F9: ft_split1 (ft_split1.c:83)
+==2563837==    by 0x4040EB: parser (parser.c:52)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 3 bytes in 1 blocks are still reachable in loss record 5 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x403AD3: ft_strdup (outils_libft.c:35)
+==2563837==    by 0x404FF9: get_node (token_list.c:25)
+==2563837==    by 0x4051B6: lexer (token_list.c:48)
+==2563837==    by 0x40412E: parser (parser.c:59)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 3 bytes in 1 blocks are still reachable in loss record 6 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x403AD3: ft_strdup (outils_libft.c:35)
+==2563837==    by 0x401723: get_cmd_tab (cmd_outils.c:69)
+==2563837==    by 0x402D82: get_group (group_list.c:47)
+==2563837==    by 0x402FAC: get_group_list (group_list.c:94)
+==2563837==    by 0x4041E1: parser (parser.c:77)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 5 bytes in 1 blocks are still reachable in loss record 9 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x401800: get_key (envp_get_list.c:37)
+==2563837==    by 0x40199D: first_node (envp_get_list.c:79)
+==2563837==    by 0x4019F4: get_list (envp_get_list.c:91)
+==2563837==    by 0x4030F2: main (main.c:41)
+==2563837== 
+==2563837== 9 bytes in 1 blocks are still reachable in loss record 12 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x4018E2: get_value (envp_get_list.c:59)
+==2563837==    by 0x4019B3: first_node (envp_get_list.c:80)
+==2563837==    by 0x4019F4: get_list (envp_get_list.c:91)
+==2563837==    by 0x4030F2: main (main.c:41)
+==2563837== 
+==2563837== 16 bytes in 1 blocks are still reachable in loss record 22 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x4016C6: get_cmd_tab (cmd_outils.c:63)
+==2563837==    by 0x402D82: get_group (group_list.c:47)
+==2563837==    by 0x402FAC: get_group_list (group_list.c:94)
+==2563837==    by 0x4041E1: parser (parser.c:77)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 24 bytes in 1 blocks are still reachable in loss record 24 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x401975: first_node (envp_get_list.c:76)
+==2563837==    by 0x4019F4: get_list (envp_get_list.c:91)
+==2563837==    by 0x4030F2: main (main.c:41)
+==2563837== 
+==2563837== 24 bytes in 1 blocks are still reachable in loss record 30 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x4042D1: create_init_p (parser_outils.c:43)
+==2563837==    by 0x404054: parser (parser.c:38)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 24 bytes in 1 blocks are still reachable in loss record 31 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x402740: ft_split1 (ft_split1.c:74)
+==2563837==    by 0x4040EB: parser (parser.c:52)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 24 bytes in 1 blocks are still reachable in loss record 32 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x404FC8: get_node (token_list.c:19)
+==2563837==    by 0x4051B6: lexer (token_list.c:48)
+==2563837==    by 0x40412E: parser (parser.c:59)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 56 bytes in 1 blocks are still reachable in loss record 38 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x404321: create_init_group (parser_outils.c:54)
+==2563837==    by 0x402D75: get_group (group_list.c:45)
+==2563837==    by 0x402FAC: get_group_list (group_list.c:94)
+==2563837==    by 0x4041E1: parser (parser.c:77)
+==2563837==    by 0x4031A5: main (main.c:56)
+==2563837== 
+==2563837== 1,056 bytes in 72 blocks are still reachable in loss record 64 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x401800: get_key (envp_get_list.c:37)
+==2563837==    by 0x401A71: get_list (envp_get_list.c:103)
+==2563837==    by 0x4030F2: main (main.c:41)
+==2563837== 
+==2563837== 1,728 bytes in 72 blocks are still reachable in loss record 67 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x401A24: get_list (envp_get_list.c:96)
+==2563837==    by 0x4030F2: main (main.c:41)
+==2563837== 
+==2563837== 1,822 bytes in 72 blocks are still reachable in loss record 68 of 96
+==2563837==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563837==    by 0x4018E2: get_value (envp_get_list.c:59)
+==2563837==    by 0x401A8C: get_list (envp_get_list.c:104)
+==2563837==    by 0x4030F2: main (main.c:41)
+==2563837== 
+make: *** [Makefile:39: valgrind] Segmentation fault (core dumped)
+paul-f3Ar4s9% 
