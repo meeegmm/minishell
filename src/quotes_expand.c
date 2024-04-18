@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 15:37:07 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:32:19 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char *hide_spaces_between_quotes(char **str) //make void?
 			while((*str)[i] && (*str)[i] != 31)
 			{
 				if((*str)[i] == ' ' || (*str)[i] == '\t')
-					(*str)[i] = 27; //change to 27
+					(*str)[i] = 27;
 				i++;
 			}
 		}

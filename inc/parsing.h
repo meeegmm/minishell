@@ -52,6 +52,10 @@ void print_token_list(t_tokens *list);
 //parser_outils
 int    is_built(char *str);
 int only_spaces(char *str);
+int is_folder(char *line);
+t_parser *create_init_p (void);
+t_group *create_init_group(void);
+char **spaces_between_quotes(char ***tab);
 
 //expand
 int delimiter_nb(char *str);
