@@ -1,147 +1,120 @@
-
->$ echo "> 123"
-Token list:
-0=echo
-0=>23
-
+>$ ""''echo ''hola "cute"
+RES AFTER EXPAND : echo hola cute
+Command not found
 
 Parsed :
-
-cmd: 
-echo
->23
-
 fichier redir_in: (null)
 fichier redir_out: (null)
 fichier app_out: (null)
-flag: 0
+flag: 127
 
->$ echo "123 34"
-Token list:
-0=echo
-0=123 34
-
+>$ "echo" ''hola "cute"
+RES AFTER EXPAND : echo hola cute
+Command not found
 
 Parsed :
-
-cmd: 
-echo
-123 34
-
 fichier redir_in: (null)
 fichier redir_out: (null)
 fichier app_out: (null)
-flag: 0
-
->$ echo "> 34"
-Token list:
-0=echo
-0=>4
-
-
-Parsed :
-
-cmd: 
-echo
->4
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
+flag: 127
 
 >$ exit
-==197025== FILE DESCRIPTORS: 9 open (3 std) at exit.
-==197025== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==197025==    <inherited from parent>
-==197025== 
-==197025== Open AF_UNIX socket 44: <unknown>
-==197025==    <inherited from parent>
-==197025== 
-==197025== Open file descriptor 40: /usr/share/code/resources/app/node_modules.asar
-==197025==    <inherited from parent>
-==197025== 
-==197025== Open file descriptor 39: /dev/ptmx
-==197025==    <inherited from parent>
-==197025== 
-==197025== Open file descriptor 38: /mnt/nfs/homes/abelosev/.config/Code/logs/20240417T122634/ptyhost.log
-==197025==    <inherited from parent>
-==197025== 
-==197025== Open file descriptor 28: /dev/ptmx
-==197025==    <inherited from parent>
-==197025== 
-==197025== 
-==197025== 5 bytes in 1 blocks are indirectly lost in loss record 4 of 78
-==197025==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==197025==    by 0x4036F3: ft_strdup (outils_libft.c:33)
-==197025==    by 0x403633: get_cmd_tab (outils_cmd.c:71)
-==197025==    by 0x402819: get_group (group_list.c:45)
-==197025==    by 0x40292C: get_group_list (group_list.c:85)
-==197025==    by 0x404087: parser (parser.c:183)
-==197025==    by 0x402ADC: main (main.c:46)
-==197025== 
-==197025== 5 bytes in 1 blocks are definitely lost in loss record 5 of 78
-==197025==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==197025==    by 0x4036F3: ft_strdup (outils_libft.c:33)
-==197025==    by 0x403633: get_cmd_tab (outils_cmd.c:71)
-==197025==    by 0x402819: get_group (group_list.c:45)
-==197025==    by 0x40292C: get_group_list (group_list.c:85)
-==197025==    by 0x404087: parser (parser.c:183)
-==197025==    by 0x402ADC: main (main.c:46)
-==197025== 
-==197025== 21 (16 direct, 5 indirect) bytes in 1 blocks are definitely lost in loss record 14 of 78
-==197025==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==197025==    by 0x4035D6: get_cmd_tab (outils_cmd.c:65)
-==197025==    by 0x402819: get_group (group_list.c:45)
-==197025==    by 0x40292C: get_group_list (group_list.c:85)
-==197025==    by 0x404087: parser (parser.c:183)
-==197025==    by 0x402ADC: main (main.c:46)
-==197025== 
-paul-f5Br5s1% 
+==2533132== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==2533132== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2533132==    <inherited from parent>
+==2533132== 
+==2533132== Open file descriptor 40: /dev/ptmx
+==2533132==    <inherited from parent>
+==2533132== 
+==2533132== Open AF_UNIX socket 39: <unknown>
+==2533132==    <inherited from parent>
+==2533132== 
+==2533132== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==2533132==    <inherited from parent>
+==2533132== 
+==2533132== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240418T164321/ptyhost.log
+==2533132==    <inherited from parent>
+==2533132== 
+==2533132== 
+==2533132== 28 bytes in 4 blocks are definitely lost in loss record 13 of 67
+==2533132==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2533132==    by 0x403A53: ft_strdup (outils_libft.c:35)
+==2533132==    by 0x401723: get_cmd_tab (cmd_outils.c:69)
+==2533132==    by 0x402D69: get_group (group_list.c:45)
+==2533132==    by 0x402F2C: get_group_list (group_list.c:87)
+==2533132==    by 0x404132: parser (parser.c:74)
+==2533132==    by 0x403125: main (main.c:56)
+==2533132== 
+paul-f3Ar4s9%
 
-/////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
->$ echo "123 45">file
-HERE spaces are hidden echo 123X45>file
-Token tab:
-echo
-123X45
->
-file
-
-
-==240350== Invalid read of size 1
-==240350==    at 0x403E94: spaces_between_quotes (parser.c:108)
-==240350==    by 0x404006: parser (parser.c:162)
-==240350==    by 0x402B7C: main (main.c:52)
-==240350==  Address 0x4b69ec8 is 6 bytes after a block of size 2 alloc'd
-==240350==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==240350==    by 0x4021A0: ft_get_word1 (ft_split1.c:55)
-==240350==    by 0x402349: ft_split1 (ft_split1.c:83)
-==240350==    by 0x403FA1: parser (parser.c:150)
-==240350==    by 0x402B7C: main (main.c:52)
-==240350== 
-Token tab modified:
-echo
-123 45
->
-file
-
-
-Token list:
-0=echo
-0=123 45
-2=>
-0=file
-
+>$ khoiuh
+RES AFTER EXPAND : khoiuh
+Command not found
 
 Parsed :
-
-cmd: 
-echo
-123 45
-
 fichier redir_in: (null)
-fichier redir_out: file
+fichier redir_out: (null)
 fichier app_out: (null)
-flag: 0
+flag: 127
+
+>$ exit
+==2535396== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==2535396== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2535396==    <inherited from parent>
+==2535396== 
+==2535396== Open file descriptor 40: /dev/ptmx
+==2535396==    <inherited from parent>
+==2535396== 
+==2535396== Open AF_UNIX socket 39: <unknown>
+==2535396==    <inherited from parent>
+==2535396== 
+==2535396== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==2535396==    <inherited from parent>
+==2535396== 
+==2535396== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240418T164321/ptyhost.log
+==2535396==    <inherited from parent>
+==2535396== 
+==2535396== 
+paul-f3Ar4s9% make valgrind
+valgrind -q --suppressions=/mnt/nfs/homes/abelosev/minishell/ignore_readline --trace-children=yes \
+        --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes \
+        ./minishell
+>$ "echo" pioj
+RES AFTER EXPAND : echo pioj
+Command not found
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 127
+
+>$ exit
+==2535543== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==2535543== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2535543==    <inherited from parent>
+==2535543== 
+==2535543== Open file descriptor 40: /dev/ptmx
+==2535543==    <inherited from parent>
+==2535543== 
+==2535543== Open AF_UNIX socket 39: <unknown>
+==2535543==    <inherited from parent>
+==2535543== 
+==2535543== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==2535543==    <inherited from parent>
+==2535543== 
+==2535543== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240418T164321/ptyhost.log
+==2535543==    <inherited from parent>
+==2535543== 
+==2535543== 
+==2535543== 5 bytes in 1 blocks are definitely lost in loss record 3 of 64
+==2535543==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2535543==    by 0x403A53: ft_strdup (outils_libft.c:35)
+==2535543==    by 0x401723: get_cmd_tab (cmd_outils.c:69)
+==2535543==    by 0x402D69: get_group (group_list.c:45)
+==2535543==    by 0x402F2C: get_group_list (group_list.c:87)
+==2535543==    by 0x404132: parser (parser.c:74)
+==2535543==    by 0x403125: main (main.c:56)
+==2535543== 
