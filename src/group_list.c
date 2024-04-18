@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 15:57:27 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:20:32 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_group	*get_group(t_tokens *list, t_list_env *env)
 {
 	char		**new_envp;
 	t_tokens	*start;
-	t_group		*group; //static + проверка на NULL
+	t_group		*group;
 
 	start = list;
 	group = create_init_group();
@@ -52,7 +52,7 @@ t_group	*get_group(t_tokens *list, t_list_env *env)
 		if (group->cmd[0] == NULL)
 		{
 			free(group->cmd);
-			invalid_group(group, 127); //cmd not found
+			invalid_group(group, 127);
 			ft_putstr_err("Command not found\n");
 		}
 		free_tab(new_envp);
@@ -63,11 +63,12 @@ t_group	*get_group(t_tokens *list, t_list_env *env)
 	return (group);
 }
 
-int get_new_node(t_tokens **list, t_list_env *env, t_group **begin_gr, t_group *curr_gr)
+int	get_new_node(t_tokens **list, t_list_env *env,
+	t_group **begin_gr, t_group *curr_gr)
 {
 	*list = move_after_pipe(*list);
 	if (*list == NULL)
-		return (1);		
+		return (1);
 	(*begin_gr)->next = get_group(*list, env);
 	if (!(*begin_gr)->next)
 	{
@@ -93,9 +94,9 @@ t_group	*get_group_list(t_tokens *list, t_list_env *env)
 		curr_gr = begin_gr;
 		while (get_group_nb(list))
 		{
-			if(get_new_node(&list, env, &begin_gr, curr_gr))
-				break;
+			if (get_new_node(&list, env, &begin_gr, curr_gr))
+				break ;
 		}
 	}
-	return (curr_gr); //change to begin_gr
+	return (curr_gr);
 }
