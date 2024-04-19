@@ -1,5 +1,5 @@
 #include "../../inc/exec.h"
-#include "../../inc/parsing.h"
+// #include "../../inc/parsing.h"
 
 //doesn't close well when pipe
 void		ft_pipe(t_exec *exec)
@@ -10,11 +10,13 @@ void		ft_pipe(t_exec *exec)
 	pipe(pipe_fd);
 	pid = fork();
 	if (pid == -1)
+	{
+		perror("Error ft_pipe");
 		exit(EXIT_FAILURE);
+	}
 	if (pid == 0)
 	{
-		if (pipe_fd[1] > 0)
-			close(pipe_fd[1]);
+		close(pipe_fd[1]);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		exec->pfd_in = pipe_fd[0];
@@ -23,8 +25,8 @@ void		ft_pipe(t_exec *exec)
 	}
 	else
 	{
-		if (pipe_fd[0] > 0)
-			close(pipe_fd[0]);
+		waitpid(-1, NULL, 0);
+		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 		exec->pfd_out = pipe_fd[1];

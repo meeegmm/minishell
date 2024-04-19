@@ -4,10 +4,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <string.h>
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <dirent.h>
 
 ////////////////// STRUCTS //////////////////
 
@@ -20,10 +23,9 @@ char **cmd;
 char *redir_in;
 char *redir_out;
 char *app_out;
-// app_in (heredoc)
+char *app_in; //heredoc
 struct s_group *next;
 } t_group;
-
 
 typedef struct s_list_env
 {
@@ -31,7 +33,6 @@ typedef struct s_list_env
 	char *value;
 	struct s_list_env *next;
 } t_list_env;
-
 
 typedef struct s_exec
 {
@@ -50,16 +51,40 @@ typedef struct s_exec
 ////////////////// FONCTIONS //////////////////
 
 //parsing
-t_group *parser(char *line, char **envp);
-t_group *invalid_group(int flag);
+int 	only_spaces(char *str);
+t_group	*parser(char *input, t_list_env *env);
 
 //envp parsing
-t_list_env *get_list(char **tab);
-char **get_envp(t_list_env *list);
+char		**get_envp(t_list_env *list);
+t_list_env	*get_list(char **tab);
+t_list_env	*env_lst_sos(void);
+
+//exec
+void	minish(t_exec *exec, t_group *group, t_list_env *env);
+void	reset_minish(t_exec *exec, t_group *start);
+void	ft_redir(t_exec *exec, t_group *group);
+void	ft_pipe(t_exec *exec);
+void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
+void	end_minish(t_exec *exec, t_group *group, t_list_env *env);
+void	builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
+
+//fd
+void		init_std(t_exec *exec);
+void		reset_std(t_exec *exec);
+void		close_std(t_exec *exec);
+void		init_exec(t_exec *exec);
+void		close_fds(t_exec *exec);
 
 //free
-void free_tab(char **tab);
-void free_envp_list(t_list_env *list);
-void free_group_list(t_group *group);
+void	free_tab(char **tab);
+void	free_envp_list(t_list_env *list);
+void	free_group_list(t_group *group);
+
+int		ft_strncmp(const char *s1, const char *s2, int n);
+void	print_env_list(t_list_env *list);
+char	*get_key(char *str);
+char	*get_value(char *str);
+int		ft_strlen(const char *s);
+char	*ft_strdup(char *s1);
 
 #endif

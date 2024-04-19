@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+// #include "../../inc/minishell.h"
 #include "../../inc/exec.h"
 
 //exec last cmd exec first: check recursive function
@@ -16,6 +16,7 @@
 
 //add printf
 //add checks
+//think about exit
 void	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 {
 	char	**envp;
@@ -33,6 +34,8 @@ void	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 		pid = fork();
 		exec->pid = pid;
 	}
+	if (exec->pid < 0)
+		perror("Error exec fork");
 	if (exec->pid == 0)
 	{
 		if (execve(group->cmd[0], group->cmd, envp) == 0)
@@ -56,39 +59,21 @@ void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 	if (group->flag_fail)
 		//exit
 		return ;
-	if (is_built(group->cmd[0]) && (exec->pid == 0 || group_size(group) == 1))
+	if (is_built2(group->cmd[0]) && (exec->pid == 0 || group_size(group) == 1))
 	{
 		ft_builtins(exec, group, env_lst);
 	}
-	else if (is_built(group->cmd[0]) && exec->pid != 0)
+	else if (is_built2(group->cmd[0]) && exec->pid != 0)
 	{
 		waitpid(exec->pid, NULL, 0); //add leaks
 		ft_builtins(exec, group, env_lst);
 	}
 	else
 		ft_bin(exec, group, env_lst);
-	if (exec->status > 0)
-				builtin_exit(exec, group);
+	// if (exec->status > 0)
+	// 			builtin_exit(exec, group);
 	// close(exec->pfd_in);
 	// close(exec->pfd_out);
 	// exec->pfd_in = -1;
 	// exec->pfd_out = -1;
-}
-
-//last command = first
-//add print group
-void	ft_exec(t_exec *exec, t_group *group)
-{
-	if (group->redir_in != NULL)
-		redir_in(exec, group);
-	else if (group->redir_out != NULL)
-		redir_out(exec, group);
-	else if (group->app_out != NULL)
-		append_out(exec, group);
-	// if (group->next != NULL)
-	// {
-	// 	ft_pipe(exec);
-	// 	// ft_exec(exec, group, env_lst); //recursive removed
-	// }
-	// simple_cmd(exec, group, env_lst);
 }

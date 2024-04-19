@@ -1,171 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
+/*   Updated: 2024/04/19 04:33:10 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
-#include "../../inc/parsing.h"
-#include "../../inc/exec.h"
+// #include "../../inc/parsing.h"
+// #include "../../inc/exec.h"
 
-int	is_exit(char *line)
-{
-	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
-	{
-		// free(line);
-		return (0);
-	}
-	else
-		return (1);
-}
-
-// void	minish(t_exec *exec, t_group *group, t_list_env *env_lst)
+// int	is_exit(char *line)
 // {
-// 	// add checks
-// 	// while (group->flag_fail == 0)
-// 	// {
-// 		// ft_exec(exec, group, env_lst);
-// 		reset_std(exec);
-// 		close_fds(exec);
-// 		init_exec(exec);
-// 	// }
-// 	// get signal
+// 	if(ft_strlen(line) != 4)
+// 		return (1);
+// 	if (ft_strncmp(line, "exit", 4) == 0)
+// 	{
+// 		if(line)
+// 			free(line);
+// 		return (0);
+// 	}
+// 	else
+// 		return (1);
+// }
+
+// void	minish(t_exec *exec, t_group *group, t_list_env *env)
+// {
+// 	while(group != NULL) //on parcours la liste de groupes
+// 	{
+// 		if(group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL)) //if syntax pb or the last cmd is not found
+// 		{
+// 			//changer global var en fonction de flag_fail
+// 			//exit
+// 			break; 
+// 		}
+// 		else if(group->flag_fail == 0)
+// 		{
+// 			ft_redir(exec, group);
+// 			if (group->next != NULL)
+// 				ft_pipe(exec);
+// 			simple_cmd(exec, group, env);
+// 			printf("exec->status: %d\n", exec->status);
+			
+// 			//exec magic
+// 			//changer global var en fonction de flag_fail
+// 		}
+// 		group = group->next;
+// 	}
+// }
+
+// void	reset_minish(t_exec *exec, t_group *start)
+// {
+// 		free_group_list(start);
+// 		close_fds(exec); //add
+// 		reset_std(exec); //add
+// 		init_exec(exec); //add
+// 		close_std(exec); //add
 // }
 
 int	main(int ac, char **av, char **envp)
 {
-	char		**new_envp;
-	t_list_env	*env_lst;
-	char		*line;
-	t_group 	*group;
-	t_group		*start;
-	t_exec		exec;
+	char	*line;
+	t_group *group;
+	t_group *start;
+	t_list_env *env;
+	t_exec	exec; //add
 
 	(void)ac;
 	(void)av[0];
-	new_envp = set_envp(envp);
-	env_lst = get_list(new_envp);
-	init_std(&exec);
-	init_exec(&exec);
+
+	//obtenir t_env_list envp + changer $SHLVL
+	//check envp == NULL
+	if (*envp == NULL)
+		env = env_lst_sos(); //add
+	else
+		env = get_list(envp);
+	init_exec(&exec); //add
+	// init_std(&exec);
+
 	line = readline(">$ ");
-	while (is_exit(line))
+	while (1)
 	{
+		if(!line || *line == '\0' || only_spaces(line))
+		{
+			if(line)
+				free(line);
+			line = readline(">$ ");
+			continue ;
+		}
 		if (line && *line)
 			add_history(line);
-		// else
-		// {
-		// 	free(line);
-		// 	free_tab(new_envp);
-		// 	free_envp_list(env_lst);
-		// 	return (2);
-		// }
-		group = parser(line, new_envp);
+		init_std(&exec);
+		group = parser(line, env);
 		if(!group)
 		{
-			free(line);
-			free_tab(new_envp);
-			free_envp_list(env_lst);
-			return (3);
+			if(line)
+				free(line);
+			free_envp_list(env);
+			close_std(&exec);
+			exit(EXIT_FAILURE); //to think abt builtin exit application here
 		}
-		// else
+		
 		start = group;
-		while (group != NULL)
-		{
-			if(group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL))
-			{
-				break ;
-				// free_envp_list(env_lst);
-				// free_tab(new_envp);
-				// free_group_list(group);
-				// line = NULL;
-				// exit(EXIT_FAILURE);
-			}
-			else if (group->flag_fail == 0)
-			{
-				ft_exec(&exec, group);
-				if (group->next != NULL)
-					ft_pipe(&exec);
-				simple_cmd(&exec, group, env_lst);
-			}
-			group = group->next;
-		}
-		line = NULL;
-		reset_std(&exec);
-		close_fds(&exec);
-		init_exec(&exec);
-		free_group_list(start);
+		minish(&exec, group, env);
+		free(line);
+		reset_minish(&exec, start);
 		line = readline(">$ ");
 	}
-	free_envp_list(env_lst);
-	free_tab(new_envp);
-	builtin_exit(&exec, group);
+	end_minish(&exec, start, env);
 	return (0);
 }
-
-
-//should not exit when \n
-//add print group
-// int	main(int ac, char **av, char **envp)
-// {
-// 	char		**new_envp;
-// 	t_list_env	*env_lst;
-// 	char		*line;
-// 	t_group 	*group;
-// 	// t_group 	*start;
-// 	t_exec		exec;
-
-// 	(void)ac;
-// 	(void)av[0];
-// 	//obtenir t_env_list envp + changer $SHLVL
-// 	new_envp = set_envp(envp);
-// 	env_lst = get_list(new_envp);
-// 	init_exec(&exec);
-// 	init_std(&exec);
-// 	line = readline(">$ ");
-// 	while (is_exit(line))
-// 	{
-// 		if (line && *line)
-// 			add_history(line);
-// 		else //to be replaced by builtin_exit()
-// 		{
-// 			free(line);
-// 			free_tab(new_envp);
-// 			free_envp_list(env_lst);
-// 			free_group_list(group);
-// 			exit(EXIT_FAILURE);
-// 		}
-// 		group = parser(line, new_envp); //group_list is here
-// 		if(!group) //malloc pb
-// 		{
-// 			if(line)
-// 				free(line);
-// 			free_envp_list(env_lst);
-// 			free_tab(new_envp);
-// 			exit(EXIT_FAILURE); //to think abt builtin exit application here
-// 		}
-// 		// start = group;
-// 		//supposed to be in while
-// 		if(group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL)) //if syntax pb or the last cmd is not found
-// 		{
-// 			//changer global var en fonction de flag_fail
-// 			free_group_list(group); // add other FREE
-// 			line = NULL;
-// 			// break;
-// 		}
-// 		else
-// 		{
-// 		// 	while(group != NULL) //on parcours la liste de groupes
-// 		// 	{
-// 			ft_exec(&exec, group, env_lst);
-// 			reset_std(&exec);
-// 			close_fds(&exec);
-// 			init_exec(&exec);
-// 			free_group_list(group); // add other FREE
-// 			// waitpid(-1, NULL, 0);
-// 			line = NULL;
-// 				//changer global var en fonction de flag_fail
-// 		}
-// 		// group = group->next;
-// 		line = readline(">$ ");
-// 		// if(line)
-// 		// 	free(line); //do we really need it? (recheck with no other leaks)
-// 	}
-// 	free_envp_list(env_lst);
-// 	free_tab(new_envp);
-// 	return (0);
-// }
-

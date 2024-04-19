@@ -21,6 +21,7 @@ void	redir_in(t_exec *exec, t_group *group)
 		return ;
 	}
 	dup2(exec->fd_in, STDIN_FILENO);
+	close(exec->fd_in);
 }
 
 void	redir_out(t_exec *exec, t_group *group)
@@ -35,6 +36,7 @@ void	redir_out(t_exec *exec, t_group *group)
 		return ;
 	}
 	dup2(exec->fd_out, STDOUT_FILENO);
+	close(exec->fd_out);
 }
 
 void	append_out(t_exec *exec, t_group *group)
@@ -48,4 +50,25 @@ void	append_out(t_exec *exec, t_group *group)
 		return ;
 	}
 	dup2(exec->fd_out, STDOUT_FILENO);
+	close(exec->fd_out);
+}
+
+//last command = first
+//add print group
+void	ft_redir(t_exec *exec, t_group *group)
+{
+	if (group->redir_in != NULL)
+		redir_in(exec, group);
+	else if (group->redir_out != NULL)
+		redir_out(exec, group);
+	else if (group->app_out != NULL)
+		append_out(exec, group);
+	else
+		reset_std(exec);
+	// if (group->next != NULL)
+	// {
+	// 	ft_pipe(exec);
+	// 	// ft_redir(exec, group, env_lst); //recursive removed
+	// }
+	// simple_cmd(exec, group, env_lst);
 }

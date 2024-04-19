@@ -54,6 +54,20 @@ int	is_char(char *str, char c)
 		return (0);
 }
 
+int	is_empty(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] > 32)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	tab_size(char **tab)
 {
 	int	i;

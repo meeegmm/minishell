@@ -1,8 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   outils_libft.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/15 21:13:40 by abelosev          #+#    #+#             */
+/*   Updated: 2024/04/18 20:52:45 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/parsing.h"
 
-int ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	int i = 0;
+	int	i;
+
+	if(!s)
+		return (0);
+	i = 0;
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -16,7 +32,7 @@ char	*ft_strdup(char *s1)
 
 	i = 0;
 	len = ft_strlen(s1);
-	s = (char*)malloc(sizeof(*s1) * (len + 1));
+	s = (char *)malloc(sizeof(*s1) * (len + 1));
 	if (s == NULL)
 		return (NULL);
 	while (i < len)
@@ -28,29 +44,9 @@ char	*ft_strdup(char *s1)
 	return (s);
 }
 
-char **copy_tab(char **tab)
+int	ft_strncmp(const char *s1, const char *s2, int n)
 {
-	int nb_line;
-	int i;
-	char **copy;
-
-	nb_line = 0;
-	i = 0;
-	while (tab[nb_line])
-		nb_line++;
-	copy = malloc(sizeof(char **) * (nb_line));
-	while (i < nb_line && tab[i])
-	{
-		copy[i] = ft_strdup(tab[i]);
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
-}
-
-int		ft_strncmp(const char *s1, const char *s2, int n)
-{
-	int i;
+	int	i;
 
 	if (n == 0)
 		return (0);
@@ -74,7 +70,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	res = (char*)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	res = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (res == NULL)
 		return (NULL);
 	i = 0;

@@ -1,133 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
+/*   Updated: 2024/04/18 20:52:45 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/parsing.h"
 
-// int	not_in_path(char *str)
-// {
-// 	int		i;
-// 	char	*tab[6];
-
-// 	i = 0;
-// 	tab[0] = "cd";
-// 	tab[1] = "env";
-// 	tab[2] = "pwd";
-// 	tab[3] = "echo";
-// 	tab[4] = "unset";
-// 	tab[5] = "export";
-// 	while (str[i] && i <= 5)
-// 	{
-// 		if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// int	is_built2(char *str)
-// {
-// 	int		i;
-// 	char	*tab[6];
-
-// 	i = 0;
-// 	tab[0] = "env";
-// 	tab[1] = "pwd";
-// 	tab[2] = "echo";
-// 	while (str[i] && i <= 2)
-// 	{
-// 		if (ft_strncmp(str, tab[i], ft_strlen(tab[i])) == 0)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-char	*clean_cmd(char *str)
+void invalid_group(t_group *group, int flag)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	i--;
-	while (str[i] != '/')
-		i--;
-	i++;
-	str = str + i;
-	return (str);
+	group->flag_fail = flag;
+	group->cmd = NULL;
+	group->redir_in = NULL;
+	group->redir_out = NULL;
+	group->app_out = NULL;
+	group->app_in = NULL;
+	group->next = NULL;
 }
 
-t_group *parser(char *line, char **envp)
+void init_t_parser(t_parser *p)
 {
-	char **token_tab;
-	t_tokens *token_list;
+	p->line = NULL;
+	p->token_tab = NULL;
+	p->token_list = NULL;
+}
+
+t_group *parser(char *input, t_list_env *env)
+{
+	t_parser *p;
 	t_group *group;
-	
-	if(only_spaces(line))
-		return(invalid_group(1));
-	line = remove_quotes(line);
-	if(line == NULL)
-		return (invalid_group(1));
-	token_tab = ft_split1(line, 1);
-	free(line);
-	if(token_tab == NULL)
-		return (NULL);
-	token_list = lexer(token_tab);
-	if(!token_list)
+
+	p = create_init_p();
+	group = create_init_group();
+	if(is_folder(input))
 	{
-		free_tab(token_tab);
+		free_t_parser(p);
+		invalid_group(group, 126);
+		return (group);
+	}
+	p->line = quotes_expand(input, env);
+	if(p->line == NULL)
+	{
+		invalid_group(group, 2);
+		return (group);
+	}
+	p->token_tab = ft_split1(p->line, 1);
+	if(p->token_tab == NULL)
+	{
+		free_t_parser(p);
 		return (NULL);
 	}
-	group = get_group_list(token_list, envp);
-	if (!group)
+	spaces_between_quotes(&(p->token_tab));
+	p->token_list = lexer(p->token_tab);
+	if(p->token_list == NULL)
 	{
-		free_tab(token_tab);
-		free_tokens(token_list);
+		free_t_parser(p);
 		return (NULL);
 	}
-	free_tab(token_tab);
+	if(syntax_pb(p->token_list))
+	{
+		free_t_parser(p);
+		invalid_group(group, 2);
+		return (group);
+	}
+	else
+	{
+		free(group);
+		group = get_group_list(p->token_list, env);
+	}
+	free_t_parser(p);
 	return (group);
 }
 
-// t_group *parser(char *line, char **envp)
-// {
-// 	char **token_tab;
-// 	t_tokens *token_list;
-// 	// t_tokens *start; //removed
-// 	t_group *group;
-	
-// 	if(only_spaces(line))
-// 		return(invalid_group(1)); //is this number ok?
 
-// 	line = remove_quotes(line);
-// 	if(line == NULL)
-// 		return (invalid_group(1)); //malloc pb or unclosed quotes
 
-// 	// printf("no quotes + expand: %s\n", line); //do expand
+// printf("no quotes + expand: %s\n", p->line);
 
-// 	token_tab = ft_split1(line, 1);
-// 	free(line); //leak fix
-// 	if(token_tab == NULL)
-// 		return (NULL); //malloc pb
-
-// 	// to check syntax problems here //
-// 		//if(syntax_pb(token_tab) != 0)
-// 			// group = invalid_group(); (bash: syntax error near unexpected token `>>')
-
-// 	token_list = lexer(token_tab);
-// 	// start = token_list; //removed
-// 	if(token_list == NULL)
-// 	{
-// 		free_tab(token_tab); //leak fix
-// 		return (NULL); //malloc pb
-// 	}
-// 	else
-// 	{
-// 		// printf("Token list:\n");
-// 		// print_token_list(token_list);
-// 		// printf("\n");
-// 		// token_list = start; //removed
-// 		group = get_group_list(token_list, envp);
-// 		// print_group(group); //shoudn't work for non-existing cmd
-// 	}
-// 	free_tab(token_tab); //leak fix
-// 	// free_tokens(token_list);
-// 	return (group);
-// }
+// printf("Token list:\n");
+// print_token_list(p->token_list);
+// printf("\n");

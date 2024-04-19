@@ -1,13 +1,26 @@
 #include "../../inc/exec.h"
 
 //end the process
-//process then only contain return status
+//process then only contain return exec->status
 //go to parent or end shell
 
-void	builtin_exit(t_exec *exec, t_group *group)
+void	end_minish(t_exec *exec, t_group *start, t_list_env *env)
+{
+	free_group_list(start);
+	free_envp_list(env);
+	close_fds(exec);
+	close_std(exec);
+	rl_clear_history();
+}
+
+void	builtin_exit(t_exec *exec, t_group *group, t_list_env *env)
 {
 	if (exec->status == 0)
+	{
+		// printf("SUCCES exec->status: %d\n", exec->status);
+		end_minish(exec, group, env);
 		exit(EXIT_SUCCESS);
+	}
 	else if (exec->status == 2)
 	{
 		ft_putstr_fd("minishell", group->cmd[0], 2);
@@ -31,5 +44,7 @@ void	builtin_exit(t_exec *exec, t_group *group)
 		// //invalid option
 		// exit(EXIT_FAILURE);
 	}
+	// printf("FAIL exec->status: %d\n", exec->status);
+	end_minish(exec, group, env);
 	exit(EXIT_FAILURE);
 }

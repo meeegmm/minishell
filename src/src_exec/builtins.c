@@ -1,6 +1,6 @@
 // #include "../../inc/exec.h"
 
-// //TODO: assign good exit status if fail
+// //TODO: assign good exit exec->status if fail
 // //		choose a function for error messages to write on good fd
 // //		add checks: think about quotes
 // //		handle args
@@ -228,5 +228,5 @@
 
 // //__exit__
 // //end the process
-// //process then only contain return status
+// //process then only contain return exec->status
 // //go to parent or end shell

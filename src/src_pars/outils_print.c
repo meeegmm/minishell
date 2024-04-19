@@ -1,13 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   outils_print.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/15 21:13:46 by abelosev          #+#    #+#             */
+/*   Updated: 2024/04/18 20:56:40 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/parsing.h"
 
-void	print_env_list(t_list_env *list)
+void	ft_putstr_err(char *str)
+{
+	write(2, str, ft_strlen(str));
+}
+
+void	print_list(t_list_env *list)
 {
 	while (list != NULL)
 	{
 		printf("%s", list->key);
 		printf("=");
 		printf("%s\n", list->value);
-		list=list->next;
+		list = list->next;
 	}
 }
 
@@ -22,42 +39,43 @@ void	print_token_list(t_tokens *list)
 	}
 }
 
-void	print_cmd_tab(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		printf("%s ", tab[i]);
-		i++;
-	}
-	printf("\n");
-}
-
-void	print_group(t_group *group)
-{
-	while (group != NULL)
-	{
-		printf("\ncmd: ");
-		print_tab(group->cmd);
-		printf("flag: %d\n", group->flag_fail);
-
-		printf("fichier redir_in: %s\n", group->redir_in);
-		printf("fichier redir_out: %s\n", group->redir_out);
-		printf("fichier app_out: %s\n", group->app_out);
-		group = group->next;
-	}
-}
-
 void	print_tab(char **tab)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	if (tab == NULL)
+		return ;
+	while (tab[i] != NULL)
 	{
 		printf("%s\n", tab[i]);
 		i++;
 	}
+	printf("\n");
+}
+
+void	print_env_list(t_list_env *list)
+{
+	while (list != NULL)
+	{
+		printf("%s", list->key);
+		printf("=");
+		printf("%s\n", list->value);
+		list=list->next;
+	}
+}
+
+void	print_group(t_group *group)
+{
+	if (group == NULL)
+		return ;
+	if (group->cmd)
+	{
+		printf("\ncmd: \n");
+		print_tab(group->cmd);
+	}
+	printf("fichier redir_in: %s\n", group->redir_in);
+	printf("fichier redir_out: %s\n", group->redir_out);
+	printf("fichier app_out: %s\n", group->app_out);
+	printf("flag: %d\n", group->flag_fail);
 }

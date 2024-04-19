@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split1.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/15 21:13:13 by abelosev          #+#    #+#             */
+/*   Updated: 2024/04/18 20:52:45 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/parsing.h"
 
 int	ft_is_delimiter1(char c, int flag)
@@ -6,6 +18,8 @@ int	ft_is_delimiter1(char c, int flag)
 		return (c == ' ' || c == '\t');
 	else if (flag == 2)
 		return (c == ':');
+	else if (flag == 3)
+		return (c == 28);
 	else
 		return (0);
 }
