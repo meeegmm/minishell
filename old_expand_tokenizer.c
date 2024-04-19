@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:56 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/16 21:01:39 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:46:22 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char *temp_tokenizer(char *str)
 	new = malloc(sizeof(char) * len);
 	if(!new)
 		return (NULL);
-	while(k < len && str[i])
+	while(k < len && str[i]) //$"USER"
 	{
 		if(str[i] == '$' && str[i + 1] && (str[i + 1] == 30 || str[i + 1] == 29))
 			i++;

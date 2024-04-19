@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:09:37 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 13:44:12 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:25:54 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	delimiter_nb(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$' || (is_special(str[i])) || str[i] == 'S')
-			nb++;
+			nb += 2;
 		if (str[i] == '$' && str[i + 1] && is_digit(str[i + 1]))
 			nb++;
 		i++;

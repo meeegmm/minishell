@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 13:51:15 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:00:56 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ char *quotes_ok(char *str) //faire plus court
 				{
 					res = 1;
 					str[start] = 'D';
+					if(start > 0 && str[start - 1] == '$')
+						str[start] = 'S';
 					str[i] = 'Z';
-					//
 					break;
 				}
 
@@ -83,6 +84,44 @@ char *quotes_ok(char *str) //faire plus court
 	}
 	else
 		return (str);
+}
+
+char *with_28(char *str)
+{
+	int i;
+	int len;
+	char *new;
+	int l;
+
+	i = 0;
+	len = 0;
+	while(str[i])
+	{
+		if(str[i] == 'Z')
+			len++;
+		i++;
+	}
+	l = ft_strlen(str) + len + 1;
+	new = malloc(sizeof(char) * l);
+	if(!new)
+		return (NULL);
+	i = 0;
+	len = 0;
+	while(i + 1 < l && str[len])
+	{
+		new[i] = str[len];
+		i++;
+		if(str[len] == 'Z' && i < l)
+		{
+			new[i] = 28;
+			i ++;	
+		}
+		len++;
+	}
+	new[i] = '\0';
+	free(str);
+	// str = new;
+	return (new);
 }
 
 int spaces_nb(char *str)
@@ -132,7 +171,9 @@ char *add_spaces(char *str)
 	str = quotes_ok(str);
 	if(str == NULL)
 		return (NULL);
-
+	str = with_28(str);
+	if(str == NULL)
+		return (NULL);
 	//from spaces to 28 between quotes
 
 	str = hide_spaces_between_quotes(&str);
@@ -223,12 +264,12 @@ char *no_quotes(char *str, char c)
 	if(!new)
 		return NULL;
 
-	while(str[i] && k < len)				//echo "" => ??
+	while(str[i] && k < len)
 	{
 		if(str[i] == c)
 		{
 			i++;
-			while(str[i] && str[i] != 'Z' && k < len)
+			while(str[i] && str[i] != 'Z' && k < len) //check if str[i - 1] != '$'
 			{
 				new[k] = str[i];
 				k++;
@@ -281,6 +322,14 @@ char *quotes_expand(char *str, t_list_env *env)
 	
 	expnd = ft_expand(no_double, env);
 	printf("expand done : %s\n", expnd);
+	if(expnd == NULL || *expnd == '\0') //en vrai c'est cmd not found
+	{
+		free(spaces_quotes_replaced);
+		free(no_double);
+		if(expnd)
+			free(expnd);
+		return (NULL);
+	}
 	
 	no_single = no_quotes(expnd, 'S');
 	printf("no_single : %s\n", no_single);

@@ -7,7 +7,148 @@ DOESN'T WORK LIKE IT SUPPOSED TO //////////////////////////// 19/04
 
 >$ ''
 
+///////////////////////////
+>$ "e"'c'ho 'b'"o"nj"o"'u'r
+spaces_quotes_replaced : DeZScZho SbZDoZnjDoZSuZr
+NB of double quotes: 6
+no_double : eScZho SbZonjoSuZr
+==351853== Invalid write of size 1
+==351853==    at 0x402482: temp_tokenizer (expand_tokenizer.c:72)
+==351853==    by 0x401F18: ft_expand (expand.c:104)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
+==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==351853==    by 0x4035FA: init_data (outils_expand.c:49)
+==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
+==351853==    by 0x401F18: ft_expand (expand.c:104)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853== 
+==351853== Invalid read of size 1
+==351853==    at 0x402575: ft_words_len1 (ft_split1.c:34)
+==351853==    by 0x402731: ft_split1 (ft_split1.c:74)
+==351853==    by 0x401F42: ft_expand (expand.c:107)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
+==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==351853==    by 0x4035FA: init_data (outils_expand.c:49)
+==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
+==351853==    by 0x401F18: ft_expand (expand.c:104)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853== 
+==351853== Invalid read of size 1
+==351853==    at 0x4025EE: ft_get_word1 (ft_split1.c:53)
+==351853==    by 0x4027F9: ft_split1 (ft_split1.c:83)
+==351853==    by 0x401F42: ft_expand (expand.c:107)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
+==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==351853==    by 0x4035FA: init_data (outils_expand.c:49)
+==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
+==351853==    by 0x401F18: ft_expand (expand.c:104)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853== 
+==351853== Invalid read of size 1
+==351853==    at 0x40267C: ft_get_word1 (ft_split1.c:59)
+==351853==    by 0x4027F9: ft_split1 (ft_split1.c:83)
+==351853==    by 0x401F42: ft_expand (expand.c:107)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
+==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==351853==    by 0x4035FA: init_data (outils_expand.c:49)
+==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
+==351853==    by 0x401F18: ft_expand (expand.c:104)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853== 
+==351853== Invalid read of size 1
+==351853==    at 0x40281B: ft_split1 (ft_split1.c:86)
+==351853==    by 0x401F42: ft_expand (expand.c:107)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
+==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==351853==    by 0x4035FA: init_data (outils_expand.c:49)
+==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
+==351853==    by 0x401F18: ft_expand (expand.c:104)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853== 
+==351853== Invalid read of size 1
+==351853==    at 0x402766: ft_split1 (ft_split1.c:77)
+==351853==    by 0x401F42: ft_expand (expand.c:107)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
+==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==351853==    by 0x4035FA: init_data (outils_expand.c:49)
+==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
+==351853==    by 0x401F18: ft_expand (expand.c:104)
+==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
+==351853==    by 0x404084: parser (parser.c:46)
+==351853==    by 0x403165: main (main.c:56)
+==351853== 
+TOKEN TAB
+e
+ScZ
+ho
+ 
+SbZ
+onjo
+SuZ
+
+TOKEN TAB replaced
+e
+ScZ
+ho
+ 
+SbZ
+onjo
+SuZ
+
+expand done : eScZho SbZonjoSuZ
+NB of single quotes: 6
+no_single : echo bonjou
+Token list:
+0=echo
+0=bonjou
+
+
+Parsed :
+
+cmd: 
+echo
+bonjou
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+///////////////////////////////
+
 >$ echo $"HOME"
+
+///////////////////////////////
+
+echo "$DONTEXIST"Makefile
 
 ////////////////////////////
 
@@ -41,6 +182,88 @@ flag: 0
 ////////////////////////////
 
 /../... => bash: /../...: No such file or directory (chez minishell it is "Command not found")
+
+>$ /../...
+spaces_quotes_replaced : /../...
+NB of double quotes: 0
+no_double : /../...
+TOKEN TAB
+/
+.
+.
+/
+.
+.
+.
+
+TOKEN TAB replaced
+/
+.
+.
+/
+.
+.
+.
+
+expand done : /../...
+NB of single quotes: 0
+no_single : /../...
+Token list:
+0=/../...
+
+Command not found
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 127
+
+==384582== Invalid free() / delete / delete[] / realloc()
+==384582==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==384582==    by 0x40328C: main (main.c:89)
+==384582==  Address 0x4b67e70 is 0 bytes inside a block of size 8 free'd
+==384582==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==384582==    by 0x404861: with_28 (quotes_expand.c:122)
+==384582==    by 0x404A40: add_spaces (quotes_expand.c:174)
+==384582==    by 0x405018: quotes_expand (quotes_expand.c:306)
+==384582==    by 0x4040A4: parser (parser.c:46)
+==384582==    by 0x403185: main (main.c:56)
+==384582==  Block was alloc'd at
+==384582==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==384582==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==384582==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==384582==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==384582==    by 0x4030E5: main (main.c:43)
+==384582== 
+>$ exit
+==384582== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==384582== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==384582==    <inherited from parent>
+==384582== 
+==384582== Open file descriptor 43: /dev/ptmx
+==384582==    <inherited from parent>
+==384582== 
+==384582== Open file descriptor 40: /dev/ptmx
+==384582==    <inherited from parent>
+==384582== 
+==384582== Open file descriptor 39: /usr/share/code/resources/app/node_modules.asar
+==384582==    <inherited from parent>
+==384582== 
+==384582== Open AF_UNIX socket 38: <unknown>
+==384582==    <inherited from parent>
+==384582== 
+==384582== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240419T122835/ptyhost.log
+==384582==    <inherited from parent>
+==384582== 
+==384582== 
+==384582== 8 bytes in 1 blocks are definitely lost in loss record 5 of 64
+==384582==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==384582==    by 0x404786: with_28 (quotes_expand.c:105)
+==384582==    by 0x404A40: add_spaces (quotes_expand.c:174)
+==384582==    by 0x405018: quotes_expand (quotes_expand.c:306)
+==384582==    by 0x4040A4: parser (parser.c:46)
+==384582==    by 0x403185: main (main.c:56)
 
 ////////////////////////////
 

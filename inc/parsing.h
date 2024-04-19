@@ -63,6 +63,7 @@ int delimiter_nb(char *str);
 t_tokenizer *init_data(char *s);
 void between_single(t_tokenizer *d, char *s);
 char *temp_tokenizer(char *str);
+char *no_quotes(char *str, char c);
 
 //token_list
 int syntax_pb(t_tokens *list);

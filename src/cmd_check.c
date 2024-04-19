@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:48 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 13:41:58 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:32:59 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ char	*cmd_check(char **cmd, char **envp)
 		arg_w_path = ft_strdup(cmd[0]);
 	else
 		arg_w_path = path_check(path_list, cmd);
+	if(is_folder(arg_w_path))
+	{
+		free(arg_w_path);
+		arg_w_path = NULL;
+	}
 	free(cmd[0]);
 	free_tab(path_list);
 	return (arg_w_path);
