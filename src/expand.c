@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/16 22:23:38 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:40:23 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*no_null(void)
 	str = malloc(sizeof(char) * 2);
 	if (!str)
 		return (NULL);
-	str[0] = 28;
+	str[0] = 'X';
 	str[1] = '\0';
 	return (str);
 }
@@ -107,12 +107,20 @@ char	*ft_expand(char *str, t_list_env *env)
 	token_tab = ft_split1(temp, 3);
 	if (!token_tab)
 		return (NULL);
+		
+	printf("TOKEN TAB\n");
+	print_tab(token_tab);
+	
 	i = 0;
 	while (token_tab[i])
 	{
 		replace_token(token_tab + i, env);
 		i++;
 	}
+
+	printf("TOKEN TAB replaced\n");
+	print_tab(token_tab);
+	
 	free(temp);
 	new = from_tab_to_line(token_tab);
 	return (new);

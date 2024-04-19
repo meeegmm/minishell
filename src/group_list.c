@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 22:16:06 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:19:29 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ t_group	*get_group(t_tokens *list, t_list_env *env)
 		free_tab(new_envp);
 	}
 	list = start;
-	if (get_files(list, group) != 0)
-		invalid_group(group, 1);
+	if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0' && get_files(list, group) != 0) //should I check if it exists?
+	{
+		free_tab(group->cmd);
+		invalid_group(group, 1);	
+	}
 	return (group);
 }
 

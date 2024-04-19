@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 21:48:00 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:51:15 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '"')
 				{
 					res = 1;
-					str[start] = 29;
-					str[i] = 31;
+					str[start] = 'D';
+					str[i] = 'Z';
 					//
 					break;
 				}
@@ -67,8 +67,8 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '\'') //don't do expand inside
 				{
 					res = 1;
-					str[start] = 30;
-					str[i] = 31;
+					str[start] = 'S';
+					str[i] = 'Z';
 					break;
 				}
 			}
@@ -107,9 +107,9 @@ char *hide_spaces_between_quotes(char **str) //make void?
 	i = 0;
 	while((*str)[i])
 	{
-		if((*str)[i] == 29 || (*str)[i] == 30)
+		if((*str)[i] == 'D' || (*str)[i] == 'S')
 		{
-			while((*str)[i] && (*str)[i] != 31)
+			while((*str)[i] && (*str)[i] != 'Z')
 			{
 				if((*str)[i] == ' ' || (*str)[i] == '\t')
 					(*str)[i] = 27;
@@ -146,9 +146,9 @@ char *add_spaces(char *str)
 
 	while(i < len && *str)
 	{
-		if(*str == 29 || *str == 30)
+		if(*str == 'D' || *str == 'S')
 		{
-			while(*str && *str != 31 && i < len)
+			while(*str && *str != 'Z' && i < len)
 			{
 				new_str[i] = *str;
 				str++;
@@ -199,7 +199,7 @@ int quotes_nb(char *str, char c)
 			nb++;
 		str++;
 	}
-	printf("quotes_nb %d\n", nb * 2);
+	// printf("quotes_nb %d\n", nb * 2);
 	return (nb * 2);
 }
 
@@ -212,54 +212,91 @@ char *no_quotes(char *str, char c)
 	
 	i = 0;
 	k = 0;
+
+	if(c == 'D')
+		printf("NB of double quotes: %d\n", quotes_nb(str, c));
+	if(c == 'S')
+		printf("NB of single quotes: %d\n", quotes_nb(str, c));
+
 	len = ft_strlen(str) - quotes_nb(str, c) + 1;
 	new = malloc(sizeof(char) * len);
 	if(!new)
 		return NULL;
 
-	while((str)[i] && k < len)				//echo "" => ??
+	while(str[i] && k < len)				//echo "" => ??
 	{
-		if((str)[i] == c)
+		if(str[i] == c)
 		{
 			i++;
-			while((str)[i] && (str)[i] != 31 && k < len)
+			while(str[i] && str[i] != 'Z' && k < len)
 			{
-				new[k] = (str)[i];
+				new[k] = str[i];
 				k++;
 				i++;
 			}
-			if((str)[i] && (str)[i] == 31)
+			if(str[i] && str[i] == 'Z')
 				i++;
 		}
-		if((str)[i] && k < len)
+		if(str[i] && str[i] != c && k < len)
 		{
-			new[k] = (str)[i];
+			new[k] = str[i];
 			k++;
 			i++;
 		}
+		else
+			continue ;
 	}
 	new[k] = '\0';
 	return (new);
 }
 
-
 char *quotes_expand(char *str, t_list_env *env)
 {
+	char *spaces_quotes_replaced;
 	char *no_double;
 	char *no_single;
-	char *spaces;
-	char *res;
+	char *expnd;
 
-	no_double = no_quotes(str, 29);
-	printf("The first element of your new line : %d\n", *no_double);
-	spaces = add_spaces(no_double);
-	res = ft_expand(spaces, env);
-	no_single = no_quotes(res, 30);
-	printf("RES AFTER EXPAND : %s\n", res);
-	printf("The first element of your new line : %d\n", res[0]);
-	printf("The sec element of your new line : %d\n", res[1]);
+	spaces_quotes_replaced = NULL;
+	no_double = NULL;
+	no_single = NULL;
+	expnd = NULL;
+	
+	spaces_quotes_replaced = add_spaces(str);
+	printf("spaces_quotes_replaced : %s\n", spaces_quotes_replaced);
+	
+	if(spaces_quotes_replaced == NULL)
+		return (NULL);
+	
+	no_double = no_quotes(spaces_quotes_replaced, 'D');
+	printf("no_double : %s\n", no_double);
+
+	if(no_double == NULL || *no_double == '\0') //en vrai c'est cmd not found
+	{
+		free(spaces_quotes_replaced);
+		if(no_double)
+			free(no_double);
+		return (NULL);
+	}
+	
+	expnd = ft_expand(no_double, env);
+	printf("expand done : %s\n", expnd);
+	
+	no_single = no_quotes(expnd, 'S');
+	printf("no_single : %s\n", no_single);
+
+	if(no_single == NULL || *no_single == '\0') //en vrai c'est cmd not found
+	{
+		free(spaces_quotes_replaced);
+		free(no_double);
+		free(expnd);
+		if(no_single)
+			free(no_single);
+		return (NULL);
+	}
+
 	free(no_double);
-	free(spaces);
-	free(res);
+	free(spaces_quotes_replaced);
+	free(expnd);
 	return(no_single);
 }

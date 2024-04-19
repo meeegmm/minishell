@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:13 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:39:07 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:33:46 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_is_delimiter1(char c, int flag)
 	else if (flag == 2)
 		return (c == ':');
 	else if (flag == 3)
-		return (c == 28);
+		return (c == 'X');
 	else
 		return (0);
 }
