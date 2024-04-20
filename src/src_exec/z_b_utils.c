@@ -34,7 +34,7 @@ int	is_built2(char *str)
 	tab[4] = "exit";
 	tab[5] = "unset";
 	tab[6] = "export";
-	while (tab[i] && i <= 6)
+	while (i <= 6)
 	{
 		if (ft_strncmp(str, tab[i], ft_strlen(str)) == 0)
 			return (1);
@@ -56,8 +56,6 @@ int	ft_builtins(t_exec *exec, t_group *group, t_list_env *env_lst)
 		exec->status = builtin_pwd(group);
 	else if (ft_strncmp(group->cmd[0], "echo", 4) == 0)
 		exec->status = builtin_echo(group);
-	else if (ft_strncmp(group->cmd[0], "exit", 5) == 0)
-		builtin_exit(exec, group, env_lst);
 	else if (ft_strncmp(group->cmd[0], "unset", 5) == 0)
 		exec->status = builtin_unset(group, env_lst);
 	else if (ft_strncmp(group->cmd[0], "export", 6) == 0)

@@ -1,79 +1,51 @@
-// #include "../../inc/minishell.h"
 #include "../../inc/exec.h"
-
-//exec last cmd exec first: check recursive function
-//check fd open when |
-//add fd in putstr?
-//>$ bin > a | other cmd: out = a
-//>$ builtin | bin > a = builtin write in redir (should only do 2nd)
-//>$ builtin > a | bin > b: builtin in a and bin in b
-//>$ echo a > b | ls > c: result in c (should do both)
-//>$ echo a > b | ls > c: b created but empty (when if !group->next)
-//>$ bin > a | echo b = b write in a (shoul do both command)
-//>$ builtin | builtin: next cmd builtin  = not found 
-//>$ builtin > a = okay
-//>$ cat a = a>$
 
 //add printf
 //add checks
 //think about exit
-void	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
+int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 {
 	char	**envp;
 	pid_t	pid;
 
 	envp = get_envp(env_lst);
-	if (group->flag_fail)
-	{
-		ft_putstr_fd("minishell", "error", 2);
-		write(2, "Command not found\n", 18);
-		return ;
-	}
-	if (exec->pid == -1)
-	{
-		pid = fork();
-		exec->pid = pid;
-	}
-	if (exec->pid < 0)
+	pid = fork();
+	if (pid == -1)
 		perror("Error exec fork");
-	if (exec->pid == 0)
+	exec->pid = pid;
+	if (pid == 0)
 	{
 		if (execve(group->cmd[0], group->cmd, envp) == 0)
 		{
 			if (access(group->cmd[0], F_OK | X_OK) == -1)
 			{
-				ft_putstr_fd("minishell", group->cmd[0], 2);
-				free_tab(envp); //add
-				perror("exec");
-				//exit
+				free_tab(envp);
+				return(2);
 			}
 		}
 	}
 	else
-		waitpid(exec->pid, NULL, 0);
-	free_tab(envp); //add
+		waitpid(-1, NULL, 0);
+	free_tab(envp);
+	return (0);
 }
 
 void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 {
-	if (group->flag_fail)
-		//exit
+	if (exec->pid == -1 && group_size(group) == 1)
+	{
+		if (is_built2(group->cmd[0]))
+			exec->status = ft_builtins(exec, group, env_lst);
+		else
+			exec->status = ft_bin(exec, group, env_lst);
 		return ;
-	if (is_built2(group->cmd[0]) && (exec->pid == 0 || group_size(group) == 1))
-	{
-		ft_builtins(exec, group, env_lst);
 	}
-	else if (is_built2(group->cmd[0]) && exec->pid != 0)
+	else if (is_built2(group->cmd[0]))
 	{
-		waitpid(exec->pid, NULL, 0); //add leaks
-		ft_builtins(exec, group, env_lst);
+		// waitpid(exec->pid, NULL, 0);
+		exec->status = ft_builtins(exec, group, env_lst);
 	}
 	else
-		ft_bin(exec, group, env_lst);
-	// if (exec->status > 0)
-	// 			builtin_exit(exec, group);
-	// close(exec->pfd_in);
-	// close(exec->pfd_out);
-	// exec->pfd_in = -1;
-	// exec->pfd_out = -1;
+		exec->status = ft_bin(exec, group, env_lst);
+	return ;
 }

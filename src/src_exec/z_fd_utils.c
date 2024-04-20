@@ -15,9 +15,7 @@ void	reset_std(t_exec *exec)
 void	close_std(t_exec *exec)
 {
 	close(exec->infile);
-	exec->infile = -1;
 	close(exec->outfile);
-	exec->outfile = -1;
 }
 void	init_exec(t_exec *exec)
 {

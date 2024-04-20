@@ -6,8 +6,7 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 	{
 		if(group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL)) //if syntax pb or the last cmd is not found
 		{
-			//changer global var en fonction de flag_fail
-			//exit
+			reset_minish(exec, group);
 			break; 
 		}
 		else if(group->flag_fail == 0)
@@ -16,20 +15,18 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 			if (group->next != NULL)
 				ft_pipe(exec);
 			simple_cmd(exec, group, env);
-			// printf("exec->status: %d\n", exec->status);
-			
-			//exec magic
-			//changer global var en fonction de flag_fail
 		}
-		group = group->next;
+		if (exec->status == 0)
+			group = group->next;
+		else
+			builtin_exit(exec, group, env);
 	}
 }
 
-void	reset_minish(t_exec *exec, t_group *start)
+void	reset_minish(t_exec *exec, t_group *group)
 {
-		free_group_list(start);
+		free_group_list(group);
 		close_fds(exec); //add
 		reset_std(exec); //add
-		close_std(exec); //add
 		init_exec(exec); //add
 }

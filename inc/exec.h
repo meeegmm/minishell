@@ -38,10 +38,10 @@ int			builtin_unset(t_group *group, t_list_env *env_lst);
 
 ////////////////// EXEC //////////////////
 int			ft_builtins(t_exec *exec, t_group *group, t_list_env *env_lst);
-void		ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
+int			ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
 // void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
 // void		ft_redir(t_exec *exec, t_group *group);
-void		minish(t_exec *exec, t_group *group, t_list_env *env_lst);
+// void		minish(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 ////////////////// REDIRECTION //////////////////
 void		redir_in(t_exec *exec, t_group *group);
