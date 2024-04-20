@@ -293,7 +293,7 @@ bash: qweqwe: No such file or directory
 
 118 : echo \$HOME
 
-156 : echo "$HO"ME => ME
+156 : echo "$HO"ME => ME   !!!!!!!!!!!!!!!!!!
 
 158 : echo "$HO""ME"
 
@@ -308,11 +308,10 @@ QUESTIONS:
 
 95 :  echo " " | cat -e
 
-464 : 
+464 :    => ./minishell !!!!!!!!!!!!!!!!!!!!!
 $> touch hola
 $> ./hola
 
-CONTINUE FROM 523
 
 //////////////////////////
 //////////////////////////

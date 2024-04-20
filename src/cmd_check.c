@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:48 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 15:32:59 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:42:46 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*cmd_check(char **cmd, char **envp)
 	path_list = get_path(envp);
 	if (path_list == NULL)
 		return (NULL);
-	if (cmd[0][0] == '/' && (access(cmd[0], F_OK | X_OK) == 0))
+	if (cmd[0][0] == '/' && (access(cmd[0], F_OK | X_OK) == 0)) // TO CHANGE 
 		arg_w_path = ft_strdup(cmd[0]);
 	else
 		arg_w_path = path_check(path_list, cmd);
