@@ -1,6 +1,5 @@
-DOESN'T WORK LIKE IT SUPPOSED TO //////////////////////////// 19/04
-
-
+DOESN'T WORK LIKE IT SUPPOSED TO (20/04)
+c
 >$ ""
 
 >$ """"
@@ -9,138 +8,70 @@ DOESN'T WORK LIKE IT SUPPOSED TO //////////////////////////// 19/04
 
 ///////////////////////////
 >$ "e"'c'ho 'b'"o"nj"o"'u'r
+        ./minishell
+>$ "e"'c'ho 'b'"o"nj"o"'u'r
 spaces_quotes_replaced : DeZScZho SbZDoZnjDoZSuZr
 NB of double quotes: 6
 no_double : eScZho SbZonjoSuZr
-==351853== Invalid write of size 1
-==351853==    at 0x402482: temp_tokenizer (expand_tokenizer.c:72)
-==351853==    by 0x401F18: ft_expand (expand.c:104)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
-==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==351853==    by 0x4035FA: init_data (outils_expand.c:49)
-==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
-==351853==    by 0x401F18: ft_expand (expand.c:104)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853== 
-==351853== Invalid read of size 1
-==351853==    at 0x402575: ft_words_len1 (ft_split1.c:34)
-==351853==    by 0x402731: ft_split1 (ft_split1.c:74)
-==351853==    by 0x401F42: ft_expand (expand.c:107)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
-==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==351853==    by 0x4035FA: init_data (outils_expand.c:49)
-==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
-==351853==    by 0x401F18: ft_expand (expand.c:104)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853== 
-==351853== Invalid read of size 1
-==351853==    at 0x4025EE: ft_get_word1 (ft_split1.c:53)
-==351853==    by 0x4027F9: ft_split1 (ft_split1.c:83)
-==351853==    by 0x401F42: ft_expand (expand.c:107)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
-==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==351853==    by 0x4035FA: init_data (outils_expand.c:49)
-==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
-==351853==    by 0x401F18: ft_expand (expand.c:104)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853== 
-==351853== Invalid read of size 1
-==351853==    at 0x40267C: ft_get_word1 (ft_split1.c:59)
-==351853==    by 0x4027F9: ft_split1 (ft_split1.c:83)
-==351853==    by 0x401F42: ft_expand (expand.c:107)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
-==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==351853==    by 0x4035FA: init_data (outils_expand.c:49)
-==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
-==351853==    by 0x401F18: ft_expand (expand.c:104)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853== 
-==351853== Invalid read of size 1
-==351853==    at 0x40281B: ft_split1 (ft_split1.c:86)
-==351853==    by 0x401F42: ft_expand (expand.c:107)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
-==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==351853==    by 0x4035FA: init_data (outils_expand.c:49)
-==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
-==351853==    by 0x401F18: ft_expand (expand.c:104)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853== 
-==351853== Invalid read of size 1
-==351853==    at 0x402766: ft_split1 (ft_split1.c:77)
-==351853==    by 0x401F42: ft_expand (expand.c:107)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853==  Address 0x4b79297 is 0 bytes after a block of size 23 alloc'd
-==351853==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==351853==    by 0x4035FA: init_data (outils_expand.c:49)
-==351853==    by 0x4021B4: temp_tokenizer (expand_tokenizer.c:52)
-==351853==    by 0x401F18: ft_expand (expand.c:104)
-==351853==    by 0x404EB2: quotes_expand (quotes_expand.c:282)
-==351853==    by 0x404084: parser (parser.c:46)
-==351853==    by 0x403165: main (main.c:56)
-==351853== 
 TOKEN TAB
 e
+
 ScZ
 ho
  
 SbZ
-onjo
+o
+njo
+
 SuZ
+r
 
 TOKEN TAB replaced
 e
+
 ScZ
 ho
  
 SbZ
-onjo
-SuZ
+o
+njo
 
-expand done : eScZho SbZonjoSuZ
+SuZ
+r
+
+expand done : eScZho SbZonjoSuZr
 NB of single quotes: 6
-no_single : echo bonjou
+no_single : echo bonjour
 Token list:
 0=echo
-0=bonjou
+0=bonjour
 
+Command not found
 
 Parsed :
-
-cmd: 
-echo
-bonjou
-
 fichier redir_in: (null)
 fichier redir_out: (null)
 fichier app_out: (null)
-flag: 0
+flag: 127
+
+==1570529== Invalid free() / delete / delete[] / realloc()
+==1570529==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1570529==    by 0x40328C: main (main.c:89)
+==1570529==  Address 0x4b68fb0 is 0 bytes inside a block of size 25 free'd
+==1570529==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1570529==    by 0x404861: with_28 (quotes_expand.c:122)
+==1570529==    by 0x404A40: add_spaces (quotes_expand.c:174)
+==1570529==    by 0x405018: quotes_expand (quotes_expand.c:306)
+==1570529==    by 0x4040A4: parser (parser.c:46)
+==1570529==    by 0x403185: main (main.c:56)
+==1570529==  Block was alloc'd at
+==1570529==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1570529==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1570529==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1570529==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1570529==    by 0x4030E5: main (main.c:43)
+==1570529== 
+>$ 
 
 ///////////////////////////////
 
@@ -274,3 +205,220 @@ Change the message (?):
 
 < qweqwe iuuhoiuh > file
 bash: qweqwe: No such file or directory
+
+
+//////////////////////////
+
+printf("HERE1 str %s\n", *str);
+	free(*str);
+	printf("HERE2 str %s\n", *str);
+	*str = new;
+	printf("HERE3 str %s\n", *str);
+	printf("HERE3 new %s\n", new);
+
+    =>
+
+    >$ echo "123"
+HERE NB of Z : 1
+HERE l 12
+HERE1 str echo D123Z
+==1612929== Invalid read of size 1
+==1612929==    at 0x484ED76: __strlen_sse2 (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x493FD30: __vfprintf_internal (vfprintf-internal.c:1517)
+==1612929==    by 0x492979E: printf (printf.c:33)
+==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Address 0x4b68f90 is 0 bytes inside a block of size 11 free'd
+==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Block was alloc'd at
+==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4030E5: main (main.c:43)
+==1612929== 
+==1612929== Invalid read of size 1
+==1612929==    at 0x484ED84: __strlen_sse2 (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x493FD30: __vfprintf_internal (vfprintf-internal.c:1517)
+==1612929==    by 0x492979E: printf (printf.c:33)
+==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Address 0x4b68f91 is 1 bytes inside a block of size 11 free'd
+==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Block was alloc'd at
+==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4030E5: main (main.c:43)
+==1612929== 
+==1612929== Invalid read of size 1
+==1612929==    at 0x4954734: _IO_new_file_xsputn (fileops.c:1218)
+==1612929==    by 0x4954734: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1612929==    by 0x494000B: outstring_func (vfprintf-internal.c:239)
+==1612929==    by 0x494000B: __vfprintf_internal (vfprintf-internal.c:1517)
+==1612929==    by 0x492979E: printf (printf.c:33)
+==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Address 0x4b68f99 is 9 bytes inside a block of size 11 free'd
+==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Block was alloc'd at
+==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4030E5: main (main.c:43)
+==1612929== 
+==1612929== Invalid read of size 1
+==1612929==    at 0x48534F0: mempcpy (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4954664: _IO_new_file_xsputn (fileops.c:1235)
+==1612929==    by 0x4954664: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1612929==    by 0x494000B: outstring_func (vfprintf-internal.c:239)
+==1612929==    by 0x494000B: __vfprintf_internal (vfprintf-internal.c:1517)
+==1612929==    by 0x492979E: printf (printf.c:33)
+==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Address 0x4b68f90 is 0 bytes inside a block of size 11 free'd
+==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Block was alloc'd at
+==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4030E5: main (main.c:43)
+==1612929== 
+==1612929== Invalid read of size 1
+==1612929==    at 0x48534FE: mempcpy (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4954664: _IO_new_file_xsputn (fileops.c:1235)
+==1612929==    by 0x4954664: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1612929==    by 0x494000B: outstring_func (vfprintf-internal.c:239)
+==1612929==    by 0x494000B: __vfprintf_internal (vfprintf-internal.c:1517)
+==1612929==    by 0x492979E: printf (printf.c:33)
+==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Address 0x4b68f92 is 2 bytes inside a block of size 11 free'd
+==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Block was alloc'd at
+==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4030E5: main (main.c:43)
+==1612929== 
+HERE2 str echo D123Z
+HERE3 str echo D123ZX
+HERE3 new echo D123ZX
+AFTER +X after ending quotes: echo D123ZX
+spaces_quotes_replaced : echo D123ZX
+NB of double quotes: 2
+no_double : echo 123X
+TOKEN TAB
+echo
+ 123
+
+TOKEN TAB replaced
+echo
+ 123
+
+expand done : echo 123
+NB of single quotes: 0
+no_single : echo 123
+Token list:
+0=echo
+0=123
+
+
+Parsed :
+
+cmd: 
+echo
+123
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+==1612929== Invalid free() / delete / delete[] / realloc()
+==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x403297: main (main.c:90)
+==1612929==  Address 0x4b68f90 is 0 bytes inside a block of size 11 free'd
+==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929==  Block was alloc'd at
+==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1612929==    by 0x4030E5: main (main.c:43)
+==1612929== 
+>$ exit
+==1612929== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1612929== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1612929==    <inherited from parent>
+==1612929== 
+==1612929== Open file descriptor 40: /dev/ptmx
+==1612929==    <inherited from parent>
+==1612929== 
+==1612929== Open AF_UNIX socket 39: <unknown>
+==1612929==    <inherited from parent>
+==1612929== 
+==1612929== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==1612929==    <inherited from parent>
+==1612929== 
+==1612929== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240420T102804/ptyhost.log
+==1612929==    <inherited from parent>
+==1612929== 
+==1612929== 
+==1612929== 12 bytes in 1 blocks are definitely lost in loss record 5 of 64
+==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1612929==    by 0x404801: with_28 (quotes_expand.c:117)
+==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
+==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
+==1612929==    by 0x4040B4: parser (parser.c:46)
+==1612929==    by 0x403185: main (main.c:56)
+==1612929== 

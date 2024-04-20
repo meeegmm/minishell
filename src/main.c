@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 15:44:51 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:08:39 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av, char **envp)
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
-		if(!line || *line == '\0' || only_spaces(line))
+		if(!line || *line == '\0' || only_spaces(line) || ft_strncmp(line, ":", ft_strlen(line)) == 0 || ft_strncmp(line, "!", ft_strlen(line)) == 0)
 		{
 			if(line)
 				free(line);
@@ -86,7 +86,8 @@ int	main(int ac, char **av, char **envp)
 			group = group->next;
 		}
 		free_group_list(start);
-		free(line);
+		if(line)
+			free(line);
 		line = readline(">$ ");
 	}
 	free_envp_list(env);
