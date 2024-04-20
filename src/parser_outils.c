@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:33:00 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 15:57:38 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 17:02:15 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_folder(char *line)
 
 	if(!line || *line == '\0')
 		return (0);
-	fd = open(line, O_RDONLY);
+	fd = open(line, O_WRONLY); //???????
 	d = opendir(line);
 	if (fd == -1 && d != NULL)
 	{

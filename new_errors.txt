@@ -1,439 +1,848 @@
+
+TO CONTINUE FROM 692
+
+
 DOESN'T WORK LIKE IT SUPPOSED TO (20/04)
-c
->$ ""'
 
-==1673527== Invalid read of size 8
-==1673527==    at 0x401E74: from_tab_to_line (expand.c:82)
-==1673527==    by 0x402004: ft_expand (expand.c:125)
-==1673527==    by 0x4051AD: quotes_expand (quotes_expand.c:340)
-==1673527==    by 0x404114: parser (parser.c:46)
-==1673527==    by 0x4031E3: main (main.c:56)
-==1673527==  Address 0x4b6a2f8 is 0 bytes after a block of size 8 alloc'd
-==1673527==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1673527==    by 0x402760: ft_split1 (ft_split1.c:74)
-==1673527==    by 0x401F62: ft_expand (expand.c:107)
-==1673527==    by 0x4051AD: quotes_expand (quotes_expand.c:340)
-==1673527==    by 0x404114: parser (parser.c:46)
-==1673527==    by 0x4031E3: main (main.c:56)
-==1673527== 
+GET_FILES (?)
 
->$ """"
+WRONLY (?)
 
+"" => cmd not found
+RES:
+>$ ""
+>$ ""
 >$ ''
+>$ exit
 
-///////////////////////////
->$ "e"'c'ho 'b'"o"nj"o"'u'r
+//////////////
+
+>$ hola que tal
+Token list:
+0=hola
+0=que
+0=tal
+
+Command not found
+
+==1702894== 8 bytes in 2 blocks are definitely lost in loss record 5 of 64
+==1702894==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1702894==    by 0x403B03: ft_strdup (outils_libft.c:35)
+==1702894==    by 0x401713: get_cmd_tab (cmd_outils.c:69)
+==1702894==    by 0x402D79: get_group (group_list.c:45)
+==1702894==    by 0x402F7C: get_group_list (group_list.c:90)
+==1702894==    by 0x40435A: parser (parser.c:78)
+==1702894==    by 0x4031D3: main (main.c:56)
+
+//////////////
+
+205 : error msg
+
+>$ $HOME
+Token list:
+0=/mnt/nfs/homes/abelosev
+
+minishell: /mnt/nfs/homes/abelosev: Is a directory
+Command not found
+
+
+206 : 
+>$ $HOMEdskjhfkdshfsd
+Token list:
+0=
+Command not found
+
+//////////////////////////
+
+655 : 
+ > bonjour | echo hola
+
+Command not found
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 127
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+//////////////////////////
+
+>$ prout hola > bonjour
+Token list:
+0=prout
+0=hola
+2=>
+0=bonjour
+
+Command not found
+>$ echo hola > hello >> hello >> hello
+Token list:
+0=echo
+0=hola
+2=>
+0=hello
+4=>>
+0=hello
+4=>>
+0=hello
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: hello
+fichier app_out: hello
+flag: 0
+
+==1727790== 5 bytes in 1 blocks are definitely lost in loss record 3 of 64
+==1727790==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1727790==    by 0x403B03: ft_strdup (outils_libft.c:35)
+==1727790==    by 0x401713: get_cmd_tab (cmd_outils.c:69)
+==1727790==    by 0x402D79: get_group (group_list.c:45)
+==1727790==    by 0x402F7C: get_group_list (group_list.c:90)
+==1727790==    by 0x40435A: parser (parser.c:78)
+==1727790==    by 0x4031D3: main (main.c:56)
+
+//////////////////////////
+
+paul-f3Br6s2% make valgrind
+valgrind -q --suppressions=/mnt/nfs/homes/abelosev/minishell/ignore_readline --trace-children=yes \
+        --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes \
         ./minishell
->$ "e"'c'ho 'b'"o"nj"o"'u'r
-spaces_quotes_replaced : DeZScZho SbZDoZnjDoZSuZr
-NB of double quotes: 6
-no_double : eScZho SbZonjoSuZr
-TOKEN TAB
-e
+>$ cat <pwd
+Token list:
+0=cat
+1=<
+0=pwd
 
-ScZ
-ho
- 
-SbZ
-o
-njo
+minishell: pwd: No such file or directory
 
-SuZ
-r
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 1
 
-TOKEN TAB replaced
-e
+>$  cat <srcs/pwd
+Token list:
+0=cat
+1=<
+0=srcs/pwd
 
-ScZ
-ho
- 
-SbZ
-o
-njo
+minishell: srcs/pwd: No such file or directory
 
-SuZ
-r
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 1
 
-expand done : eScZho SbZonjoSuZr
-NB of single quotes: 6
-no_single : echo bonjour
+>$ cat <../pwd
+Token list:
+0=cat
+1=<
+0=../pwd
+
+minishell: ../pwd: No such file or directory
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 1
+
+>$  cat >>
+Token list:
+0=cat
+4=>>
+
+minishell: syntax error near unexpected token `newline'
+>$ cat >>>
+Token list:
+0=cat
+4=>>
+2=>
+
+minishell: syntax error near unexpected token `>>'
+>$ cat >> <<
+Token list:
+0=cat
+4=>>
+3=<<
+
+minishell: syntax error near unexpected token `>>'
+>$ cat >> > >> << >>
+Token list:
+0=cat
+4=>>
+2=>
+4=>>
+3=<<
+4=>>
+
+minishell: syntax error near unexpected token `>>'
+>$  cat < ls
+Token list:
+0=cat
+1=<
+0=ls
+
+minishell: ls: No such file or directory
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 1
+
+>$ cat < ls > ls
+Token list:
+0=cat
+1=<
+0=ls
+2=>
+0=ls
+
+minishell: ls: No such file or directory
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 1
+
+>$ cat > ls1 < ls2
+Token list:
+0=cat
+2=>
+0=ls1
+1=<
+0=ls2
+
+minishell: ls2: No such file or directory
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 1
+
+>$ exit
+==1728899== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1728899== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1728899==    <inherited from parent>
+==1728899== 
+==1728899== Open file descriptor 40: /dev/ptmx
+==1728899==    <inherited from parent>
+==1728899== 
+==1728899== Open file descriptor 39: /usr/share/code/resources/app/node_modules.asar
+==1728899==    <inherited from parent>
+==1728899== 
+==1728899== Open AF_UNIX socket 38: <unknown>
+==1728899==    <inherited from parent>
+==1728899== 
+==1728899== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240420T155952/ptyhost.log
+==1728899==    <inherited from parent>
+==1728899== 
+==1728899== 
+==1728899== 4 bytes in 1 blocks are definitely lost in loss record 3 of 64
+==1728899==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1728899==    by 0x403B03: ft_strdup (outils_libft.c:35)
+==1728899==    by 0x40295C: outfile_access (get_files.c:37)
+==1728899==    by 0x402BD9: get_files (get_files.c:98)
+==1728899==    by 0x402E78: get_group (group_list.c:61)
+==1728899==    by 0x402F7C: get_group_list (group_list.c:90)
+==1728899==    by 0x40435A: parser (parser.c:78)
+==1728899==    by 0x4031D3: main (main.c:56)
+
+//////////////////////////
+//////////////////////////
+
+
+NOT SURE TO HAVE TO HANDLE THIS:
+
+/../... => bash: /../...: No such file or directory (chez minishell it is "Command not found")
+
+Change the message (?):
+< qweqwe iuuhoiuh > file
+bash: qweqwe: No such file or directory
+
+58 - 60 : &&&&&
+
+94 :  echo \n hola
+
+98 - 99 : echo -n -n
+
+101 - 109
+
+118 : echo \$HOME
+
+156 : echo "$HO"ME => ME
+
+158 : echo "$HO""ME"
+
+160 : echo "'$HO''ME'"
+
+210
+
+//////////////////////////
+//////////////////////////
+
+QUESTIONS:
+
+95 :  echo " " | cat -e
+
+464 : 
+$> touch hola
+$> ./hola
+
+CONTINUE FROM 523
+
+//////////////////////////
+//////////////////////////
+
+ERRORS DANS LE DOC:
+
+126 : 
+
+128 : ne doit pas etre gere !
+
+177, 178
+
+
+
+
+
+
+
+
+
+///////////////////////
+
+au cas ou
+
+Parsed :
+
+cmd: 
+exit
+++++++0
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ exit -9223372036854775808
+Token list:
+0=exit
+0=-9223372036854775808
+
+
+Parsed :
+
+cmd: 
+exit
+-9223372036854775808
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ cat | cat | cat | ls
+Token list:
+0=cat
+5=|
+0=cat
+5=|
+0=cat
+5=|
+0=ls
+
+
+Parsed :
+
+cmd: 
+/usr/bin/cat
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+
+Parsed :
+
+cmd: 
+/usr/bin/cat
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+
+Parsed :
+
+cmd: 
+/usr/bin/cat
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+
+Parsed :
+
+cmd: 
+/usr/bin/ls
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo "''h'o'la''"
+Token list:
+0=echo
+0=''h'o'la''
+
+
+Parsed :
+
+cmd: 
+echo
+''h'o'la''
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo "'"h'o'la"'"
+Token list:
+0=echo
+0='hola'
+
+
+Parsed :
+
+cmd: 
+echo
+'hola'
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo"'hola'"
+Token list:
+0=echo'hola'
+
+Command not found
+>$  echo "'hola'"
+Token list:
+0=echo
+0='hola'
+
+
+Parsed :
+
+cmd: 
+echo
+'hola'
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo '"hola"'
+Token list:
+0=echo
+0="hola"
+
+
+Parsed :
+
+cmd: 
+echo
+"hola"
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo '''ho"''''l"a'''
+Token list:
+0=echo
+0=ho"l"a
+
+
+Parsed :
+
+cmd: 
+echo
+ho"l"a
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo hola""""""""""""
+Token list:
+0=echo
+0=hola
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo hola"''''''''''"
+Token list:
+0=echo
+0=hola''''''''''
+
+
+Parsed :
+
+cmd: 
+echo
+hola''''''''''
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo hola''''''''''''
+Token list:
+0=echo
+0=hola
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$  echo hola'""""""""""'
+Token list:
+0=echo
+0=hola""""""""""
+
+
+Parsed :
+
+cmd: 
+echo
+hola""""""""""
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ e"cho hola"
+Token list:
+0=echo hola
+
+Command not found
+>$ e'cho hola'
+Token list:
+0=echo hola
+
+Command not found
+>$ echo "hola "
+Token list:
+0=echo
+0=hola 
+
+
+Parsed :
+
+cmd: 
+echo
+hola 
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo ""hola
+Token list:
+0=echo
+0=hola
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$  echo "" hola
+Token list:
+0=echo
+0=hola
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo "" hola
+Token list:
+0=echo
+0=hola
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo ""hola
+Token list:
+0=echo
+0=hola
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$  echo "" hola
+Token list:
+0=echo
+0=hola
+
+
+Parsed :
+
+cmd: 
+echo
+hola
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo hola""bonjour
+Token list:
+0=echo
+0=holabonjour
+
+
+Parsed :
+
+cmd: 
+echo
+holabonjour
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$  "e"'c'ho 'b'"o"nj"o"'u'r
 Token list:
 0=echo
 0=bonjour
 
-Command not found
 
 Parsed :
+
+cmd: 
+echo
+bonjour
+
 fichier redir_in: (null)
 fichier redir_out: (null)
 fichier app_out: (null)
-flag: 127
+flag: 0
 
-==1570529== Invalid free() / delete / delete[] / realloc()
-==1570529==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1570529==    by 0x40328C: main (main.c:89)
-==1570529==  Address 0x4b68fb0 is 0 bytes inside a block of size 25 free'd
-==1570529==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1570529==    by 0x404861: with_28 (quotes_expand.c:122)
-==1570529==    by 0x404A40: add_spaces (quotes_expand.c:174)
-==1570529==    by 0x405018: quotes_expand (quotes_expand.c:306)
-==1570529==    by 0x4040A4: parser (parser.c:46)
-==1570529==    by 0x403185: main (main.c:56)
-==1570529==  Block was alloc'd at
-==1570529==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1570529==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1570529==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1570529==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1570529==    by 0x4030E5: main (main.c:43)
-==1570529== 
->$ 
+>$ ""e"'c'ho 'b'"o"nj"o"'u'r"
+Token list:
+0=e'c'ho 'b'onjo'u'r
 
-///////////////////////////////
+Command not found
+>$ echo "$iuh"Makefile
+Token list:
+0=echo
+0=Makefile
 
->$ echo $"HOME"
 
-///////////////////////////////
+Parsed :
 
-echo "$DONTEXIST"Makefile
+cmd: 
+echo
+Makefile
 
-////////////////////////////
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo "$klh""Makefile"
+Token list:
+0=echo
+0=Makefile
+
+
+Parsed :
+
+cmd: 
+echo
+Makefile
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ echo "$khi" "Makefile"
+Token list:
+0=echo
+0=Makefile
+
+
+Parsed :
+
+cmd: 
+echo
+Makefile
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ $?
+Token list:
+0=X
+
+
+Parsed :
+
+cmd: 
+/usr/bin/X
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
 
 >$ $HOME
-spaces_quotes_replaced : $HOME
-NB of double quotes: 0
-no_double : $HOME
-TOKEN TAB
-$HOME
-
-TOKEN TAB replaced
-/mnt/nfs/homes/abelosev
-
-expand done : /mnt/nfs/homes/abelosev
-NB of single quotes: 0
-no_single : /mnt/nfs/homes/abelosev
 Token list:
 0=/mnt/nfs/homes/abelosev
 
+minishell: /mnt/nfs/homes/abelosev: Is a directory
+Command not found
+>$ $var
+Token list:
+0=X
+
 
 Parsed :
 
 cmd: 
-/mnt/nfs/homes/abelosev
+/usr/bin/X
 
 fichier redir_in: (null)
 fichier redir_out: (null)
 fichier app_out: (null)
 flag: 0
 
-////////////////////////////
-
-/../... => bash: /../...: No such file or directory (chez minishell it is "Command not found")
-
->$ /../...
-spaces_quotes_replaced : /../...
-NB of double quotes: 0
-no_double : /../...
-TOKEN TAB
-/
-.
-.
-/
-.
-.
-.
-
-TOKEN TAB replaced
-/
-.
-.
-/
-.
-.
-.
-
-expand done : /../...
-NB of single quotes: 0
-no_single : /../...
+>$ $?$?
 Token list:
-0=/../...
+0=X
+
+
+Parsed :
+
+cmd: 
+/usr/bin/X
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+>$ ?$HOME
+Token list:
+0=?/mnt/nfs/homes/abelosev
 
 Command not found
-
-Parsed :
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 127
-
-==384582== Invalid free() / delete / delete[] / realloc()
-==384582==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==384582==    by 0x40328C: main (main.c:89)
-==384582==  Address 0x4b67e70 is 0 bytes inside a block of size 8 free'd
-==384582==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==384582==    by 0x404861: with_28 (quotes_expand.c:122)
-==384582==    by 0x404A40: add_spaces (quotes_expand.c:174)
-==384582==    by 0x405018: quotes_expand (quotes_expand.c:306)
-==384582==    by 0x4040A4: parser (parser.c:46)
-==384582==    by 0x403185: main (main.c:56)
-==384582==  Block was alloc'd at
-==384582==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==384582==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==384582==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==384582==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==384582==    by 0x4030E5: main (main.c:43)
-==384582== 
->$ exit
-==384582== FILE DESCRIPTORS: 9 open (3 std) at exit.
-==384582== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==384582==    <inherited from parent>
-==384582== 
-==384582== Open file descriptor 43: /dev/ptmx
-==384582==    <inherited from parent>
-==384582== 
-==384582== Open file descriptor 40: /dev/ptmx
-==384582==    <inherited from parent>
-==384582== 
-==384582== Open file descriptor 39: /usr/share/code/resources/app/node_modules.asar
-==384582==    <inherited from parent>
-==384582== 
-==384582== Open AF_UNIX socket 38: <unknown>
-==384582==    <inherited from parent>
-==384582== 
-==384582== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240419T122835/ptyhost.log
-==384582==    <inherited from parent>
-==384582== 
-==384582== 
-==384582== 8 bytes in 1 blocks are definitely lost in loss record 5 of 64
-==384582==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==384582==    by 0x404786: with_28 (quotes_expand.c:105)
-==384582==    by 0x404A40: add_spaces (quotes_expand.c:174)
-==384582==    by 0x405018: quotes_expand (quotes_expand.c:306)
-==384582==    by 0x4040A4: parser (parser.c:46)
-==384582==    by 0x403185: main (main.c:56)
-
-////////////////////////////
-
-GET_FILES !!!
-
-
-Change the message (?):
-
-< qweqwe iuuhoiuh > file
-bash: qweqwe: No such file or directory
-
-
-//////////////////////////
-
-printf("HERE1 str %s\n", *str);
-	free(*str);
-	printf("HERE2 str %s\n", *str);
-	*str = new;
-	printf("HERE3 str %s\n", *str);
-	printf("HERE3 new %s\n", new);
-
-    =>
-
-    >$ echo "123"
-HERE NB of Z : 1
-HERE l 12
-HERE1 str echo D123Z
-==1612929== Invalid read of size 1
-==1612929==    at 0x484ED76: __strlen_sse2 (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x493FD30: __vfprintf_internal (vfprintf-internal.c:1517)
-==1612929==    by 0x492979E: printf (printf.c:33)
-==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Address 0x4b68f90 is 0 bytes inside a block of size 11 free'd
-==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Block was alloc'd at
-==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4030E5: main (main.c:43)
-==1612929== 
-==1612929== Invalid read of size 1
-==1612929==    at 0x484ED84: __strlen_sse2 (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x493FD30: __vfprintf_internal (vfprintf-internal.c:1517)
-==1612929==    by 0x492979E: printf (printf.c:33)
-==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Address 0x4b68f91 is 1 bytes inside a block of size 11 free'd
-==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Block was alloc'd at
-==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4030E5: main (main.c:43)
-==1612929== 
-==1612929== Invalid read of size 1
-==1612929==    at 0x4954734: _IO_new_file_xsputn (fileops.c:1218)
-==1612929==    by 0x4954734: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
-==1612929==    by 0x494000B: outstring_func (vfprintf-internal.c:239)
-==1612929==    by 0x494000B: __vfprintf_internal (vfprintf-internal.c:1517)
-==1612929==    by 0x492979E: printf (printf.c:33)
-==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Address 0x4b68f99 is 9 bytes inside a block of size 11 free'd
-==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Block was alloc'd at
-==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4030E5: main (main.c:43)
-==1612929== 
-==1612929== Invalid read of size 1
-==1612929==    at 0x48534F0: mempcpy (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4954664: _IO_new_file_xsputn (fileops.c:1235)
-==1612929==    by 0x4954664: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
-==1612929==    by 0x494000B: outstring_func (vfprintf-internal.c:239)
-==1612929==    by 0x494000B: __vfprintf_internal (vfprintf-internal.c:1517)
-==1612929==    by 0x492979E: printf (printf.c:33)
-==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Address 0x4b68f90 is 0 bytes inside a block of size 11 free'd
-==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Block was alloc'd at
-==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4030E5: main (main.c:43)
-==1612929== 
-==1612929== Invalid read of size 1
-==1612929==    at 0x48534FE: mempcpy (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4954664: _IO_new_file_xsputn (fileops.c:1235)
-==1612929==    by 0x4954664: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
-==1612929==    by 0x494000B: outstring_func (vfprintf-internal.c:239)
-==1612929==    by 0x494000B: __vfprintf_internal (vfprintf-internal.c:1517)
-==1612929==    by 0x492979E: printf (printf.c:33)
-==1612929==    by 0x404907: with_28 (quotes_expand.c:134)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Address 0x4b68f92 is 2 bytes inside a block of size 11 free'd
-==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Block was alloc'd at
-==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4030E5: main (main.c:43)
-==1612929== 
-HERE2 str echo D123Z
-HERE3 str echo D123ZX
-HERE3 new echo D123ZX
-AFTER +X after ending quotes: echo D123ZX
-spaces_quotes_replaced : echo D123ZX
-NB of double quotes: 2
-no_double : echo 123X
-TOKEN TAB
-echo
- 123
-
-TOKEN TAB replaced
-echo
- 123
-
-expand done : echo 123
-NB of single quotes: 0
-no_single : echo 123
+>$ $
 Token list:
-0=echo
-0=123
+0=$
 
+Command not found
+>$ $HOME
+Token list:
+0=/mnt/nfs/homes/abelosev
 
-Parsed :
-
-cmd: 
-echo
-123
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
-==1612929== Invalid free() / delete / delete[] / realloc()
-==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x403297: main (main.c:90)
-==1612929==  Address 0x4b68f90 is 0 bytes inside a block of size 11 free'd
-==1612929==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x4048EF: with_28 (quotes_expand.c:133)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929==  Block was alloc'd at
-==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1612929==    by 0x4030E5: main (main.c:43)
-==1612929== 
->$ exit
-==1612929== FILE DESCRIPTORS: 8 open (3 std) at exit.
-==1612929== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==1612929==    <inherited from parent>
-==1612929== 
-==1612929== Open file descriptor 40: /dev/ptmx
-==1612929==    <inherited from parent>
-==1612929== 
-==1612929== Open AF_UNIX socket 39: <unknown>
-==1612929==    <inherited from parent>
-==1612929== 
-==1612929== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
-==1612929==    <inherited from parent>
-==1612929== 
-==1612929== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240420T102804/ptyhost.log
-==1612929==    <inherited from parent>
-==1612929== 
-==1612929== 
-==1612929== 12 bytes in 1 blocks are definitely lost in loss record 5 of 64
-==1612929==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1612929==    by 0x404801: with_28 (quotes_expand.c:117)
-==1612929==    by 0x404B22: add_spaces (quotes_expand.c:188)
-==1612929==    by 0x405118: quotes_expand (quotes_expand.c:321)
-==1612929==    by 0x4040B4: parser (parser.c:46)
-==1612929==    by 0x403185: main (main.c:56)
-==1612929== 
+minishell: /mnt/nfs/homes/abelosev: Is a directory
+Command not found

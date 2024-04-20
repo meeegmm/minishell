@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 16:52:59 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:03:56 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*no_null(void)
 	str = malloc(sizeof(char) * 2);
 	if (!str)
 		return (NULL);
-	str[0] = 'X';
+	str[0] = 28;
 	str[1] = '\0';
 	return (str);
 }

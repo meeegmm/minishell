@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 14:24:03 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:06:50 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '"')
 				{
 					res = 1;
-					str[start] = 'D';
+					str[start] = 29;
 					if(start > 0 && str[start - 1] == '$')
-						str[start] = 'S';
-					str[i] = 'Z';
+						str[start] = 30;
+					str[i] = 31;
 					break;
 				}
 
@@ -68,8 +68,8 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '\'') //don't do expand inside
 				{
 					res = 1;
-					str[start] = 'S';
-					str[i] = 'Z';
+					str[start] = 30;
+					str[i] = 31;
 					break;
 				}
 			}
@@ -95,7 +95,7 @@ int ending_quotes_nb(char *str)
 	i = 0;
 	while(str[i])
 	{
-		if(str[i] == 'Z')
+		if(str[i] == 31)
 			len++;
 		i++;
 	}
@@ -111,9 +111,9 @@ char *with_28(char ***str)
 
 	i = 0;
 	len = 0;
-	printf("HERE NB of Z : %d\n", ending_quotes_nb(**str));
+	// printf("HERE NB of Z : %d\n", ending_quotes_nb(**str));
 	l = ft_strlen(**str) + ending_quotes_nb(**str) + 1;
-	printf("HERE l %d\n", l);
+	// printf("HERE l %d\n", l);
 	new = malloc(sizeof(char) * l);
 	if(!new)
 		return (NULL); //???
@@ -121,9 +121,9 @@ char *with_28(char ***str)
 	{
 		new[i] = (**str)[len];
 		i++;
-		if((**str)[len] == 'Z' && i < l)
+		if((**str)[len] == 31 && i < l)
 		{
-			new[i] = 'X'; //change to 28
+			new[i] = 28;
 			i++;	
 		}
 		len++;
@@ -157,9 +157,9 @@ void hide_spaces_between_quotes(char **str) //make void?
 	i = 0;
 	while((*str)[i])
 	{
-		if((*str)[i] == 'D' || (*str)[i] == 'S')
+		if((*str)[i] == 29 || (*str)[i] == 30)
 		{
-			while((*str)[i] && (*str)[i] != 'Z')
+			while((*str)[i] && (*str)[i] != 31)
 			{
 				if((*str)[i] == ' ' || (*str)[i] == '\t')
 					(*str)[i] = 27;
@@ -186,7 +186,7 @@ char *add_spaces(char **tmp)
 	str = with_28(&tmp);
 	start = str;
 	
-	printf("AFTER +X after ending quotes: %s\n", str);
+	// printf("AFTER +X after ending quotes: %s\n", str);
 
 	hide_spaces_between_quotes(&str);
 	// printf("HERE spaces are hidden %s\n", str);
@@ -202,9 +202,9 @@ char *add_spaces(char **tmp)
 
 	while(i < len && *str)
 	{
-		if(*str == 'D' || *str == 'S')
+		if(*str == 29 || *str == 30)
 		{
-			while(*str && *str != 'Z' && i < len)
+			while(*str && *str != 31 && i < len)
 			{
 				new_str[i] = *str;
 				(str)++;
@@ -271,10 +271,10 @@ char *no_quotes(char *str, char c)
 	i = 0;
 	k = 0;
 
-	if(c == 'D')
-		printf("NB of double quotes: %d\n", quotes_nb(str, c));
-	if(c == 'S')
-		printf("NB of single quotes: %d\n", quotes_nb(str, c));
+	// if(c == 29)
+	// 	printf("NB of double quotes: %d\n", quotes_nb(str, c));
+	// if(c == 30)
+	// 	printf("NB of single quotes: %d\n", quotes_nb(str, c));
 
 	len = ft_strlen(str) - quotes_nb(str, c) + 1;
 	new = malloc(sizeof(char) * len);
@@ -286,13 +286,13 @@ char *no_quotes(char *str, char c)
 		if(str[i] == c)
 		{
 			i++;
-			while(str[i] && str[i] != 'Z' && k < len) //check if str[i - 1] != '$'
+			while(str[i] && str[i] != 31 && k < len) //check if str[i - 1] != '$'
 			{
 				new[k] = str[i];
 				k++;
 				i++;
 			}
-			if(str[i] && str[i] == 'Z')
+			if(str[i] && str[i] == 31)
 				i++;
 		}
 		if(str[i] && str[i] != c && k < len)
@@ -326,8 +326,8 @@ char *quotes_expand(char *str, t_list_env *env)
 	if(spaces_quotes_replaced == NULL)
 		return (NULL);
 	
-	no_double = no_quotes(spaces_quotes_replaced, 'D');
-	printf("no_double : %s\n", no_double);
+	no_double = no_quotes(spaces_quotes_replaced, 29);
+	// printf("no_double : %s\n", no_double);
 
 	if(no_double == NULL || *no_double == '\0') //en vrai c'est cmd not found
 	{
@@ -338,7 +338,7 @@ char *quotes_expand(char *str, t_list_env *env)
 	}
 	
 	expnd = ft_expand(no_double, env);
-	printf("expand done : %s\n", expnd);
+	// printf("expand done : %s\n", expnd);
 	if(expnd == NULL || *expnd == '\0') //en vrai c'est cmd not found
 	{
 		free(spaces_quotes_replaced);
@@ -348,8 +348,8 @@ char *quotes_expand(char *str, t_list_env *env)
 		return (NULL);
 	}
 	
-	no_single = no_quotes(expnd, 'S');
-	printf("no_single : %s\n", no_single);
+	no_single = no_quotes(expnd, 30);
+	// printf("no_single : %s\n", no_single);
 
 	if(no_single == NULL || *no_single == '\0') //en vrai c'est cmd not found
 	{

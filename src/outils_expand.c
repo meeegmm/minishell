@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:09:37 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 15:25:54 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:06:15 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	delimiter_nb(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' || (is_special(str[i])) || str[i] == 'S')
+		if (str[i] == '$' || (is_special(str[i])) || str[i] == 30)
 			nb += 2;
 		if (str[i] == '$' && str[i + 1] && is_digit(str[i + 1]))
 			nb++;
@@ -54,17 +54,17 @@ t_tokenizer	*init_data(char *s)
 
 void	between_single(t_tokenizer *d, char *s)
 {
-	d->new[d->k] = 'X';
+	d->new[d->k] = 28;
 	d->k++;
-	while (s[d->i] && s[d->i] != 'Z' && d->k < d->len)
+	while (s[d->i] && s[d->i] != 31 && d->k < d->len)
 	{
 		d->new[d->k] = s[d->i];
 		d->k++;
 		d->i++;
 	}
-	if (d->k < d->len && s[d->i] && s[d->i] == 'Z')
+	if (d->k < d->len && s[d->i] && s[d->i] == 31)
 	{
-		d->new[d->k] = 'Z';
+		d->new[d->k] = 31;
 		d->k++;
 		d->i++;
 	}
