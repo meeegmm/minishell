@@ -1,6 +1,21 @@
 DOESN'T WORK LIKE IT SUPPOSED TO (20/04)
 c
->$ ""
+>$ ""'
+
+==1673527== Invalid read of size 8
+==1673527==    at 0x401E74: from_tab_to_line (expand.c:82)
+==1673527==    by 0x402004: ft_expand (expand.c:125)
+==1673527==    by 0x4051AD: quotes_expand (quotes_expand.c:340)
+==1673527==    by 0x404114: parser (parser.c:46)
+==1673527==    by 0x4031E3: main (main.c:56)
+==1673527==  Address 0x4b6a2f8 is 0 bytes after a block of size 8 alloc'd
+==1673527==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1673527==    by 0x402760: ft_split1 (ft_split1.c:74)
+==1673527==    by 0x401F62: ft_expand (expand.c:107)
+==1673527==    by 0x4051AD: quotes_expand (quotes_expand.c:340)
+==1673527==    by 0x404114: parser (parser.c:46)
+==1673527==    by 0x4031E3: main (main.c:56)
+==1673527== 
 
 >$ """"
 

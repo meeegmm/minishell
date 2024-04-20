@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 15:01:44 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:52:59 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,14 @@ char	*ft_expand(char *str, t_list_env *env)
 	if (!temp)
 		return (NULL);
 	token_tab = ft_split1(temp, 3);
-	if (!token_tab)
+	if (!token_tab || !token_tab[0]) // NOT SURE THAT THIS IS CORRECT
+	{
+		free(token_tab);
+		free(temp);
 		return (NULL);
-		
-	printf("TOKEN TAB\n");
-	print_tab(token_tab);
+	}
+	// printf("TOKEN TAB\n");
+	// print_tab(token_tab);
 	
 	i = 0;
 	while (token_tab[i])
@@ -118,8 +121,8 @@ char	*ft_expand(char *str, t_list_env *env)
 		i++;
 	}
 
-	printf("TOKEN TAB replaced\n");
-	print_tab(token_tab);
+	// printf("TOKEN TAB replaced\n");
+	// print_tab(token_tab);
 	
 	free(temp);
 	new = from_tab_to_line(token_tab);
