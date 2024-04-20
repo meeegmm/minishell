@@ -51,7 +51,7 @@ int	ft_builtins(t_exec *exec, t_group *group, t_list_env *env_lst)
 	if (ft_strncmp(group->cmd[0], "cd", 2) == 0)
 		exec->status = builtin_cd(group, group->cmd[1], env_lst);
 	else if (ft_strncmp(group->cmd[0], "env", 3) == 0)
-		exec->status = builtin_env(group, env_lst);
+		exec->status = builtin_env(group);
 	else if (ft_strncmp(group->cmd[0], "pwd", 3) == 0)
 		exec->status = builtin_pwd(group);
 	else if (ft_strncmp(group->cmd[0], "echo", 4) == 0)

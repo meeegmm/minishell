@@ -1,6 +1,6 @@
 #include "../../inc/exec.h"
 
-int	builtin_env(t_group *group, t_list_env *env_lst)
+int	builtin_env(t_group *group)
 {
 	if (tab_size(group->cmd) > 1)
 	{
@@ -13,7 +13,7 @@ int	builtin_env(t_group *group, t_list_env *env_lst)
 	}
 	if (ft_strncmp(group->cmd[0], "env", 3) == 0)
 	{
-		print_env_list(env_lst);
+		// print_env_list(env_lst);
 		return (0);
 	}
 	else

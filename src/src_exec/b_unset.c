@@ -31,7 +31,7 @@ int	builtin_unset(t_group *group, t_list_env *env_lst)
 				}
 				env_lst = tmp;
 				printf("\n\n");
-				print_env_list(env_lst);
+				// print_env_list(env_lst);
 				i++;
 			}
 		}

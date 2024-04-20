@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 16:00:56 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:06:50 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '"')
 				{
 					res = 1;
-					str[start] = 'D';
+					str[start] = 29;
 					if(start > 0 && str[start - 1] == '$')
-						str[start] = 'S';
-					str[i] = 'Z';
+						str[start] = 30;
+					str[i] = 31;
 					break;
 				}
 
@@ -68,8 +68,8 @@ char *quotes_ok(char *str) //faire plus court
 				if(str[i] == '\'') //don't do expand inside
 				{
 					res = 1;
-					str[start] = 'S';
-					str[i] = 'Z';
+					str[start] = 30;
+					str[i] = 31;
 					break;
 				}
 			}
@@ -86,7 +86,23 @@ char *quotes_ok(char *str) //faire plus court
 		return (str);
 }
 
-char *with_28(char *str)
+int ending_quotes_nb(char *str)
+{
+	int len;
+	int i;
+
+	len = 0;
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == 31)
+			len++;
+		i++;
+	}
+	return (len);
+}
+
+char *with_28(char ***str)
 {
 	int i;
 	int len;
@@ -95,32 +111,27 @@ char *with_28(char *str)
 
 	i = 0;
 	len = 0;
-	while(str[i])
-	{
-		if(str[i] == 'Z')
-			len++;
-		i++;
-	}
-	l = ft_strlen(str) + len + 1;
+	// printf("HERE NB of Z : %d\n", ending_quotes_nb(**str));
+	l = ft_strlen(**str) + ending_quotes_nb(**str) + 1;
+	// printf("HERE l %d\n", l);
 	new = malloc(sizeof(char) * l);
 	if(!new)
-		return (NULL);
-	i = 0;
-	len = 0;
-	while(i + 1 < l && str[len])
+		return (NULL); //???
+	while(i + 1 < l && (**str)[len])
 	{
-		new[i] = str[len];
+		new[i] = (**str)[len];
 		i++;
-		if(str[len] == 'Z' && i < l)
+		if((**str)[len] == 31 && i < l)
 		{
 			new[i] = 28;
-			i ++;	
+			i++;	
 		}
 		len++;
 	}
 	new[i] = '\0';
-	free(str);
-	// str = new;
+	// free((**str));
+	// (**str) = new;
+	// free(new);
 	return (new);
 }
 
@@ -134,21 +145,21 @@ int spaces_nb(char *str)
 		if(is_meta_move(&str) > 0)
 			counter++;
 		else
-			str++; //как будто тоже можно включить в саму is_meta, но неясно, как изменить тогда
+			str++;
 	}
 	return (counter * 2);
 }
 
-char *hide_spaces_between_quotes(char **str) //make void?
+void hide_spaces_between_quotes(char **str) //make void?
 {
 	int i;
 
 	i = 0;
 	while((*str)[i])
 	{
-		if((*str)[i] == 'D' || (*str)[i] == 'S')
+		if((*str)[i] == 29 || (*str)[i] == 30)
 		{
-			while((*str)[i] && (*str)[i] != 'Z')
+			while((*str)[i] && (*str)[i] != 31)
 			{
 				if((*str)[i] == ' ' || (*str)[i] == '\t')
 					(*str)[i] = 27;
@@ -158,47 +169,51 @@ char *hide_spaces_between_quotes(char **str) //make void?
 		if((*str)[i])
 			i++;
 	}
-	return (*str);
 }
 
-char *add_spaces(char *str)
+char *add_spaces(char **tmp)
 {
 	char *new_str;
+	char *str;
+	char *start;
 	int len;
 	int i;
 	
 	i = 0;
-	str = quotes_ok(str);
-	if(str == NULL)
+	*tmp = quotes_ok(*tmp);
+	if(*tmp == NULL)
 		return (NULL);
-	str = with_28(str);
-	if(str == NULL)
-		return (NULL);
-	//from spaces to 28 between quotes
+	str = with_28(&tmp);
+	start = str;
+	
+	// printf("AFTER +X after ending quotes: %s\n", str);
 
-	str = hide_spaces_between_quotes(&str);
+	hide_spaces_between_quotes(&str);
 	// printf("HERE spaces are hidden %s\n", str);
 
 	len = spaces_nb(str) + ft_strlen(str) + 1;
 
 	new_str = malloc(sizeof(char) * (len + 1));
 	if(!new_str)
+	{
+		free(str);
 		return (NULL);
+	}
 
 	while(i < len && *str)
 	{
-		if(*str == 'D' || *str == 'S')
+		if(*str == 29 || *str == 30)
 		{
-			while(*str && *str != 'Z' && i < len)
+			while(*str && *str != 31 && i < len)
 			{
 				new_str[i] = *str;
-				str++;
+				(str)++;
 				i++;
 			}
 			if(*str && i < len)
 			{
 				new_str[i] = *str;
-				str++;
+				(str)++;
 				i++;
 			}
 			// printf("HERE spaces are hidden %s\n", str);
@@ -207,14 +222,14 @@ char *add_spaces(char *str)
 		{
 			new_str[i] = ' ';
 			new_str[i + 1] = *str;
-			if(*str != '|' && (*str == *(str + 1)))
+			if(*str != '|' && (*str == *((str) + 1)))
 			{
-				new_str[i + 2] = *(str + 1);
-				str++;
+				new_str[i + 2] = *((str) + 1);
+				(str)++;
 				if(i + 3 < len)
 					i++;
 			}
-			str++;
+			(str)++;
 			new_str[i + 2] = ' ';
 			i += 3;
 		}
@@ -222,10 +237,12 @@ char *add_spaces(char *str)
 		if(i < len)
 			i++;
 		if(*str)
-			str++;
+			(str)++;
 	}
 	new_str[i] = '\0';
-	// printf("\nNEW_STRING : %s\n", new_str);
+	free((start));
+	// (str) = new_str;
+	// free(new_str);
 	return (new_str);
 }
 
@@ -254,10 +271,10 @@ char *no_quotes(char *str, char c)
 	i = 0;
 	k = 0;
 
-	if(c == 'D')
-		printf("NB of double quotes: %d\n", quotes_nb(str, c));
-	if(c == 'S')
-		printf("NB of single quotes: %d\n", quotes_nb(str, c));
+	// if(c == 29)
+	// 	printf("NB of double quotes: %d\n", quotes_nb(str, c));
+	// if(c == 30)
+	// 	printf("NB of single quotes: %d\n", quotes_nb(str, c));
 
 	len = ft_strlen(str) - quotes_nb(str, c) + 1;
 	new = malloc(sizeof(char) * len);
@@ -269,13 +286,13 @@ char *no_quotes(char *str, char c)
 		if(str[i] == c)
 		{
 			i++;
-			while(str[i] && str[i] != 'Z' && k < len) //check if str[i - 1] != '$'
+			while(str[i] && str[i] != 31 && k < len) //check if str[i - 1] != '$'
 			{
 				new[k] = str[i];
 				k++;
 				i++;
 			}
-			if(str[i] && str[i] == 'Z')
+			if(str[i] && str[i] == 31)
 				i++;
 		}
 		if(str[i] && str[i] != c && k < len)
@@ -303,14 +320,14 @@ char *quotes_expand(char *str, t_list_env *env)
 	no_single = NULL;
 	expnd = NULL;
 	
-	spaces_quotes_replaced = add_spaces(str);
-	printf("spaces_quotes_replaced : %s\n", spaces_quotes_replaced);
+	spaces_quotes_replaced = add_spaces(&str); //IT SHOULDNt FREE STR!
+	// printf("spaces_quotes_replaced : %s\n", spaces_quotes_replaced);
 	
 	if(spaces_quotes_replaced == NULL)
 		return (NULL);
 	
-	no_double = no_quotes(spaces_quotes_replaced, 'D');
-	printf("no_double : %s\n", no_double);
+	no_double = no_quotes(spaces_quotes_replaced, 29);
+	// printf("no_double : %s\n", no_double);
 
 	if(no_double == NULL || *no_double == '\0') //en vrai c'est cmd not found
 	{
@@ -321,7 +338,7 @@ char *quotes_expand(char *str, t_list_env *env)
 	}
 	
 	expnd = ft_expand(no_double, env);
-	printf("expand done : %s\n", expnd);
+	// printf("expand done : %s\n", expnd);
 	if(expnd == NULL || *expnd == '\0') //en vrai c'est cmd not found
 	{
 		free(spaces_quotes_replaced);
@@ -331,8 +348,8 @@ char *quotes_expand(char *str, t_list_env *env)
 		return (NULL);
 	}
 	
-	no_single = no_quotes(expnd, 'S');
-	printf("no_single : %s\n", no_single);
+	no_single = no_quotes(expnd, 30);
+	// printf("no_single : %s\n", no_single);
 
 	if(no_single == NULL || *no_single == '\0') //en vrai c'est cmd not found
 	{
@@ -343,9 +360,11 @@ char *quotes_expand(char *str, t_list_env *env)
 			free(no_single);
 		return (NULL);
 	}
-
-	free(no_double);
-	free(spaces_quotes_replaced);
-	free(expnd);
+	if(no_double)
+		free(no_double);
+	if(spaces_quotes_replaced)
+		free(spaces_quotes_replaced);
+	if(expnd)
+		free(expnd);
 	return(no_single);
 }

@@ -81,7 +81,6 @@ void	free_envp_list(t_list_env *list);
 void	free_group_list(t_group *group);
 
 int		ft_strncmp(const char *s1, const char *s2, int n);
-void	print_env_list(t_list_env *list);
 char	*get_key(char *str);
 char	*get_value(char *str);
 int		ft_strlen(const char *s);
