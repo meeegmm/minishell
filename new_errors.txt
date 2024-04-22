@@ -1,12 +1,9 @@
 
-TO CONTINUE FROM 692
-
+(TO CONTINUE FROM 692)
 
 DOESN'T WORK LIKE IT SUPPOSED TO (20/04)
 
-GET_FILES (?)
-
-WRONLY (?)
+////////////////////////// TO HANDLE EMPTY CMD
 
 "" => cmd not found
 RES:
@@ -15,7 +12,7 @@ RES:
 >$ ''
 >$ exit
 
-//////////////
+////////////////////////// LEAKS in CMD PART
 
 >$ hola que tal
 Token list:
@@ -34,7 +31,7 @@ Command not found
 ==1702894==    by 0x40435A: parser (parser.c:78)
 ==1702894==    by 0x4031D3: main (main.c:56)
 
-//////////////
+////////////////////////// WRONG ERROR MESSAGE
 
 205 : error msg
 
@@ -45,6 +42,7 @@ Token list:
 minishell: /mnt/nfs/homes/abelosev: Is a directory
 Command not found
 
+////////////////////////// WRONG ERROR MESSAGE
 
 206 : 
 >$ $HOMEdskjhfkdshfsd
@@ -52,7 +50,7 @@ Token list:
 0=
 Command not found
 
-//////////////////////////
+////////////////////////// WRONG ERROR MESSAGE
 
 655 : 
  > bonjour | echo hola
@@ -77,7 +75,7 @@ fichier redir_out: (null)
 fichier app_out: (null)
 flag: 0
 
-//////////////////////////
+////////////////////////// LEAKS
 
 >$ prout hola > bonjour
 Token list:
@@ -119,113 +117,7 @@ flag: 0
 ==1727790==    by 0x40435A: parser (parser.c:78)
 ==1727790==    by 0x4031D3: main (main.c:56)
 
-//////////////////////////
-
-paul-f3Br6s2% make valgrind
-valgrind -q --suppressions=/mnt/nfs/homes/abelosev/minishell/ignore_readline --trace-children=yes \
-        --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes \
-        ./minishell
->$ cat <pwd
-Token list:
-0=cat
-1=<
-0=pwd
-
-minishell: pwd: No such file or directory
-
-Parsed :
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 1
-
->$  cat <srcs/pwd
-Token list:
-0=cat
-1=<
-0=srcs/pwd
-
-minishell: srcs/pwd: No such file or directory
-
-Parsed :
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 1
-
->$ cat <../pwd
-Token list:
-0=cat
-1=<
-0=../pwd
-
-minishell: ../pwd: No such file or directory
-
-Parsed :
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 1
-
->$  cat >>
-Token list:
-0=cat
-4=>>
-
-minishell: syntax error near unexpected token `newline'
->$ cat >>>
-Token list:
-0=cat
-4=>>
-2=>
-
-minishell: syntax error near unexpected token `>>'
->$ cat >> <<
-Token list:
-0=cat
-4=>>
-3=<<
-
-minishell: syntax error near unexpected token `>>'
->$ cat >> > >> << >>
-Token list:
-0=cat
-4=>>
-2=>
-4=>>
-3=<<
-4=>>
-
-minishell: syntax error near unexpected token `>>'
->$  cat < ls
-Token list:
-0=cat
-1=<
-0=ls
-
-minishell: ls: No such file or directory
-
-Parsed :
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 1
-
->$ cat < ls > ls
-Token list:
-0=cat
-1=<
-0=ls
-2=>
-0=ls
-
-minishell: ls: No such file or directory
-
-Parsed :
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 1
+////////////////////////// LEAKS
 
 >$ cat > ls1 < ls2
 Token list:
@@ -271,6 +163,100 @@ flag: 1
 ==1728899==    by 0x40435A: parser (parser.c:78)
 ==1728899==    by 0x4031D3: main (main.c:56)
 
+////////////////////////// EXPAND PROBLEM
+
+>$ echo "$H"me
+Token list:
+0=echo
+0=/mnt/nfs/homes/abelosevme
+
+
+Parsed :
+
+cmd: 
+echo
+/mnt/nfs/homes/abelosevme
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+
+Same :
+>$ echo "$U"me
+Token list:
+0=echo
+0=abelosevme
+
+
+Parsed :
+
+cmd: 
+echo
+abelosevme
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+////////////////////////// WRONG ERROR MESSAGE
+
+?$HOME
+Token list:
+0=?/mnt/nfs/homes/abelosev
+
+Command not found
+
+///////////////////////// EXE FILE
+
+464 :    => ./minishell !!!!!!!!!!!!!!!!!!!!!
+$> touch hola
+$> ./hola
+
+////////////////////////// LEAKS
+
+>$ $ $
+Token list:
+0=$
+0=$
+
+Command not found
+>$ exit
+==1885019== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1885019== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1885019==    <inherited from parent>
+==1885019== 
+==1885019== Open AF_UNIX socket 39: <unknown>
+==1885019==    <inherited from parent>
+==1885019== 
+==1885019== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
+==1885019==    <inherited from parent>
+==1885019== 
+==1885019== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240422T124000/ptyhost.log
+==1885019==    <inherited from parent>
+==1885019== 
+==1885019== 
+==1885019== 2 bytes in 1 blocks are definitely lost in loss record 1 of 64
+==1885019==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1885019==    by 0x403B03: ft_strdup (outils_libft.c:35)
+==1885019==    by 0x401713: get_cmd_tab (cmd_outils.c:69)
+==1885019==    by 0x402D79: get_group (group_list.c:45)
+==1885019==    by 0x402F7C: get_group_list (group_list.c:90)
+==1885019==    by 0x40435A: parser (parser.c:78)
+==1885019==    by 0x4031D3: main (main.c:56)
+
+//////////////////////////
+//////////////////////////
+
+
+QUESTIONS:
+
+95 :  echo " " | cat -e
+
+GET_FILES -> WRONLY (?)
+
 //////////////////////////
 //////////////////////////
 
@@ -301,17 +287,6 @@ bash: qweqwe: No such file or directory
 
 210
 
-//////////////////////////
-//////////////////////////
-
-QUESTIONS:
-
-95 :  echo " " | cat -e
-
-464 :    => ./minishell !!!!!!!!!!!!!!!!!!!!!
-$> touch hola
-$> ./hola
-
 
 //////////////////////////
 //////////////////////////
@@ -323,525 +298,3 @@ ERRORS DANS LE DOC:
 128 : ne doit pas etre gere !
 
 177, 178
-
-
-
-
-
-
-
-
-
-///////////////////////
-
-au cas ou
-
-Parsed :
-
-cmd: 
-exit
-++++++0
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ exit -9223372036854775808
-Token list:
-0=exit
-0=-9223372036854775808
-
-
-Parsed :
-
-cmd: 
-exit
--9223372036854775808
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ cat | cat | cat | ls
-Token list:
-0=cat
-5=|
-0=cat
-5=|
-0=cat
-5=|
-0=ls
-
-
-Parsed :
-
-cmd: 
-/usr/bin/cat
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
-
-Parsed :
-
-cmd: 
-/usr/bin/cat
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
-
-Parsed :
-
-cmd: 
-/usr/bin/cat
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
-
-Parsed :
-
-cmd: 
-/usr/bin/ls
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo "''h'o'la''"
-Token list:
-0=echo
-0=''h'o'la''
-
-
-Parsed :
-
-cmd: 
-echo
-''h'o'la''
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo "'"h'o'la"'"
-Token list:
-0=echo
-0='hola'
-
-
-Parsed :
-
-cmd: 
-echo
-'hola'
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo"'hola'"
-Token list:
-0=echo'hola'
-
-Command not found
->$  echo "'hola'"
-Token list:
-0=echo
-0='hola'
-
-
-Parsed :
-
-cmd: 
-echo
-'hola'
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo '"hola"'
-Token list:
-0=echo
-0="hola"
-
-
-Parsed :
-
-cmd: 
-echo
-"hola"
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo '''ho"''''l"a'''
-Token list:
-0=echo
-0=ho"l"a
-
-
-Parsed :
-
-cmd: 
-echo
-ho"l"a
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo hola""""""""""""
-Token list:
-0=echo
-0=hola
-
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo hola"''''''''''"
-Token list:
-0=echo
-0=hola''''''''''
-
-
-Parsed :
-
-cmd: 
-echo
-hola''''''''''
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo hola''''''''''''
-Token list:
-0=echo
-0=hola
-
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$  echo hola'""""""""""'
-Token list:
-0=echo
-0=hola""""""""""
-
-
-Parsed :
-
-cmd: 
-echo
-hola""""""""""
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ e"cho hola"
-Token list:
-0=echo hola
-
-Command not found
->$ e'cho hola'
-Token list:
-0=echo hola
-
-Command not found
->$ echo "hola "
-Token list:
-0=echo
-0=hola 
-
-
-Parsed :
-
-cmd: 
-echo
-hola 
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo ""hola
-Token list:
-0=echo
-0=hola
-
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$  echo "" hola
-Token list:
-0=echo
-0=hola
-
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo "" hola
-Token list:
-0=echo
-0=hola
-
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo ""hola
-Token list:
-0=echo
-0=hola
-
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$  echo "" hola
-Token list:
-0=echo
-0=hola
-
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo hola""bonjour
-Token list:
-0=echo
-0=holabonjour
-
-
-Parsed :
-
-cmd: 
-echo
-holabonjour
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$  "e"'c'ho 'b'"o"nj"o"'u'r
-Token list:
-0=echo
-0=bonjour
-
-
-Parsed :
-
-cmd: 
-echo
-bonjour
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ ""e"'c'ho 'b'"o"nj"o"'u'r"
-Token list:
-0=e'c'ho 'b'onjo'u'r
-
-Command not found
->$ echo "$iuh"Makefile
-Token list:
-0=echo
-0=Makefile
-
-
-Parsed :
-
-cmd: 
-echo
-Makefile
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo "$klh""Makefile"
-Token list:
-0=echo
-0=Makefile
-
-
-Parsed :
-
-cmd: 
-echo
-Makefile
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ echo "$khi" "Makefile"
-Token list:
-0=echo
-0=Makefile
-
-
-Parsed :
-
-cmd: 
-echo
-Makefile
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ $?
-Token list:
-0=X
-
-
-Parsed :
-
-cmd: 
-/usr/bin/X
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ $HOME
-Token list:
-0=/mnt/nfs/homes/abelosev
-
-minishell: /mnt/nfs/homes/abelosev: Is a directory
-Command not found
->$ $var
-Token list:
-0=X
-
-
-Parsed :
-
-cmd: 
-/usr/bin/X
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ $?$?
-Token list:
-0=X
-
-
-Parsed :
-
-cmd: 
-/usr/bin/X
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
->$ ?$HOME
-Token list:
-0=?/mnt/nfs/homes/abelosev
-
-Command not found
->$ $
-Token list:
-0=$
-
-Command not found
->$ $HOME
-Token list:
-0=/mnt/nfs/homes/abelosev
-
-minishell: /mnt/nfs/homes/abelosev: Is a directory
-Command not found
