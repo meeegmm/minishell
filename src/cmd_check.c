@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:48 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 18:42:46 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:33:17 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*path_check(char **path_list, char **args_list)
 	return (NULL);
 }
 
-char	*cmd_check(char **cmd, char **envp)
+char	*cmd_check(char **cmd, char **envp) // do INT fonction
 {
 	char	**path_list;
 	char	*arg_w_path;
@@ -75,6 +75,7 @@ char	*cmd_check(char **cmd, char **envp)
 	if(is_folder(arg_w_path))
 	{
 		free(arg_w_path);
+		// "is a diretory"
 		arg_w_path = NULL;
 	}
 	free(cmd[0]);

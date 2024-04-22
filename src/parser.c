@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 16:56:02 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:14:45 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,13 @@ t_group *parser(char *input, t_list_env *env)
 	if(p->line == NULL)
 	{
 		free_t_parser(p);
-		invalid_group(group, 2);
+		if(input)
+		{
+			invalid_group(group, 127);
+			ft_putstr_err("Command not found\n");
+		}
+		else
+			invalid_group(group, 2);
 		return (group);
 	}
 	p->token_tab = ft_split1(p->line, 1);

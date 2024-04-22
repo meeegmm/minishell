@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:18 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 13:23:08 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:01:53 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,38 @@ int	get_files(t_tokens *list, t_group *group)
 		{
 			group->redir_in = infile_access(list, group->redir_in);
 			if (group->redir_in == NULL)
+			{
+				if(group->redir_out)
+					free(group->redir_out);
+				if(group->app_out)
+					free(group->app_out);
 				return (1);
+			}
 		}
 		else if (list->type == 2 && list->next->type == 0)
 		{
 			group->redir_out = outfile_access(list, group->redir_out); //should I free here before reinitialize?
 			if (group->redir_out == NULL)
+			{
+				if(group->redir_in)
+					free(group->redir_in);
+				if(group->app_out)
+					free(group->app_out);
 				return (1);
+			}
 			create_file(group->redir_out); //???????
 		}
 		else if (list->type == 4 && list->next->type == 0)
 		{
 			group->app_out = outfile_access(list, group->app_out);
 			if (group->app_out == NULL)
+			{
+				if(group->redir_in)
+					free(group->redir_in);
+				if(group->redir_out)
+					free(group->redir_out);
 				return (1);
+			}
 			create_file(group->app_out);
 		}
 		list = list->next;

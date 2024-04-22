@@ -3,34 +3,6 @@
 
 DOESN'T WORK LIKE IT SUPPOSED TO (20/04)
 
-////////////////////////// TO HANDLE EMPTY CMD
-
-"" => cmd not found
-RES:
->$ ""
->$ ""
->$ ''
->$ exit
-
-////////////////////////// LEAKS in CMD PART
-
->$ hola que tal
-Token list:
-0=hola
-0=que
-0=tal
-
-Command not found
-
-==1702894== 8 bytes in 2 blocks are definitely lost in loss record 5 of 64
-==1702894==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1702894==    by 0x403B03: ft_strdup (outils_libft.c:35)
-==1702894==    by 0x401713: get_cmd_tab (cmd_outils.c:69)
-==1702894==    by 0x402D79: get_group (group_list.c:45)
-==1702894==    by 0x402F7C: get_group_list (group_list.c:90)
-==1702894==    by 0x40435A: parser (parser.c:78)
-==1702894==    by 0x4031D3: main (main.c:56)
-
 ////////////////////////// WRONG ERROR MESSAGE
 
 205 : error msg
@@ -42,6 +14,13 @@ Token list:
 minishell: /mnt/nfs/homes/abelosev: Is a directory
 Command not found
 
+ERROR IERARCHY from bash:
+
+abelosev@paul-f5Br4s1:~/minishell$ jhbkjhb > outf1
+jhbkjhb: command not found
+abelosev@paul-f5Br4s1:~/minishell$ jhbkjhb > outf2
+bash: outf2: Permission denied
+
 ////////////////////////// WRONG ERROR MESSAGE
 
 206 : 
@@ -49,6 +28,17 @@ Command not found
 Token list:
 0=
 Command not found
+
+
+
+
+ls | oiuhiouh
+
+hgiouh | ls
+
+
+
+/../... => bash: /../...: No such file or directory (chez minishell it is "Command not found")
 
 ////////////////////////// WRONG ERROR MESSAGE
 
@@ -75,131 +65,21 @@ fichier redir_out: (null)
 fichier app_out: (null)
 flag: 0
 
-////////////////////////// LEAKS
+////////////////////////// EXPAND PROBLEM 
 
->$ prout hola > bonjour
-Token list:
-0=prout
-0=hola
-2=>
-0=bonjour
+CHANGE THE LOGIC BC OF THIS CASE : echo $"$HOME" !!!!!!!!!!!
 
-Command not found
->$ echo hola > hello >> hello >> hello
-Token list:
-0=echo
-0=hola
-2=>
-0=hello
-4=>>
-0=hello
-4=>>
-0=hello
+EX from bash:
 
-
-Parsed :
-
-cmd: 
-echo
-hola
-
-fichier redir_in: (null)
-fichier redir_out: hello
-fichier app_out: hello
-flag: 0
-
-==1727790== 5 bytes in 1 blocks are definitely lost in loss record 3 of 64
-==1727790==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1727790==    by 0x403B03: ft_strdup (outils_libft.c:35)
-==1727790==    by 0x401713: get_cmd_tab (cmd_outils.c:69)
-==1727790==    by 0x402D79: get_group (group_list.c:45)
-==1727790==    by 0x402F7C: get_group_list (group_list.c:90)
-==1727790==    by 0x40435A: parser (parser.c:78)
-==1727790==    by 0x4031D3: main (main.c:56)
-
-////////////////////////// LEAKS
-
->$ cat > ls1 < ls2
-Token list:
-0=cat
-2=>
-0=ls1
-1=<
-0=ls2
-
-minishell: ls2: No such file or directory
-
-Parsed :
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 1
-
->$ exit
-==1728899== FILE DESCRIPTORS: 8 open (3 std) at exit.
-==1728899== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==1728899==    <inherited from parent>
-==1728899== 
-==1728899== Open file descriptor 40: /dev/ptmx
-==1728899==    <inherited from parent>
-==1728899== 
-==1728899== Open file descriptor 39: /usr/share/code/resources/app/node_modules.asar
-==1728899==    <inherited from parent>
-==1728899== 
-==1728899== Open AF_UNIX socket 38: <unknown>
-==1728899==    <inherited from parent>
-==1728899== 
-==1728899== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240420T155952/ptyhost.log
-==1728899==    <inherited from parent>
-==1728899== 
-==1728899== 
-==1728899== 4 bytes in 1 blocks are definitely lost in loss record 3 of 64
-==1728899==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1728899==    by 0x403B03: ft_strdup (outils_libft.c:35)
-==1728899==    by 0x40295C: outfile_access (get_files.c:37)
-==1728899==    by 0x402BD9: get_files (get_files.c:98)
-==1728899==    by 0x402E78: get_group (group_list.c:61)
-==1728899==    by 0x402F7C: get_group_list (group_list.c:90)
-==1728899==    by 0x40435A: parser (parser.c:78)
-==1728899==    by 0x4031D3: main (main.c:56)
-
-////////////////////////// EXPAND PROBLEM
-
->$ echo "$H"me
-Token list:
-0=echo
-0=/mnt/nfs/homes/abelosevme
-
-
-Parsed :
-
-cmd: 
-echo
-/mnt/nfs/homes/abelosevme
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
-
-
-Same :
->$ echo "$U"me
-Token list:
-0=echo
-0=abelosevme
-
-
-Parsed :
-
-cmd: 
-echo
-abelosevme
-
-fichier redir_in: (null)
-fichier redir_out: (null)
-fichier app_out: (null)
-flag: 0
+abelosev@paul-f5Br4s1:~/minishell$ $$HOME
+1883053HOME: command not found
+abelosev@paul-f5Br4s1:~/minishell$ $"$HOME"
+bash: /mnt/nfs/homes/abelosev: Is a directory
+abelosev@paul-f5Br4s1:~/minishell$ echo $$HOME
+1883053HOME
+abelosev@paul-f5Br4s1:~/minishell$ echo $"$HOME"
+/mnt/nfs/homes/abelosev
+abelosev@paul-f5Br4s1:~/minishell$ 
 
 ////////////////////////// WRONG ERROR MESSAGE
 
@@ -215,37 +95,6 @@ Command not found
 $> touch hola
 $> ./hola
 
-////////////////////////// LEAKS
-
->$ $ $
-Token list:
-0=$
-0=$
-
-Command not found
->$ exit
-==1885019== FILE DESCRIPTORS: 7 open (3 std) at exit.
-==1885019== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==1885019==    <inherited from parent>
-==1885019== 
-==1885019== Open AF_UNIX socket 39: <unknown>
-==1885019==    <inherited from parent>
-==1885019== 
-==1885019== Open file descriptor 38: /usr/share/code/resources/app/node_modules.asar
-==1885019==    <inherited from parent>
-==1885019== 
-==1885019== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240422T124000/ptyhost.log
-==1885019==    <inherited from parent>
-==1885019== 
-==1885019== 
-==1885019== 2 bytes in 1 blocks are definitely lost in loss record 1 of 64
-==1885019==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1885019==    by 0x403B03: ft_strdup (outils_libft.c:35)
-==1885019==    by 0x401713: get_cmd_tab (cmd_outils.c:69)
-==1885019==    by 0x402D79: get_group (group_list.c:45)
-==1885019==    by 0x402F7C: get_group_list (group_list.c:90)
-==1885019==    by 0x40435A: parser (parser.c:78)
-==1885019==    by 0x4031D3: main (main.c:56)
 
 //////////////////////////
 //////////////////////////
@@ -263,8 +112,6 @@ GET_FILES -> WRONLY (?)
 
 NOT SURE TO HAVE TO HANDLE THIS:
 
-/../... => bash: /../...: No such file or directory (chez minishell it is "Command not found")
-
 Change the message (?):
 < qweqwe iuuhoiuh > file
 bash: qweqwe: No such file or directory
@@ -279,13 +126,7 @@ bash: qweqwe: No such file or directory
 
 118 : echo \$HOME
 
-156 : echo "$HO"ME => ME   !!!!!!!!!!!!!!!!!!
-
-158 : echo "$HO""ME"
-
-160 : echo "'$HO''ME'"
-
-210
+210 (?)
 
 
 //////////////////////////

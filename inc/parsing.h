@@ -87,6 +87,7 @@ int get_files(t_tokens *list, t_group *group);
 //free
 void free_tokens(t_tokens *list);
 void free_t_parser(t_parser *p);
+void	free_tab1(char **tab);
 
 //outils
 void	print_tab(char **tab);

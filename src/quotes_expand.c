@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 18:06:50 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:55:24 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ char *quotes_ok(char *str) //faire plus court
 				{
 					res = 1;
 					str[start] = 29;
-					if(start > 0 && str[start - 1] == '$')
-						str[start] = 30;
+					// if(start > 0 && str[start - 1] == '$')
+					// 	str[start] = 30;					// !!!!!!
 					str[i] = 31;
 					break;
 				}
@@ -240,7 +240,7 @@ char *add_spaces(char **tmp)
 			(str)++;
 	}
 	new_str[i] = '\0';
-	free((start));
+	free(start);
 	// (str) = new_str;
 	// free(new_str);
 	return (new_str);
