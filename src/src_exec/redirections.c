@@ -53,8 +53,6 @@ void	append_out(t_exec *exec, t_group *group)
 	close(exec->fd_out);
 }
 
-//last command = first
-//add print group
 void	ft_redir(t_exec *exec, t_group *group)
 {
 	if (group->redir_in != NULL)
@@ -64,11 +62,8 @@ void	ft_redir(t_exec *exec, t_group *group)
 	else if (group->app_out != NULL)
 		append_out(exec, group);
 	else
+	{
+		close_std(exec);
 		reset_std(exec);
-	// if (group->next != NULL)
-	// {
-	// 	ft_pipe(exec);
-	// 	// ft_redir(exec, group, env_lst); //recursive removed
-	// }
-	// simple_cmd(exec, group, env_lst);
+	}
 }

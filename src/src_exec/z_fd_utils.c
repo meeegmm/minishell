@@ -14,11 +14,15 @@ void	reset_std(t_exec *exec)
 
 void	close_std(t_exec *exec)
 {
-	close(exec->infile);
-	close(exec->outfile);
+	if (exec->infile > 0)
+		close(exec->infile);
+	if (exec->outfile > 0)
+		close(exec->outfile);
 }
 void	init_exec(t_exec *exec)
 {
+	exec->infile = -1;
+	exec->outfile = -1;
 	exec->status = -1;
 	exec->fd_in = -1;
 	exec->fd_out = -1;

@@ -6,11 +6,22 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 05:21:55 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:10:31 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	is_exit(char *line)
+{
+	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
+	{
+		// free(line);
+		return (0);
+	}
+	else
+		return (1);
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -28,9 +39,9 @@ int	main(int ac, char **av, char **envp)
 	else
 		env = get_list(envp);
 	init_exec(&exec); //add
-	init_std(&exec);
+	reset_std(&exec);
 	line = readline(">$ ");
-	while (1)
+	while (is_exit(line))
 	{
 		if(!line || *line == '\0' || only_spaces(line))
 		{
@@ -47,8 +58,7 @@ int	main(int ac, char **av, char **envp)
 			exec.status = 1;
 			if(line)
 				free(line);
-			end_minish(&exec, group, env);
-			exit(EXIT_FAILURE);
+			builtin_exit(&exec, group, env);
 		}
 		start = group;
 		minish(&exec, group, env);

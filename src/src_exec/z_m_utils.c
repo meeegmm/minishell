@@ -25,8 +25,9 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 
 void	reset_minish(t_exec *exec, t_group *group)
 {
-		free_group_list(group);
-		close_fds(exec); //add
-		reset_std(exec); //add
-		init_exec(exec); //add
+	free_group_list(group);
+	close_fds(exec); //add
+	// close_std(exec);
+	reset_std(exec); //add
+	init_exec(exec); //add
 }

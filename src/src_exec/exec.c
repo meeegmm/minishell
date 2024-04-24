@@ -11,9 +11,9 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	envp = get_envp(env_lst);
 	pid = fork();
 	if (pid == -1)
-		perror("Error exec fork");
+		perror("Error exec fork"); // return value?
 	exec->pid = pid;
-	if (pid == 0)
+	if (exec->pid == 0)
 	{
 		if (execve(group->cmd[0], group->cmd, envp) == 0)
 		{
