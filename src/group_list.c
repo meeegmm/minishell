@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/22 17:29:09 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:08:29 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,44 +36,34 @@ t_tokens	*move_after_pipe(t_tokens *list)
 
 t_group	*get_group(t_tokens *list, t_list_env *env)
 {
-	char		**new_envp;
 	t_tokens	*start;
 	t_group		*group;
+	int			flag;
 
 	start = list;
 	group = create_init_group();
 	group->cmd = get_cmd_tab(list);
 	if (!group->cmd)
 		invalid_group(group, 1);
-	if (is_built(group->cmd[0]) == 0)
-	{
-		new_envp = get_envp(env);
-		group->cmd[0] = cmd_check(group->cmd, new_envp);
-		// if(is_folder(group->cmd[0]))
-		// {
-		// 	free_tab(group->cmd);		//how will we create a group with an inversed order then?
-		// 	ft_putstr_err("Is a directory\n");
-		// 	invalid_group(group, 126);
-		// }
-		if (group->cmd[0] == NULL)
-		{
-			free_tab1(group->cmd + 1);
-			free(group->cmd);
-			// free_tokens(list);
-			invalid_group(group, 127);
-			ft_putstr_err("Command not found\n");
-		}
-		free_tab(new_envp);
-	}
-	list = start;
-	if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0' && get_files(list, group) != 0) //should I check if it exists? + TO REMOVE??
+
+	flag = cmd_check(&(group->cmd[0]), env);
+	if(flag > 0)
 	{
 		free_tab(group->cmd);
-		invalid_group(group, 1);	
+		invalid_group(group, flag);
+	}
+	else
+	{
+		list = start;
+		if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0' && get_files(list, group) != 0) //should I check if it exists? + TO REMOVE??
+		{
+			free_tab(group->cmd);
+			invalid_group(group, 1);	
+		}
 	}
 	return (group);
 }
-
+	
 int	get_new_node(t_tokens **list, t_list_env *env,
 	t_group **begin_gr, t_group *curr_gr)
 {
@@ -86,8 +76,6 @@ int	get_new_node(t_tokens **list, t_list_env *env,
 		free_group_list(curr_gr);
 		return (1);
 	}
-	// if((*begin_gr)->flag_fail == 127)
-	// 	ft_putstr_err("Command not found\n");
 	(*begin_gr) = (*begin_gr)->next;
 	return (0);
 }
@@ -100,8 +88,6 @@ t_group	*get_group_list(t_tokens *list, t_list_env *env)
 	begin_gr = get_group(list, env);
 	if (!begin_gr)
 		return (NULL);
-	// if(begin_gr->flag_fail == 127)				///
-	// 	ft_putstr_err("Command not found\n");
 	if (get_group_nb(list) == 1)
 		return (begin_gr);
 	else
@@ -115,3 +101,38 @@ t_group	*get_group_list(t_tokens *list, t_list_env *env)
 	}
 	return (curr_gr);
 }
+
+
+// t_group	*get_group(t_tokens *list, t_list_env *env)
+// {
+// 	char		**new_envp;
+// 	t_tokens	*start;
+// 	t_group		*group;
+
+// 	start = list;
+// 	group = create_init_group();
+// 	group->cmd = get_cmd_tab(list);
+// 	if (!group->cmd)
+// 		invalid_group(group, 1);
+// 	if (is_built(group->cmd[0]) == 0)
+// 	{
+// 		new_envp = get_envp(env);
+// 		group->cmd[0] = cmd_check(group->cmd, new_envp);
+// 		if (group->cmd[0] == NULL)
+// 		{
+// 			free_tab1(group->cmd + 1);
+// 			free(group->cmd);
+// 			// free_tokens(list);
+// 			invalid_group(group, 127);
+// 			ft_putstr_err("Command not found\n");
+// 		}
+// 		free_tab(new_envp);
+// 	}
+// 	list = start;
+// 	if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0' && get_files(list, group) != 0) //should I check if it exists? + TO REMOVE??
+// 	{
+// 		free_tab(group->cmd);
+// 		invalid_group(group, 1);	
+// 	}
+// 	return (group);
+// }

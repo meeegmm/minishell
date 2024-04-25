@@ -6,13 +6,13 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:48 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/22 16:33:17 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:23:46 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-char	**get_path(char **envp)
+char	**get_path_tab(char **envp)
 {
 	char	**res;
 
@@ -32,22 +32,24 @@ char	**get_path(char **envp)
 	return (NULL);
 }
 
-char	*path_check(char **path_list, char **args_list)
+int		find_path(char **path_list, char **str) //get chemin absolut
 {
-	char	*arg_w_path;
 	char	*prefix;
+	char	*arg_w_path;
 	int		i;
 
-	arg_w_path = NULL;
 	i = 0;
+	arg_w_path = NULL;
 	while (path_list[i])
 	{
 		prefix = ft_strjoin(path_list[i], "/");
-		arg_w_path = ft_strjoin(prefix, args_list[0]);
+		arg_w_path = ft_strjoin(prefix, (*str));
 		if (access(arg_w_path, F_OK | X_OK) == 0)
 		{
 			free(prefix);
-			return (arg_w_path);
+			free(*str);
+			*str = arg_w_path;
+			return (1);
 		}
 		else
 		{
@@ -56,29 +58,42 @@ char	*path_check(char **path_list, char **args_list)
 			i++;
 		}
 	}
-	return (NULL);
+	return (0); //le fichier binaire doesn't exist
 }
 
-char	*cmd_check(char **cmd, char **envp) // do INT fonction
+int	cmd_check(char **str, t_list_env *env)
 {
-	char	**path_list;
-	char	*arg_w_path;
+	char	**path_tab;
+	char	**new_envp;
+	int		path_check;
+	int		code;
 
-	arg_w_path = NULL;
-	path_list = get_path(envp);
-	if (path_list == NULL)
-		return (NULL);
-	if (cmd[0][0] == '/' && (access(cmd[0], F_OK | X_OK) == 0)) // TO CHANGE 
-		arg_w_path = ft_strdup(cmd[0]);
+	path_tab = NULL;
+	if(is_built(*str))
+		code = 0;
+	else if(is_folder(*str))
+		code = 126;
+	else if(ft_strchr(*str, '/') && (access(*str, F_OK | X_OK) == 0))
+		code = 0;
 	else
-		arg_w_path = path_check(path_list, cmd);
-	if(is_folder(arg_w_path))
 	{
-		free(arg_w_path);
-		// "is a diretory"
-		arg_w_path = NULL;
+		new_envp = get_envp(env);
+		if(new_envp == NULL)		//what should be returned here?
+			return (1);
+		path_tab = get_path_tab(new_envp);
+		if (path_tab == NULL)
+			return (1);			//same question
+		path_check = find_path(path_tab, str);
+		if(path_check == 0)
+		{
+			code = 127;
+			ft_putstr_err(*str);
+			ft_putstr_err(": Command not found\n"); // ?? No such file or directory
+		}
+		else
+			code = 0;
+		free_tab(new_envp);
+		free_tab(path_tab);
 	}
-	free(cmd[0]);
-	free_tab(path_list);
-	return (arg_w_path);
+	return (code);
 }

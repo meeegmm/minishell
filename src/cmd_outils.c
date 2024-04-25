@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:35 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/22 17:05:39 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:50:06 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,13 @@ int    is_built(char *str)
 	tab[6] = "exit";
     while (i <= 6)
     {
-        if (strcmp(str, tab[i]) == 0) // TO CHANGE FOR ft_strcmp
+        if (ft_strcmp(str, tab[i]) == 0)
             return (1);
         i++;
     }
     return (0);
 }
 
-// int cmd_0_check(char *str)
-// {
-	
-// }
 
 char **get_cmd_tab(t_tokens *list)
 {
@@ -71,7 +67,6 @@ char **get_cmd_tab(t_tokens *list)
 	list = start;
 	cmd_tab[0] = ft_strdup(list->value);
 	list = list->next;
-	//cmd_0_check(cmd_tab[0]);
 	while(i < len && list != NULL)
 	{
 		cmd_tab[i] = ft_strdup(list->value);

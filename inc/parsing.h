@@ -78,9 +78,7 @@ t_group *create_init_group(void);
 
 
 //сheck cmd and files
-char	**get_path(char **envp);
-char	*path_check(char **path_list, char **args_list);
-char	*cmd_check(char **cmd, char **envp);
+int	cmd_check(char **str, t_list_env *env);
 char **get_cmd_tab(t_tokens *list);
 int get_files(t_tokens *list, t_group *group);
 
@@ -105,6 +103,8 @@ char	*from_tab_to_line(char **tab);
 int		is_digit(char c);
 int		is_alpha(char c);
 int is_special(char c);
+int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strchr(const char *s, int c);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/22 15:52:29 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:43:20 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char	*ft_expand(char *str, t_list_env *env)
 	while (token_tab[i])
 	{
 		replace_token(token_tab + i, env);
+		//
 		i++;
 	}
 

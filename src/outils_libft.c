@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:40 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 16:06:04 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:23:49 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,25 @@ int	ft_strncmp(const char *s1, const char *s2, int n)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+	int res;
+
+	i = 0;
+	res = 0;
+	while (s1[i] && s2[i])
+	{
+		res = (unsigned char)s1[i] - (unsigned char)s2[i];
+		i++;
+	}
+	if(!s1[i] && s2[i])
+		res = s2[i] * (-1);
+	else if(s1[i] && (!s2[i]))
+		res = s1[i];
+	return (res);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -116,4 +135,22 @@ char	*ft_strjoin1(char *s1, char *s2)
 	}
 	res[i + k] = '\0';
 	return (res);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	c1;
+	size_t	i;
+
+	c1 = (char)c;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c1)
+			return ((char*)(s + i));
+		i++;
+	}
+	if (s[i] == c1)
+		return ((char*)(s + i));
+	return (NULL);
 }
