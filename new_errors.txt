@@ -1,18 +1,14 @@
 
+Commentaires du code :
+
+1/ cmd_check_outils : 45 : 	fd = open(line, O_WRONLY); //???????
+
+2/ 
+
+
+***************************************************
+
 (TO CONTINUE FROM 692)
-
-DOESN'T WORK LIKE IT SUPPOSED TO (20/04)
-
-////////////////////////// WRONG ERROR MESSAGE
-
-205 : error msg
-
->$ $HOME
-Token list:
-0=/mnt/nfs/homes/abelosev
-
-minishell: /mnt/nfs/homes/abelosev: Is a directory
-Command not found
 
 ERROR IERARCHY from bash:
 
@@ -21,7 +17,27 @@ jhbkjhb: command not found
 abelosev@paul-f5Br4s1:~/minishell$ jhbkjhb > outf2
 bash: outf2: Permission denied
 
-////////////////////////// WRONG ERROR MESSAGE
+***************************************************
+
+DOESN'T WORK LIKE IT SUPPOSED TO (25/04)
+
+////////////////////////// EXPAND PROBLEMS
+
+CHANGE THE LOGIC BC OF THIS CASE : echo $"$HOME" !!!!!!!!!!!
+
+EX from bash:
+
+abelosev@paul-f5Br4s1:~/minishell$ $$HOME
+1883053HOME: command not found
+abelosev@paul-f5Br4s1:~/minishell$ $"$HOME"
+bash: /mnt/nfs/homes/abelosev: Is a directory
+abelosev@paul-f5Br4s1:~/minishell$ echo $$HOME
+1883053HOME
+abelosev@paul-f5Br4s1:~/minishell$ echo $"$HOME"
+/mnt/nfs/homes/abelosev
+abelosev@paul-f5Br4s1:~/minishell$ 
+
+
 
 206 : 
 >$ $HOMEdskjhfkdshfsd
@@ -29,18 +45,13 @@ Token list:
 0=
 Command not found
 
-
-
-
-ls | oiuhiouh
-
-hgiouh | ls
-
+////////////////////////// WRONG ERROR MSG
 
 
 /../... => bash: /../...: No such file or directory (chez minishell it is "Command not found")
 
-////////////////////////// WRONG ERROR MESSAGE
+
+////////////////////////// WRONG COMPORTEMENT
 
 655 : 
  > bonjour | echo hola
@@ -65,40 +76,65 @@ fichier redir_out: (null)
 fichier app_out: (null)
 flag: 0
 
-////////////////////////// EXPAND PROBLEM 
 
-CHANGE THE LOGIC BC OF THIS CASE : echo $"$HOME" !!!!!!!!!!!
+////////////////////////// WRONG ERROR MESSAGE (?)
 
-EX from bash:
-
-abelosev@paul-f5Br4s1:~/minishell$ $$HOME
-1883053HOME: command not found
-abelosev@paul-f5Br4s1:~/minishell$ $"$HOME"
-bash: /mnt/nfs/homes/abelosev: Is a directory
-abelosev@paul-f5Br4s1:~/minishell$ echo $$HOME
-1883053HOME
-abelosev@paul-f5Br4s1:~/minishell$ echo $"$HOME"
-/mnt/nfs/homes/abelosev
-abelosev@paul-f5Br4s1:~/minishell$ 
-
-////////////////////////// WRONG ERROR MESSAGE
-
-?$HOME
+>$ ?$HOME
 Token list:
 0=?/mnt/nfs/homes/abelosev
 
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 23
+
+
+
+>$ """
+Invalid syntax: unclosed quotes
 Command not found
 
-///////////////////////// EXE FILE
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 127
 
-464 :    => ./minishell !!!!!!!!!!!!!!!!!!!!!
-$> touch hola
-$> ./hola
 
 
-//////////////////////////
-//////////////////////////
+???????????????
 
+>$ /bin/ls
+Token list:
+0=/bin/ls
+
+
+Parsed :
+
+cmd: 
+/bin/ls                 => usr/bin/ls
+
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 0
+
+
+||
+\/
+
+bash logic : 
+
+abelosev@paul-f5Br4s1:~/minishell$ /bin/ls
+deps  ignore_readline  Makefile        minishell       obj                     src      tests.txt
+echo  inc              map_errors.txt  new_errors.txt  old_expand_tokenizer.c  stock.c
+abelosev@paul-f5Br4s1:~/minishell$ /usr/bin/ls
+deps  ignore_readline  Makefile        minishell       obj                     src      tests.txt
+echo  inc              map_errors.txt  new_errors.txt  old_expand_tokenizer.c  stock.c
+abelosev@paul-f5Br4s1:~/minishell$ 
+
+***************************************************
 
 QUESTIONS:
 
@@ -106,31 +142,26 @@ QUESTIONS:
 
 GET_FILES -> WRONLY (?)
 
-//////////////////////////
-//////////////////////////
-
+***************************************************
 
 NOT SURE TO HAVE TO HANDLE THIS:
+
+ls | oiuhiouh
+
+hgiouh | ls
+
 
 Change the message (?):
 < qweqwe iuuhoiuh > file
 bash: qweqwe: No such file or directory
 
-58 - 60 : &&&&&
-
-94 :  echo \n hola
-
-98 - 99 : echo -n -n
 
 101 - 109
 
-118 : echo \$HOME
 
 210 (?)
 
-
-//////////////////////////
-//////////////////////////
+***************************************************
 
 ERRORS DANS LE DOC:
 

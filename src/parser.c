@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 15:11:18 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:19:45 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ t_group *parser(char *input, t_list_env *env)
 
 	p = create_init_p();
 	group = create_init_group();
-	// if(is_folder(input))
-	// {
-	// 	free_t_parser(p);
-	// 	invalid_group(group, 126);
-	// 	return (group);
-	// }
 	p->line = quotes_expand(input, env);
 	if(p->line == NULL)
 	{

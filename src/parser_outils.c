@@ -6,36 +6,19 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:33:00 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 17:02:15 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:26:34 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-int	is_folder(char *line)
+int only_spaces(char *str)
 {
-	int	fd;
-	int	res;
-	DIR	*d;
-
-	if(!line || *line == '\0')
-		return (0);
-	fd = open(line, O_WRONLY); //???????
-	d = opendir(line);
-	if (fd == -1 && d != NULL)
-	{
-		ft_putstr_err("minishell: ");
-		ft_putstr_err(line);
-		ft_putstr_err(": Is a directory\n");
-		res = 1;
-	}
-	else
-		res = 0;
-	if (fd > 0)
-		close(fd);
-	if (d)
-		closedir(d);
-	return (res);
+	while(*str == ' ' || *str == '\t')
+		str++;
+	if(*str == '\0')
+		return (1);
+	return (0);
 }
 
 t_parser	*create_init_p(void)
