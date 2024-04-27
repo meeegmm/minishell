@@ -134,7 +134,7 @@
 // 	}
 // 	if (ft_strncmp(group->cmd[0], "env", 3) == 0)
 // 	{
-// 		print_env_list(env_lst);
+// 		print_list(env_lst);
 // 		return (0);
 // 	}
 // 	else
@@ -215,7 +215,7 @@
 // 				}
 // 				env_lst = tmp;
 // 				printf("\n\n");
-// 				print_env_list(env_lst);
+// 				print_list(env_lst);
 // 				i++;
 // 			}
 // 		}

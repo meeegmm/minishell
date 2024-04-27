@@ -70,7 +70,7 @@ void		remove_var(t_list_env **env_lst);
 //exec
 // char		**split_cmds(char *line);
 // void		init_std(t_exec *exec);
-// void		reset_std(t_exec *exec);
+// void		set_io(t_exec *exec);
 // void		close_std(t_exec *exec);
 // void		init_exec(t_exec *exec);
 // void		close_fds(t_exec *exec);

@@ -1,6 +1,6 @@
 // #include "../../inc/minishell.h"
 #include "../../inc/exec.h"
-// #include "../../inc/parsing.h"
+// #include "../../../inc/parsing.h"
 
 //get path from varname
 char	*set_path(t_list_env *env_lst, char *key)

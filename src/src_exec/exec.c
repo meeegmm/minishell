@@ -15,6 +15,7 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	exec->pid = pid;
 	if (exec->pid == 0)
 	{
+		ft_redir(exec, group);
 		if (execve(group->cmd[0], group->cmd, envp) == 0)
 		{
 			if (access(group->cmd[0], F_OK | X_OK) == -1)

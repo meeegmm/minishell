@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:35 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 23:37:09 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/27 02:15:35 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int    is_built(char *str)
     char    *tab[7];
 
     i = 0;
-	tab[0] = "cd";
-    tab[1] = "env";
-    tab[2] = "pwd";
-    tab[3] = "echo";
-	tab[4] = "exit";
-	tab[5] = "unset";
-	tab[6] = "export";
-    while (i <= 6)
+    tab[0] = "env";
+    tab[1] = "pwd";
+    tab[2] = "echo";
+	tab[3] = "unset";
+	tab[4] = "export";
+	tab[5] = "cd";
+	tab[6] = "exit";
+    while (str[i] && i <= 6)
     {
         if (ft_strncmp(str, tab[i], ft_strlen(str)) == 0)
             return (1);

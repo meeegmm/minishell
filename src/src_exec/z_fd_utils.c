@@ -1,28 +1,28 @@
 #include "../../inc/exec.h"
 
-void	init_std(t_exec *exec)
+// void	init_std(t_exec *exec)
+// {
+// 	exec->infile = dup(STDIN_FILENO);
+// 	exec->outfile = dup(STDOUT_FILENO);
+// }
+
+void	set_io(t_exec *exec) //changed
 {
-	exec->infile = dup(STDIN_FILENO);
-	exec->outfile = dup(STDOUT_FILENO);
+	dup2(exec->fd_in, 0);
+	dup2(exec->fd_out, 1);
 }
 
-void	reset_std(t_exec *exec)
-{
-	dup2(exec->infile, STDIN_FILENO);
-	dup2(exec->outfile, STDOUT_FILENO);
-}
-
-void	close_std(t_exec *exec)
-{
-	if (exec->infile > 0)
-		close(exec->infile);
-	if (exec->outfile > 0)
-		close(exec->outfile);
-}
+// void	close_std(t_exec *exec)
+// {
+// 	if (exec->infile > 0)
+// 		close(exec->infile);
+// 	if (exec->outfile > 0)
+// 		close(exec->outfile);
+// }
 void	init_exec(t_exec *exec)
 {
-	exec->infile = -1;
-	exec->outfile = -1;
+	// exec->infile = -1;
+	// exec->outfile = -1;
 	exec->status = -1;
 	exec->fd_in = -1;
 	exec->fd_out = -1;

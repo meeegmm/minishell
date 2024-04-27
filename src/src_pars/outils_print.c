@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:46 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 20:56:40 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/27 02:15:35 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,6 @@ void	print_tab(char **tab)
 		i++;
 	}
 	printf("\n");
-}
-
-void	print_env_list(t_list_env *list)
-{
-	while (list != NULL)
-	{
-		printf("%s", list->key);
-		printf("=");
-		printf("%s\n", list->value);
-		list=list->next;
-	}
 }
 
 void	print_group(t_group *group)

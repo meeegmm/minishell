@@ -20,7 +20,8 @@ void	redir_in(t_exec *exec, t_group *group)
 		perror("open");
 		return ;
 	}
-	dup2(exec->fd_in, STDIN_FILENO);
+	// if (exec->pid == 0)
+	dup2(exec->fd_in, 0);
 	close(exec->fd_in);
 }
 
@@ -35,7 +36,8 @@ void	redir_out(t_exec *exec, t_group *group)
 		perror("open");
 		return ;
 	}
-	dup2(exec->fd_out, STDOUT_FILENO);
+	// if (exec->pid == 0)
+	dup2(exec->fd_out, 1);
 	close(exec->fd_out);
 }
 
@@ -49,7 +51,8 @@ void	append_out(t_exec *exec, t_group *group)
 		//SIG
 		return ;
 	}
-	dup2(exec->fd_out, STDOUT_FILENO);
+	// if (exec->pid == 0)
+	dup2(exec->fd_out, 1);
 	close(exec->fd_out);
 }
 
@@ -61,9 +64,6 @@ void	ft_redir(t_exec *exec, t_group *group)
 		redir_out(exec, group);
 	else if (group->app_out != NULL)
 		append_out(exec, group);
-	else
-	{
-		close_std(exec);
-		reset_std(exec);
-	}
+	// else
+	// 	set_io(exec);
 }

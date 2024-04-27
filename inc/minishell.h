@@ -69,11 +69,11 @@ void	end_minish(t_exec *exec, t_group *group, t_list_env *env);
 void	builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 //fd
-void		init_std(t_exec *exec);
-void		reset_std(t_exec *exec);
-void		close_std(t_exec *exec);
-void		init_exec(t_exec *exec);
-void		close_fds(t_exec *exec);
+void	init_exec(t_exec *exec);
+void	close_fds(t_exec *exec);
+void	set_io(t_exec *exec);
+void	init_std(t_exec *exec);
+void	close_std(t_exec *exec);
 
 //free
 void	free_tab(char **tab);
@@ -81,7 +81,7 @@ void	free_envp_list(t_list_env *list);
 void	free_group_list(t_group *group);
 
 int		ft_strncmp(const char *s1, const char *s2, int n);
-void	print_env_list(t_list_env *list);
+void	print_list(t_list_env *list);
 char	*get_key(char *str);
 char	*get_value(char *str);
 int		ft_strlen(const char *s);

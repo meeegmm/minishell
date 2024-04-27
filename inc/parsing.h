@@ -90,7 +90,7 @@ void free_t_parser(t_parser *p);
 //outils
 void	print_tab(char **tab);
 void	print_list(t_list_env *list);
-// void	print_env_list(t_list_env *list);
+// void	print_list(t_list_env *list);
 void	print_group(t_group *group);
 // char	*ft_strdup(char *s1);
 // int		ft_strlen(const char *s);

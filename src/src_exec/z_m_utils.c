@@ -11,7 +11,7 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 		}
 		else if(group->flag_fail == 0)
 		{
-			ft_redir(exec, group);
+			// ft_redir(exec, group);
 			if (group->next != NULL)
 				ft_pipe(exec);
 			simple_cmd(exec, group, env);
@@ -23,11 +23,12 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 	}
 }
 
-void	reset_minish(t_exec *exec, t_group *group)
+void	reset_minish(t_exec *exec, t_group *start)
 {
-	free_group_list(group);
+	if (start != NULL)
+		free_group_list(start);
 	close_fds(exec); //add
 	// close_std(exec);
-	reset_std(exec); //add
 	init_exec(exec); //add
+	set_io(exec); //add
 }
