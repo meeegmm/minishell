@@ -7,6 +7,8 @@ Commentaires du code :
 
 3/ get_files.c : 104 : 	group->redir_out = outfile_access(list, group->redir_out); //should I free here before reinitialize?
 
+4/ group_list.c : 58 : 	if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0' && get_files(list, group) != 0) //should I check if it exists? + TO REMOVE??
+
 
 ***************************************************
 

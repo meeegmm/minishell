@@ -228,3 +228,24 @@ char	*ft_strjoin1(char *s1, char *s2)
 // printf("Token list:\n");
 // 	print_token_list(p->token_list);
 // 	printf("\n");
+
+
+char	**copy_tab(char **tab)
+{
+	int		nb_line;
+	int		i;
+	char	**copy;
+
+	nb_line = 0;
+	i = 0;
+	while (tab[nb_line])
+		nb_line++;
+	copy = malloc(sizeof(char **) * (nb_line));
+	while (i < nb_line && tab[i])
+	{
+		copy[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
+}

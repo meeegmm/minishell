@@ -6,11 +6,21 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:23:10 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 19:23:47 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:19:34 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
+
+int	is_alpha(char c)
+{
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
+
+int	is_digit(char c)
+{
+	return (c >= '1' && c <= '9');
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
