@@ -56,6 +56,7 @@ int is_folder(char *line);
 t_parser *create_init_p (void);
 t_group *create_init_group(void);
 char **spaces_between_quotes(char ***tab);
+int quotes_ok(char **str);
 
 //expand
 int delimiter_nb(char *str);

@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/22 16:55:24 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:02:30 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,63 +29,6 @@ int is_meta_move(char **str)
 	return (0);
 }
 
-char *quotes_ok(char *str) //faire plus court
-{
-	int i;
-	int res;
-	int start;
-
-	i = 0;
-	res = 1;
-	while(str[i])
-	{
-		if(str[i] == '"')
-		{
-			res = 0;
-			start = i;
-			while(str[i])
-			{
-				i++;
-				if(str[i] == '"')
-				{
-					res = 1;
-					str[start] = 29;
-					// if(start > 0 && str[start - 1] == '$')
-					// 	str[start] = 30;					// !!!!!!
-					str[i] = 31;
-					break;
-				}
-
-			}
-		}
-		else if(str[i] == '\'')
-		{
-			res = 0;
-			start = i;
-			while(str[i])
-			{
-				i++;
-				if(str[i] == '\'') //don't do expand inside
-				{
-					res = 1;
-					str[start] = 30;
-					str[i] = 31;
-					break;
-				}
-			}
-		}
-		if(str[i])
-			i++;
-	}
-	if(res == 0)
-	{
-		ft_putstr_err("Invalid syntax: unclosed quotes\n");
-		return (NULL); //подумать, как записать это во flag_fail
-	}
-	else
-		return (str);
-}
-
 int ending_quotes_nb(char *str)
 {
 	int len;
@@ -102,7 +45,7 @@ int ending_quotes_nb(char *str)
 	return (len);
 }
 
-char *with_28(char ***str)
+char *with_28(char **str)
 {
 	int i;
 	int len;
@@ -111,17 +54,15 @@ char *with_28(char ***str)
 
 	i = 0;
 	len = 0;
-	// printf("HERE NB of Z : %d\n", ending_quotes_nb(**str));
-	l = ft_strlen(**str) + ending_quotes_nb(**str) + 1;
-	// printf("HERE l %d\n", l);
+	l = ft_strlen(*str) + ending_quotes_nb(*str) + 1;
 	new = malloc(sizeof(char) * l);
 	if(!new)
 		return (NULL); //???
-	while(i + 1 < l && (**str)[len])
+	while(i + 1 < l && (*str)[len])
 	{
-		new[i] = (**str)[len];
+		new[i] = (*str)[len];
 		i++;
-		if((**str)[len] == 31 && i < l)
+		if((*str)[len] == 31 && i < l)
 		{
 			new[i] = 28;
 			i++;	
@@ -129,9 +70,6 @@ char *with_28(char ***str)
 		len++;
 	}
 	new[i] = '\0';
-	// free((**str));
-	// (**str) = new;
-	// free(new);
 	return (new);
 }
 
@@ -180,10 +118,7 @@ char *add_spaces(char **tmp)
 	int i;
 	
 	i = 0;
-	*tmp = quotes_ok(*tmp);
-	if(*tmp == NULL)
-		return (NULL);
-	str = with_28(&tmp);
+	str = with_28(tmp);
 	start = str;
 	
 	// printf("AFTER +X after ending quotes: %s\n", str);
@@ -192,14 +127,12 @@ char *add_spaces(char **tmp)
 	// printf("HERE spaces are hidden %s\n", str);
 
 	len = spaces_nb(str) + ft_strlen(str) + 1;
-
 	new_str = malloc(sizeof(char) * (len + 1));
 	if(!new_str)
 	{
 		free(str);
 		return (NULL);
 	}
-
 	while(i < len && *str)
 	{
 		if(*str == 29 || *str == 30)
@@ -216,7 +149,6 @@ char *add_spaces(char **tmp)
 				(str)++;
 				i++;
 			}
-			// printf("HERE spaces are hidden %s\n", str);
 		}
 		if(*str && (is_meta(str) > 0) && (i + 2 < len))
 		{
@@ -241,8 +173,6 @@ char *add_spaces(char **tmp)
 	}
 	new_str[i] = '\0';
 	free(start);
-	// (str) = new_str;
-	// free(new_str);
 	return (new_str);
 }
 
@@ -257,7 +187,6 @@ int quotes_nb(char *str, char c)
 			nb++;
 		str++;
 	}
-	// printf("quotes_nb %d\n", nb * 2);
 	return (nb * 2);
 }
 
@@ -270,17 +199,10 @@ char *no_quotes(char *str, char c)
 	
 	i = 0;
 	k = 0;
-
-	// if(c == 29)
-	// 	printf("NB of double quotes: %d\n", quotes_nb(str, c));
-	// if(c == 30)
-	// 	printf("NB of single quotes: %d\n", quotes_nb(str, c));
-
 	len = ft_strlen(str) - quotes_nb(str, c) + 1;
 	new = malloc(sizeof(char) * len);
 	if(!new)
 		return NULL;
-
 	while(str[i] && k < len)
 	{
 		if(str[i] == c)
