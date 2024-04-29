@@ -9,6 +9,8 @@ Commentaires du code :
 
 4/ group_list.c : 58 : 	if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0' && get_files(list, group) != 0) //should I check if it exists? + TO REMOVE??
 
+5/ expand.c : 108 : 	if (!token_tab || !token_tab[0]) // NOT SURE THAT THIS IS CORRECT
+
 
 ***************************************************
 
@@ -42,13 +44,14 @@ abelosev@paul-f5Br4s1:~/minishell$ echo $"$HOME"
 abelosev@paul-f5Br4s1:~/minishell$ 
 
 
+>$ $"HOME"
+minishell: /mnt/nfs/homes/abelosev: Is a directory    !!!!!!!!!!!!!!!!!!!
 
-206 : 
->$ $HOMEdskjhfkdshfsd
-Token list:
-0=
-Command not found
-
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 126
 ////////////////////////// WRONG ERROR MSG
 
 

@@ -62,6 +62,7 @@ void init_t_parser(t_parser *p);
 int delimiter_nb(char *str);
 t_tokenizer *init_data(char *s);
 void between_single(t_tokenizer *d, char *s);
+void	before_expand_or_special(t_tokenizer *d, char *s);
 char *temp_tokenizer(char *str);
 char *no_quotes(char *str, char c);
 
