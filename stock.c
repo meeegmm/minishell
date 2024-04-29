@@ -249,3 +249,51 @@ char	**copy_tab(char **tab)
 	copy[i] = NULL;
 	return (copy);
 }
+
+// t_group *parser(char *input, t_list_env *env)
+// {
+// 	t_parser *p;
+// 	t_group *group;
+
+// 	p = create_init_p();
+// 	group = create_init_group();
+// 	p->line = quotes_expand(input, env);
+// 	if(p->line == NULL)
+// 	{
+// 		free_t_parser(p);
+// 		if(input)
+// 		{
+// 			invalid_group(group, 127);
+// 			ft_putstr_err("Command not found\n");
+// 		}
+// 		else
+// 			invalid_group(group, 2); //NOT SURE ABOUT 2 (should be 0?)
+// 		return (group);
+// 	}
+// 	p->token_tab = ft_split1(p->line, 1);
+// 	if(p->token_tab == NULL)
+// 	{
+// 		free_t_parser(p);
+// 		return (NULL);
+// 	}
+// 	spaces_between_quotes(&(p->token_tab));
+// 	p->token_list = lexer(p->token_tab);
+// 	if(p->token_list == NULL)
+// 	{
+// 		free_t_parser(p);
+// 		return (NULL);
+// 	}
+// 	if(syntax_pb(p->token_list))
+// 	{
+// 		free_t_parser(p);
+// 		invalid_group(group, 2);
+// 		return (group);
+// 	}
+// 	else
+// 	{
+// 		free(group);
+// 		group = get_group_list(p->token_list, env);
+// 	}
+// 	free_t_parser(p);
+// 	return (group);
+// }

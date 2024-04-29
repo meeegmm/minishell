@@ -54,6 +54,16 @@ fichier app_out: (null)
 flag: 126
 ////////////////////////// WRONG ERROR MSG
 
+>$ """
+Invalid syntax: unclosed quotes
+Command not found
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 127
+
 
 /../... => bash: /../...: No such file or directory (chez minishell it is "Command not found")
 
