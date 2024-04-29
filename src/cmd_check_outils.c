@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:31:05 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 19:33:08 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:41:15 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,23 @@ int	is_folder(char *line)
 	return (res);
 }
 
+int	cmd_lines_nb(t_tokens *list)
+{
+	int	len;
+
+	len = 0;
+	while (list != NULL && list->type == 0)
+	{
+		len++;
+		list = list->next;
+	}
+	return (len);
+}
+
 char	**get_cmd_tab(t_tokens *list)
 {
 	int			len;
 	int			i;
-	t_tokens	*start;
 	char		**cmd_tab;
 
 	len = 0;
@@ -72,16 +84,10 @@ char	**get_cmd_tab(t_tokens *list)
 	while (list != NULL && list->next != 0 && list->type != 0
 		&& list->next->type == 0)
 		list = list->next->next;
-	start = list;
-	while (list != NULL && list->type == 0)
-	{
-		len++;
-		list = list->next;
-	}
+	len = cmd_lines_nb(list);
 	cmd_tab = malloc(sizeof(char *) * (len + 1));
 	if (!cmd_tab)
 		return (NULL);
-	list = start;
 	cmd_tab[0] = ft_strdup(list->value);
 	list = list->next;
 	while (i < len && list != NULL)
