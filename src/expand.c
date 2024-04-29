@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 15:43:20 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:57:51 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*expanded_token(char *str, t_list_env *env)
 	res = no_null();
 	while (env != NULL)
 	{
-		if (ft_strncmp(env->key, str, ft_strlen(env->key)) == 0)
+		if (ft_strncmp(env->key, str, ft_strlen(str)) == 0)
 		{
 			free(res);
 			res = ft_strdup(env->value);

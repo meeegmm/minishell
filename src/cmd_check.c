@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:48 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 19:02:07 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:15:33 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	cmd_check(char **str, t_list_env *env)
 	else if (is_folder(*str))
 		code = 126;
 	else if (!ft_strchr(*str, '/'))
-		code = cmd_standart(str, env); // should we find the entier path for "/bin/ls" ? bash does work
+		code = cmd_standart(str, env);
 	else if (ft_strchr(*str, '/') && (access(*str, F_OK | X_OK | R_OK) == 0))
 		code = 0;
 	else

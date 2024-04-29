@@ -205,3 +205,26 @@ char	*ft_strjoin1(char *s1, char *s2)
 	res[i + k] = '\0';
 	return (res);
 }
+
+// void	free_tab1(char **tab)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (tab[i] != NULL)
+// 	{
+// 		free(tab[i]);
+// 		i++;
+// 	}
+// }
+
+// void	free_tab(char **tab)
+// {
+// 	free_tab1(tab);
+// 	free(tab);
+// }
+
+
+// printf("Token list:\n");
+// 	print_token_list(p->token_list);
+// 	printf("\n");

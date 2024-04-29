@@ -6,17 +6,17 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:33:00 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 19:26:34 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:23:01 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-int only_spaces(char *str)
+int	only_spaces(char *str)
 {
-	while(*str == ' ' || *str == '\t')
+	while (*str == ' ' || *str == '\t')
 		str++;
-	if(*str == '\0')
+	if (*str == '\0')
 		return (1);
 	return (0);
 }

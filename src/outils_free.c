@@ -6,13 +6,13 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:07 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/22 17:30:33 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:21:51 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-void	free_tab1(char **tab)
+void	free_tab(char **tab)
 {
 	int	i;
 
@@ -22,11 +22,6 @@ void	free_tab1(char **tab)
 		free(tab[i]);
 		i++;
 	}
-}
-
-void	free_tab(char **tab)
-{
-	free_tab1(tab);
 	free(tab);
 }
 

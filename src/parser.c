@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 19:19:45 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:24:39 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,6 @@ t_group *parser(char *input, t_list_env *env)
 		free_t_parser(p);
 		return (NULL);
 	}
-	printf("Token list:\n");
-	print_token_list(p->token_list);
-	printf("\n");
 	if(syntax_pb(p->token_list))
 	{
 		free_t_parser(p);
@@ -80,11 +77,3 @@ t_group *parser(char *input, t_list_env *env)
 	free_t_parser(p);
 	return (group);
 }
-
-
-
-// printf("no quotes + expand: %s\n", p->line);
-
-// printf("Token list:\n");
-// print_token_list(p->token_list);
-// printf("\n");
