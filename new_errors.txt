@@ -5,6 +5,8 @@ Commentaires du code :
 
 2/ cmd_check.c : 98 :	code = cmd_standart(str, env); // should we find the entier path for "/bin/ls" ? bash does work
 
+3/ get_files.c : 104 : 	group->redir_out = outfile_access(list, group->redir_out); //should I free here before reinitialize?
+
 
 ***************************************************
 

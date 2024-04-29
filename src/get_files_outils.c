@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   outils_2.c                                         :+:      :+:    :+:   */
+/*   get_files_outils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 21:33:24 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/29 17:55:27 by abelosev         ###   ########.fr       */
+/*   Created: 2024/04/29 17:48:22 by abelosev          #+#    #+#             */
+/*   Updated: 2024/04/29 17:49:41 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
+#include "../inc/minishell.h"
 
-int	is_alpha(char c)
+void	create_file(char *str)
 {
-	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+	int	fd;
+
+	fd = open(str, O_CREAT | O_WRONLY);
+	if (fd < 0)
+		return ;
+	close(fd);
 }
 
-int	is_digit(char c)
+void	permission_pb_msg(char *str)
 {
-	return (c >= '1' && c <= '9');
+	ft_putstr_err("minishell: ");
+	ft_putstr_err(str);
+	ft_putstr_err(": Permission denied\n");
 }
 
-char	**copy_tab(char **tab)
+void	existence_pb_msg(char *str)
 {
-	int		nb_line;
-	int		i;
-	char	**copy;
-
-	nb_line = 0;
-	i = 0;
-	while (tab[nb_line])
-		nb_line++;
-	copy = malloc(sizeof(char **) * (nb_line));
-	while (i < nb_line && tab[i])
-	{
-		copy[i] = ft_strdup(tab[i]);
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
+	ft_putstr_err("minishell: ");
+	ft_putstr_err(str);
+	ft_putstr_err(": No such file or directory\n");
 }

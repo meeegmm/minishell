@@ -81,11 +81,13 @@ t_group *create_init_group(void);
 int	cmd_check(char **str, t_list_env *env);
 char **get_cmd_tab(t_tokens *list);
 int get_files(t_tokens *list, t_group *group);
+void	create_file(char *str);
+void	permission_pb_msg(char *str);
+void	existence_pb_msg(char *str);
 
 //free
 void free_tokens(t_tokens *list);
 void free_t_parser(t_parser *p);
-void	free_tab1(char **tab);
 
 //outils
 void	print_tab(char **tab);
