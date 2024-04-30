@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   z_e_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/30 12:32:44 by memarign          #+#    #+#             */
+/*   Updated: 2024/04/30 13:08:37 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/exec.h"
-// #include "../../../inc/parsing.h"
 
 //env when env -i
 //SHLVL += 1
@@ -29,31 +40,13 @@ t_list_env	*env_lst_sos(void)
 	return (env_lst);
 }
 
-//env for pgm
-//just env_lst sos
-//return list
-// char	**set_envp(char **envp)
-// {
-// 	t_list_env	*env_lst;
-// 	char		**new_envp;
-
-// 	if (*envp == NULL)
-// 		env_lst = env_lst_sos();
-// 	// else
-// 	// 	env_lst = get_list(envp);
-// 	// new_envp = get_envp(env_lst);
-// 	// free_envp_list(env_lst);
-// 	return (new_envp);
-// }
-
 //return var or end of list if !var
 t_list_env	*check_var(t_list_env **env_lst, char *var)
 {
 	while ((*env_lst)->next != NULL)
 	{
-		// printf("check key = %s\n", (*env_lst)->key);
 		if (ft_strncmp((*env_lst)->key, get_key(var), ft_strlen(var)) == 0)
-				return (*env_lst);
+			return (*env_lst);
 		else
 			*env_lst = (*env_lst)->next;
 	}
@@ -71,7 +64,6 @@ void	mod_var(t_list_env **env_lst, char *var)
 		if (!new)
 			return ;
 		ft_lstadd_back(env_lst, new);
-		// (*env_lst) = (*env_lst)->next;
 		new->key = ft_strdup(get_key(var));
 		new->value = ft_strdup(get_value(var));
 		new->next = NULL;
@@ -81,7 +73,6 @@ void	mod_var(t_list_env **env_lst, char *var)
 		free((*env_lst)->value);
 		(*env_lst)->value = ft_strdup(get_value(var));
 	}
-	// free_envp_list(new);
 }
 
 //handle = + void?
@@ -90,10 +81,10 @@ t_list_env	*remove_first(t_list_env **env_lst)
 	t_list_env	*tmp;
 
 	tmp = *env_lst;
-	(*env_lst) = (*env_lst)->next;
+	*env_lst = (*env_lst)->next;
 	free(tmp->key);
 	free(tmp->value);
-	return(*env_lst);
+	return (*env_lst);
 }
 
 void	remove_var(t_list_env **env_lst)
@@ -102,7 +93,6 @@ void	remove_var(t_list_env **env_lst)
 	{
 		free((*env_lst)->key);
 		free((*env_lst)->value);
-		// (*env_lst) = NULL;
 	}
 	else
 	{

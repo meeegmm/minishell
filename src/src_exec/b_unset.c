@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_unset.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/30 12:31:33 by memarign          #+#    #+#             */
+/*   Updated: 2024/04/30 12:56:21 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/exec.h"
 
 //voir pour le prmier node
@@ -5,7 +17,7 @@
 
 int	builtin_unset(t_group *group, t_list_env *env_lst)
 {
-	int	i;
+	int			i;
 	t_list_env	*tmp;
 
 	i = 1;
@@ -22,7 +34,7 @@ int	builtin_unset(t_group *group, t_list_env *env_lst)
 												ft_strlen(group->cmd[i])) != 0)
 				{
 					env_lst = check_var(&env_lst, group->cmd[i]);
-					remove_var(&env_lst);
+					remove_var(&env_lst); //fonctionne seule
 				}
 				else
 				{
@@ -30,14 +42,11 @@ int	builtin_unset(t_group *group, t_list_env *env_lst)
 					tmp = env_lst;
 				}
 				env_lst = tmp;
-				printf("\n\n");
-				print_list(env_lst);
 				i++;
 			}
 		}
+		env_lst = tmp;
 		return (0);
 	}
-	else
-		// ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
 	return (4);
 }

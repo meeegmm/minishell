@@ -1,6 +1,16 @@
-// #include "../../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   z_b_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/30 13:07:42 by memarign          #+#    #+#             */
+/*   Updated: 2024/04/30 13:07:43 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/exec.h"
-// #include "../../../inc/parsing.h"
 
 //get path from varname
 char	*set_path(t_list_env *env_lst, char *key)
