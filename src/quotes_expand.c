@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/29 21:02:30 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:49:11 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char *add_spaces(char **tmp)
 {
 	char *new_str;
 	char *str;
-	char *start;
+	char *start;      
 	int len;
 	int i;
 	

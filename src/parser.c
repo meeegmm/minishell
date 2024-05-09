@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/29 20:49:02 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:28:50 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ t_group	*group_list(t_parser *p, t_group *group, t_list_env *env)
 	return (group);
 }
 
+t_group	*unclosed_quotes(t_group *group, t_parser *p)
+{
+	ft_putstr_err("Invalid syntax: unclosed quotes\n");
+	invalid_group(group, 2);
+	free_t_parser(p);
+	return (group);
+}
+
 t_group	*parser(char *input, t_list_env *env)
 {
 	t_parser	*p;
@@ -44,15 +52,8 @@ t_group	*parser(char *input, t_list_env *env)
 
 	p = create_init_p();
 	group = create_init_group();
-
-	if(quotes_ok(&input) == 0)
-	{
-		ft_putstr_err("Invalid syntax: unclosed quotes\n");
-		invalid_group(group, 2); //???
-		free_t_parser(p);
-		return (group);
-	}
-	
+	if (quotes_ok(&input) == 0)
+		return (unclosed_quotes(group, p));
 	p->line = quotes_expand(input, env);
 	if (p->line == NULL)
 	{
@@ -63,7 +64,7 @@ t_group	*parser(char *input, t_list_env *env)
 			ft_putstr_err("Command not found\n");
 		}
 		else
-			invalid_group(group, 2); //NOT SURE ABOUT 2 (should be 0?)
+			invalid_group(group, 2);
 		return (group);
 	}
 	group = group_list(p, group, env);
