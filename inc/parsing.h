@@ -76,6 +76,7 @@ char *quotes_expand(char *str, t_list_env *env);
 void invalid_group(t_group *group, int flag);
 t_group *get_group_list(t_tokens *list, t_list_env *env);
 t_group *create_init_group(void);
+t_group	*get_group(t_tokens *list, t_list_env *env);
 
 
 //сheck cmd and files

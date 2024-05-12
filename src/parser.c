@@ -6,11 +6,19 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:51 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/09 16:28:50 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:48:51 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
+
+t_group	*unclosed_quotes(t_group *group, t_parser *p)
+{
+	ft_putstr_err("Invalid syntax: unclosed quotes\n");
+	invalid_group(group, 2);
+	free_t_parser(p);
+	return (group);
+}
 
 t_group	*group_list(t_parser *p, t_group *group, t_list_env *env)
 {
@@ -34,14 +42,6 @@ t_group	*group_list(t_parser *p, t_group *group, t_list_env *env)
 		free(group);
 		group = get_group_list(p->token_list, env);
 	}
-	return (group);
-}
-
-t_group	*unclosed_quotes(t_group *group, t_parser *p)
-{
-	ft_putstr_err("Invalid syntax: unclosed quotes\n");
-	invalid_group(group, 2);
-	free_t_parser(p);
 	return (group);
 }
 

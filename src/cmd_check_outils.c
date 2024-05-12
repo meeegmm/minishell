@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:31:05 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/12 21:28:12 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:43:38 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**get_cmd_tab(t_tokens *list)
 	while (list != NULL && list->next != NULL && list->type != 0
 		&& list->next->type == 0)
 		list = list->next->next;
-	if(list == NULL)
+	if (list == NULL)
 		return (NULL);
 	len = cmd_lines_nb(list);
 	cmd_tab = malloc(sizeof(char *) * (len + 1));
