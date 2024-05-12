@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/29 18:23:05 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:38:17 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,12 @@ t_group	*get_group(t_tokens *list, t_list_env *env)
 	group = create_init_group();
 	group->cmd = get_cmd_tab(list);
 	if (!group->cmd)
-		invalid_group(group, 1);
+	{
+		list = start;
+		if(get_files(list, group) != 0)
+			invalid_group(group, 1);
+		return (group);
+	}
 	flag = cmd_check(&(group->cmd[0]), env);
 	if (flag > 0)
 	{
