@@ -54,7 +54,8 @@ int is_folder(char *line);
 t_parser *create_init_p (void);
 t_group *create_init_group(void);
 char **spaces_between_quotes(char ***tab);
-void init_t_parser(t_parser *p);
+int quotes_ok(char **str);
+// void init_t_parser(t_parser *p);
 // char	*get_key(char *str);
 // char	*get_value(char *str);
 
@@ -62,7 +63,9 @@ void init_t_parser(t_parser *p);
 int delimiter_nb(char *str);
 t_tokenizer *init_data(char *s);
 void between_single(t_tokenizer *d, char *s);
+void	before_expand_or_special(t_tokenizer *d, char *s);
 char *temp_tokenizer(char *str);
+char *no_quotes(char *str, char c);
 
 //token_list
 int syntax_pb(t_tokens *list);
@@ -77,11 +80,15 @@ t_group *create_init_group(void);
 
 
 //сheck cmd and files
-char	**get_path(char **envp);
-char	*path_check(char **path_list, char **args_list);
-char	*cmd_check(char **cmd, char **envp);
+int		cmd_check(char **str, t_list_env *env);
 char **get_cmd_tab(t_tokens *list);
 int get_files(t_tokens *list, t_group *group);
+void	create_file(char *str);
+void	permission_pb_msg(char *str);
+void	existence_pb_msg(char *str);
+
+// char	**get_path(char **envp); removd
+// char	*path_check(char **path_list, char **args_list); removed
 
 //free
 void free_tokens(t_tokens *list);
@@ -90,12 +97,13 @@ void free_t_parser(t_parser *p);
 //outils
 void	print_tab(char **tab);
 void	print_list(t_list_env *list);
-// void	print_list(t_list_env *list);
+// void	print_env_list(t_list_env *list);
 void	print_group(t_group *group);
 // char	*ft_strdup(char *s1);
 // int		ft_strlen(const char *s);
 // int		ft_strncmp(const char *s1, const char *s2, int n);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin1(char *s1, char *s2);
 char	**ft_split1(char *str, int flag);
 char	**copy_tab(char **tab);
 void	ft_putstr_err(char *str);
@@ -103,5 +111,7 @@ char	*from_tab_to_line(char **tab);
 int		is_digit(char c);
 int		is_alpha(char c);
 int 	is_special(char c);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strchr(const char *s, int c);
 
 #endif

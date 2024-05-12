@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 13:01:19 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 13:35:55 by memarign         ###   ########.fr       */
+/*   Created: 2024/05/11 04:31:37 by memarign          #+#    #+#             */
+/*   Updated: 2024/05/11 04:39:35 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	envp = get_envp(env_lst);
 	pid = fork();
 	if (pid == -1)
-		perror("Error exec fork"); // return value?
+		perror("Error exec fork");
 	exec->pid = pid;
-	if (exec->pid == 0)
+	if (pid == 0)
 	{
 		ft_redir(exec, group);
 		if (execve(group->cmd[0], group->cmd, envp) == 0)
@@ -33,12 +33,12 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 			if (access(group->cmd[0], F_OK | X_OK) == -1)
 			{
 				free_tab(envp);
-				return (2);
+				return(126);
 			}
 		}
 	}
 	else
-		waitpid(-1, NULL, 0);
+		waitpid(exec->pid, NULL, 0);
 	free_tab(envp);
 	return (0);
 }
@@ -59,3 +59,4 @@ void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 		exec->status = ft_bin(exec, group, env_lst);
 	return ;
 }
+

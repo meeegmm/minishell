@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:07 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/27 02:15:35 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/11 04:48:12 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i] != NULL)
+	while (tab[i])
 	{
 		free(tab[i]);
 		i++;
 	}
-	free(tab);
+	// free(tab); removed
 }
 
 void	free_group_list(t_group *group)
@@ -42,9 +42,10 @@ void	free_group_list(t_group *group)
 			free(group->redir_out);
 		if (group->app_in)
 			free(group->app_in);
-		free(group);
+		// free(group); removed
 		group = tmp;
 	}
+	free(group); // add
 }
 
 void	free_tokens(t_tokens *list)

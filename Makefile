@@ -16,7 +16,7 @@ OBJ 	= 	$(patsubst $(SRCDIRP)/%.c, $(OBJDIR)/%.o, $(SRCP)) \
 			$(patsubst $(SRCDIRE)/%.c, $(OBJDIR)/%.o, $(SRCE))
 
 $(NAME): $(OBJDIR) $(OBJ) $(DPSDIR)
-		$(CC) $(CFLAGS) $(CLIBS) $(OBJ) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJ) $(CLIBS) -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIRP)/%.c | $(DPSDIR)
 		$(CC) $(CFLAGS) -c $< -o $@

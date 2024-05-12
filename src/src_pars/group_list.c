@@ -6,12 +6,12 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/27 02:17:31 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/11 03:54:33 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
-#include "../../inc/minishell.h"
+// #include "../../inc/minishell.h"
 
 int	get_group_nb(t_tokens *list)
 {
@@ -36,30 +36,30 @@ t_tokens	*move_after_pipe(t_tokens *list)
 
 t_group	*get_group(t_tokens *list, t_list_env *env)
 {
-	char		**new_envp;
 	t_tokens	*start;
 	t_group		*group;
+	int			flag;
 
 	start = list;
 	group = create_init_group();
 	group->cmd = get_cmd_tab(list);
 	if (!group->cmd)
 		invalid_group(group, 1);
-	if (is_built(group->cmd[0]) == 0)
+	flag = cmd_check(&(group->cmd[0]), env);
+	if (flag > 0)
 	{
-		new_envp = get_envp(env);
-		group->cmd[0] = cmd_check(group->cmd, new_envp);
-		if (group->cmd[0] == NULL)
-		{
-			free(group->cmd);
-			invalid_group(group, 127);
-			ft_putstr_err("Command not found\n");
-		}
-		free_tab(new_envp);
+		free_tab(group->cmd);
+		invalid_group(group, flag);
 	}
-	list = start;
-	if (get_files(list, group) != 0)
-		invalid_group(group, 1);
+	else
+	{
+		if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0'
+			&& get_files(start, group) != 0)
+		{
+			free_tab(group->cmd);
+			invalid_group(group, 1);
+		}
+	}
 	return (group);
 }
 

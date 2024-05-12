@@ -1,20 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 09:46:21 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 09:47:08 by memarign         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef EXEC_H
 # define EXEC_H
 
 # include "minishell.h"
-// # include "parsing.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -25,19 +12,6 @@
 //buuiltin struct
 //define error messages + code (exit exec->status)
 //check flag fail, if 1 = fail
-
-// typedef struct	s_exec
-// {
-// 	t_group		*group;
-// 	t_list_env	*env_lst;
-//	int			fd_in;
-//	int			fd_out;
-// 	int			infile;
-// 	int			outfile;
-// 	int			pfd_in;
-// 	int			pfd_out;
-// 	pid_t		pid;
-// }				t_exec;
 
 ////////////////// BUILT_INS //////////////////
 int			builtin_echo(t_group *group);
@@ -64,14 +38,13 @@ void		append_out(t_exec *exec, t_group *group);
 
 ////////////////// CHECKS //////////////////
 
+
 ////////////////// UTILS //////////////////
 
 //built_ins
 char		*set_path(t_list_env *env_lst, char *key);
 int			is_built2(char *str);
 
-//env
-char		**set_envp(char **envp);
 // t_list_env	*env_lst_sos(void);
 t_list_env	*check_var(t_list_env **env_lst, char *var);
 void		mod_var(t_list_env **env_lst, char *var);
@@ -81,7 +54,7 @@ void		remove_var(t_list_env **env_lst);
 //exec
 // char		**split_cmds(char *line);
 // void		init_std(t_exec *exec);
-// void		set_io(t_exec *exec);
+// void		reset_std(t_exec *exec);
 // void		close_std(t_exec *exec);
 // void		init_exec(t_exec *exec);
 // void		close_fds(t_exec *exec);

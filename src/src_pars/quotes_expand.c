@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/27 02:15:35 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/11 03:16:37 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,60 +29,48 @@ int is_meta_move(char **str)
 	return (0);
 }
 
-char *quotes_ok(char *str) //faire plus court
+int ending_quotes_nb(char *str)
 {
+	int len;
 	int i;
-	int res;
-	int start;
 
+	len = 0;
 	i = 0;
-	res = 1;
 	while(str[i])
 	{
-		if(str[i] == '"')
-		{
-			res = 0;
-			start = i;
-			while(str[i])
-			{
-				i++;
-				if(str[i] == '"')
-				{
-					res = 1;
-					str[start] = 29;
-					str[i] = 31;
-					//
-					break;
-				}
+		if(str[i] == 31)
+			len++;
+		i++;
+	}
+	return (len);
+}
 
-			}
-		}
-		else if(str[i] == '\'')
-		{
-			res = 0;
-			start = i;
-			while(str[i])
-			{
-				i++;
-				if(str[i] == '\'') //don't do expand inside
-				{
-					res = 1;
-					str[start] = 30;
-					str[i] = 31;
-					break;
-				}
-			}
-		}
-		if(str[i])
-			i++;
-	}
-	if(res == 0)
+char *with_28(char **str)
+{
+	int i;
+	int len;
+	char *new;
+	int l;
+
+	i = 0;
+	len = 0;
+	l = ft_strlen(*str) + ending_quotes_nb(*str) + 1;
+	new = malloc(sizeof(char) * l);
+	if(!new)
+		return (NULL); //???
+	while(i + 1 < l && (*str)[len])
 	{
-		ft_putstr_err("Invalid syntax: unclosed quotes\n");
-		return (NULL); //подумать, как записать это во flag_fail
+		new[i] = (*str)[len];
+		i++;
+		if((*str)[len] == 31 && i < l)
+		{
+			new[i] = 28;
+			i++;	
+		}
+		len++;
 	}
-	else
-		return (str);
+	new[i] = '\0';
+	return (new);
 }
 
 int spaces_nb(char *str)
@@ -95,12 +83,12 @@ int spaces_nb(char *str)
 		if(is_meta_move(&str) > 0)
 			counter++;
 		else
-			str++; //как будто тоже можно включить в саму is_meta, но неясно, как изменить тогда
+			str++;
 	}
 	return (counter * 2);
 }
 
-char *hide_spaces_between_quotes(char **str) //make void?
+void hide_spaces_between_quotes(char **str) //make void?
 {
 	int i;
 
@@ -119,31 +107,32 @@ char *hide_spaces_between_quotes(char **str) //make void?
 		if((*str)[i])
 			i++;
 	}
-	return (*str);
 }
 
-char *add_spaces(char *str)
+char *add_spaces(char **tmp)
 {
 	char *new_str;
+	char *str;
+	char *start;      
 	int len;
 	int i;
 	
 	i = 0;
-	str = quotes_ok(str);
-	if(str == NULL)
-		return (NULL);
+	str = with_28(tmp);
+	start = str;
+	
+	// printf("AFTER +X after ending quotes: %s\n", str);
 
-	//from spaces to 28 between quotes
-
-	str = hide_spaces_between_quotes(&str);
+	hide_spaces_between_quotes(&str);
 	// printf("HERE spaces are hidden %s\n", str);
 
 	len = spaces_nb(str) + ft_strlen(str) + 1;
-
 	new_str = malloc(sizeof(char) * (len + 1));
 	if(!new_str)
+	{
+		free(str);
 		return (NULL);
-
+	}
 	while(i < len && *str)
 	{
 		if(*str == 29 || *str == 30)
@@ -151,29 +140,28 @@ char *add_spaces(char *str)
 			while(*str && *str != 31 && i < len)
 			{
 				new_str[i] = *str;
-				str++;
+				(str)++;
 				i++;
 			}
 			if(*str && i < len)
 			{
 				new_str[i] = *str;
-				str++;
+				(str)++;
 				i++;
 			}
-			// printf("HERE spaces are hidden %s\n", str);
 		}
 		if(*str && (is_meta(str) > 0) && (i + 2 < len))
 		{
 			new_str[i] = ' ';
 			new_str[i + 1] = *str;
-			if(*str != '|' && (*str == *(str + 1)))
+			if(*str != '|' && (*str == *((str) + 1)))
 			{
-				new_str[i + 2] = *(str + 1);
-				str++;
+				new_str[i + 2] = *((str) + 1);
+				(str)++;
 				if(i + 3 < len)
 					i++;
 			}
-			str++;
+			(str)++;
 			new_str[i + 2] = ' ';
 			i += 3;
 		}
@@ -181,10 +169,10 @@ char *add_spaces(char *str)
 		if(i < len)
 			i++;
 		if(*str)
-			str++;
+			(str)++;
 	}
 	new_str[i] = '\0';
-	// printf("\nNEW_STRING : %s\n", new_str);
+	free(start);
 	return (new_str);
 }
 
@@ -214,14 +202,13 @@ char *no_quotes(char *str, char c)
 	len = ft_strlen(str) - quotes_nb(str, c) + 1;
 	new = malloc(sizeof(char) * len);
 	if(!new)
-		return NULL; // ??
-
-	while(str[i] && k < len)				//echo "" => ??
+		return NULL;
+	while(str[i] && k < len)
 	{
 		if(str[i] == c)
 		{
 			i++;
-			while(str[i] && str[i] != 31 && k < len)
+			while(str[i] && str[i] != 31 && k < len) //check if str[i - 1] != '$'
 			{
 				new[k] = str[i];
 				k++;
@@ -230,29 +217,76 @@ char *no_quotes(char *str, char c)
 			if(str[i] && str[i] == 31)
 				i++;
 		}
-		if(str[i] && k < len)
+		if(str[i] && str[i] != c && k < len)
 		{
 			new[k] = str[i];
 			k++;
 			i++;
 		}
+		else
+			continue ;
 	}
 	new[k] = '\0';
 	return (new);
 }
 
-
 char *quotes_expand(char *str, t_list_env *env)
 {
+	char *spaces_quotes_replaced;
 	char *no_double;
-	char *spaces;
-	char *res;
+	char *no_single;
+	char *expnd;
 
-	no_double = no_quotes(str, 29);
-	spaces = add_spaces(no_double);
-	res = ft_expand(spaces, env);
-	printf("RES AFTER EXPAND : %s\n", res);
-	free(no_double);
-	free(spaces);
-	return(res);
+	spaces_quotes_replaced = NULL;
+	no_double = NULL;
+	no_single = NULL;
+	expnd = NULL;
+	
+	spaces_quotes_replaced = add_spaces(&str); //IT SHOULDNt FREE STR!
+	// printf("spaces_quotes_replaced : %s\n", spaces_quotes_replaced);
+	
+	if(spaces_quotes_replaced == NULL)
+		return (NULL);
+	
+	no_double = no_quotes(spaces_quotes_replaced, 29);
+	// printf("no_double : %s\n", no_double);
+
+	if(no_double == NULL || *no_double == '\0') //en vrai c'est cmd not found
+	{
+		free(spaces_quotes_replaced);
+		if(no_double)
+			free(no_double);
+		return (NULL);
+	}
+	
+	expnd = ft_expand(no_double, env);
+	// printf("expand done : %s\n", expnd);
+	if(expnd == NULL || *expnd == '\0') //en vrai c'est cmd not found
+	{
+		free(spaces_quotes_replaced);
+		free(no_double);
+		if(expnd)
+			free(expnd);
+		return (NULL);
+	}
+	
+	no_single = no_quotes(expnd, 30);
+	// printf("no_single : %s\n", no_single);
+
+	if(no_single == NULL || *no_single == '\0') //en vrai c'est cmd not found
+	{
+		free(spaces_quotes_replaced);
+		free(no_double);
+		free(expnd);
+		if(no_single)
+			free(no_single);
+		return (NULL);
+	}
+	if(no_double)
+		free(no_double);
+	if(spaces_quotes_replaced)
+		free(spaces_quotes_replaced);
+	if(expnd)
+		free(expnd);
+	return(no_single);
 }

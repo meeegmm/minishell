@@ -6,12 +6,12 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:09:37 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/27 02:17:31 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/19 02:23:34 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
-#include "../../inc/minishell.h"
+// #include "../../inc/minishell.h"
 
 int	is_special(char c)
 {

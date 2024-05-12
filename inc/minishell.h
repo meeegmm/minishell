@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 09:47:16 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 09:52:21 by memarign         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -24,27 +12,39 @@
 # include <sys/types.h>
 # include <dirent.h>
 
+////////////////// ERRORS //////////////////
+# define ERR_SYNTX 2
+# define ERR_CMD 127
+# define ERR_DIR 126
+# define ERR_IDENTIF 1
+
+////////////////// SIGNALS //////////////////
+# define CTRL_C 130
+# define CTRL_SLASH 131
+
+extern unsigned char	status;
+
 ////////////////// STRUCTS //////////////////
 
 //parsed ligne struct : REDO!!
 
 typedef struct s_group
 {
-	int				flag_fail;
-	char			**cmd;
-	char			*redir_in;
-	char			*redir_out;
-	char			*app_out;
-	char			*app_in;
-	struct s_group	*next;
-}					t_group;
+int flag_fail;
+char **cmd; 
+char *redir_in;
+char *redir_out;
+char *app_out;
+char *app_in; //heredoc
+struct s_group *next;
+} t_group;
 
 typedef struct s_list_env
 {
-	char				*key;
-	char				*value;
-	struct s_list_env	*next;
-}						t_list_env;
+	char *key;
+	char *value;
+	struct s_list_env *next;
+} t_list_env;
 
 typedef struct s_exec
 {
@@ -68,6 +68,7 @@ t_group		*parser(char *input, t_list_env *env);
 char		**get_envp(t_list_env *list);
 t_list_env	*get_list(char **tab);
 t_list_env	*env_lst_sos(void);
+t_list_env	*set_envp(char **envp);
 
 //exec
 void		minish(t_exec *exec, t_group *group, t_list_env *env);
@@ -91,7 +92,7 @@ void		free_envp_list(t_list_env *list);
 void		free_group_list(t_group *group);
 
 int			ft_strncmp(const char *s1, const char *s2, int n);
-void		print_list(t_list_env *list);
+void		print_env_list(t_list_env *list);
 char		*get_key(char *str);
 char		*get_value(char *str);
 int			ft_strlen(const char *s);

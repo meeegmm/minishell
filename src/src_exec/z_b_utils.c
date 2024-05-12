@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 13:07:42 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 13:07:43 by memarign         ###   ########.fr       */
+/*   Created: 2024/05/11 03:03:04 by memarign          #+#    #+#             */
+/*   Updated: 2024/05/11 03:05:35 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*set_path(t_list_env *env_lst, char *key)
 	{
 		if (ft_strcmp(env_lst->key, key) == 0)
 		{
-			path = ft_strdup(env_lst->value);
+			path = env_lst->value;
 			return (path);
 		}
 		else

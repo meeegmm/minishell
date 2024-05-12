@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:40 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/27 02:15:35 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/11 04:02:15 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strlen(const char *s)
 {
 	int	i;
 
-	if(!s)
+	if (!s)
 		return (0);
 	i = 0;
 	while (s[i] != '\0')
@@ -62,29 +62,3 @@ int	ft_strncmp(const char *s1, const char *s2, int n)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*res;
-	size_t	i;
-	size_t	k;
-
-	if (!s1 || !s2)
-		return (NULL);
-	res = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (res == NULL)
-		return (NULL);
-	i = 0;
-	k = 0;
-	while (s1[i] != '\0')
-	{
-		res[i] = s1[i];
-		i++;
-	}
-	while (s2[k] != '\0')
-	{
-		res[i + k] = s2[k];
-		k++;
-	}
-	res[i + k] = '\0';
-	return (res);
-}

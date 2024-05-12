@@ -1,23 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   b_exit.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 12:28:22 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 12:28:23 by memarign         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../inc/exec.h"
 
+//end the process
+//process then only contain return exec->status
 //go to parent or end shell
 
-void	end_minish(t_exec *exec, t_group *start, t_list_env *env)
+void	end_minish(t_exec *exec, t_group *group, t_list_env *env)
 {
-	if (start != NULL)
-		free_group_list(start);
+	if (group != NULL)
+		free_group_list(group);
 	if (env != NULL)
 		free_envp_list(env);
 	close_fds(exec);
@@ -28,7 +18,7 @@ void	end_minish(t_exec *exec, t_group *start, t_list_env *env)
 	else
 		exit(EXIT_FAILURE);
 }
-//use signals
+
 void	builtin_exit(t_exec *exec, t_group *group, t_list_env *env)
 {
 	if (exec->status == 2)
@@ -42,10 +32,7 @@ void	builtin_exit(t_exec *exec, t_group *group, t_list_env *env)
 		//wrong path
 	}
 	else if (exec->status == 4)
-	{
 		ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
-		// exit(EXIT_FAILURE);
-	}
 	else if (exec->status == 5)
 	{
 		ft_putstr_fd(group->cmd[0], group->cmd[1], 2);

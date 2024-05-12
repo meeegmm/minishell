@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 09:56:03 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 12:15:34 by memarign         ###   ########.fr       */
+/*   Created: 2024/05/11 02:56:12 by memarign          #+#    #+#             */
+/*   Updated: 2024/05/11 03:02:55 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	builtin_cd(t_group *group, char *path, t_list_env *env_lst)
 		}
 		if (chdir(path) == -1)
 			return (3);
+		//$OLDPWD = path
 		return (0);
 	}
+	// free(path);
 	return (4);
 }
-

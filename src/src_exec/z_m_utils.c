@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 12:27:05 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 13:23:18 by memarign         ###   ########.fr       */
+/*   Created: 2024/05/11 02:55:42 by memarign          #+#    #+#             */
+/*   Updated: 2024/05/11 04:04:35 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,14 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 		if (exec->status == 0)
 			group = group->next;
 		else
-			//print error
 			return ;
 	}
 }
 
-void	reset_minish(t_exec *exec, t_group *start)
+void	reset_minish(t_exec *exec, t_group *group)
 {
-	if (start != NULL)
-		free_group_list(start);
+	if (group != NULL)
+		free_group_list(group);
 	close_fds(exec);
 	init_exec(exec);
 	set_io(exec);

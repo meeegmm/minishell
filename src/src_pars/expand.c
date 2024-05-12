@@ -6,12 +6,12 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/27 02:17:31 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/19 02:23:10 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
-#include "../../inc/minishell.h"
+// #include "../../inc/minishell.h"
 
 char	*no_null(void)
 {

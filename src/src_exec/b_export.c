@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   b_export.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 12:28:48 by memarign          #+#    #+#             */
-/*   Updated: 2024/04/30 12:29:23 by memarign         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../inc/exec.h"
 
 int	builtin_export(t_group *group, t_list_env *env_lst)
@@ -21,11 +9,12 @@ int	builtin_export(t_group *group, t_list_env *env_lst)
 	tmp = env_lst;
 	if (tab_size(group->cmd) == 1)
 	{
-		while (env_lst != NULL)
-		{
-			printf("export %s=\"%s\"\n", env_lst->key, env_lst->value);
-			env_lst = env_lst->next;
-		}
+		print_env_list(env_lst);
+		// while (env_lst != NULL)
+		// {
+		// 	printf("export %s=\"%s\"\n", env_lst->key, env_lst->value);
+		// 	env_lst = env_lst->next;
+		// }
 		return (0);
 	}
 	else
@@ -39,6 +28,7 @@ int	builtin_export(t_group *group, t_list_env *env_lst)
 			env_lst = tmp;
 			i++;
 		}
+		return (0);
 	}
-	return (0);
+	return (4);
 }
