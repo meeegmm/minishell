@@ -19,6 +19,13 @@ typedef enum
 	PIPE
 } TokenType;
 
+typedef struct s_remove
+{
+	int i;
+	int k;
+	int len;
+} t_remove;
+
 typedef struct s_tokens
 {
 	TokenType type;
@@ -57,6 +64,8 @@ t_parser *create_init_p (void);
 t_group *create_init_group(void);
 char **spaces_between_quotes(char ***tab);
 int quotes_ok(char **str);
+char *no_quotes(char *str, char c);
+char	*add_spaces(char **tmp);
 
 //expand
 int delimiter_nb(char *str);
@@ -65,6 +74,9 @@ void between_single(t_tokenizer *d, char *s);
 void	before_expand_or_special(t_tokenizer *d, char *s);
 char *temp_tokenizer(char *str);
 char *no_quotes(char *str, char c);
+int spaces_nb(char *str);
+char *with_28(char **str);
+int is_meta(char *str);
 
 //token_list
 int syntax_pb(t_tokens *list);

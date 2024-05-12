@@ -1,4 +1,7 @@
 
+?? create a structure with fonction pointers?
+
+
 Commentaires du code :
 
 1/ cmd_check_outils : 45 : 	fd = open(line, O_WRONLY); //???????
@@ -15,166 +18,147 @@ Commentaires du code :
 
 7/ parser.c : 67 : invalid_group(group, 2); //NOT SURE ABOUT 2 (should be 0?)
 
+8/ quotes_ok.c : 27 : (*str)[*start] = 30; // !!!!!! TO FIX IT
+
+9/ quotes_outils.c : 61 : return (NULL); //???
+
+10/ quotes_remove.c : 36 : while((*str)[r->i] && (*str)[r->i] != 31 && r->k < r->len) //check if str[i - 1] != '$'
 
 ***************************************************
 
->$ > biouhoi
-==2523914== Invalid read of size 8
-==2523914==    at 0x401834: get_cmd_tab (cmd_check_outils.c:91)
-==2523914==    by 0x402FB9: get_group (group_list.c:45)
-==2523914==    by 0x40316C: get_group_list (group_list.c:87)
-==2523914==    by 0x4044EB: group_list (parser.c:35)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914==  Address 0x8 is not stack'd, malloc'd or (recently) free'd
-==2523914== 
-==2523914== 
-==2523914== Process terminating with default action of signal 11 (SIGSEGV)
-==2523914==  Access not within mapped region at address 0x8
-==2523914==    at 0x401834: get_cmd_tab (cmd_check_outils.c:91)
-==2523914==    by 0x402FB9: get_group (group_list.c:45)
-==2523914==    by 0x40316C: get_group_list (group_list.c:87)
-==2523914==    by 0x4044EB: group_list (parser.c:35)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914==  If you believe this happened as a result of a stack
-==2523914==  overflow in your program's main thread (unlikely but
-==2523914==  possible), you can try to increase the size of the
-==2523914==  main thread stack using the --main-stacksize= flag.
-==2523914==  The main thread stack size used in this run was 8388608.
-==2523914== FILE DESCRIPTORS: 7 open (3 std) at exit.
-==2523914== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2523914==    <inherited from parent>
-==2523914== 
-==2523914== Open file descriptor 39: /usr/share/code/resources/app/node_modules.asar
-==2523914==    <inherited from parent>
-==2523914== 
-==2523914== Open AF_UNIX socket 38: <unknown>
-==2523914==    <inherited from parent>
-==2523914== 
-==2523914== Open file descriptor 37: /mnt/nfs/homes/abelosev/.config/Code/logs/20240509T143710/ptyhost.log
-==2523914==    <inherited from parent>
-==2523914== 
-==2523914== 
-==2523914== 2 bytes in 1 blocks are still reachable in loss record 1 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x403FB3: ft_strdup (outils_libft.c:35)
-==2523914==    by 0x405759: get_node (token_list.c:25)
-==2523914==    by 0x405916: lexer (token_list.c:48)
-==2523914==    by 0x404478: group_list (parser.c:24)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 5 bytes in 1 blocks are still reachable in loss record 4 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x401970: get_key (envp_get_list.c:37)
-==2523914==    by 0x401B0D: first_node (envp_get_list.c:79)
-==2523914==    by 0x401B64: get_list (envp_get_list.c:91)
-==2523914==    by 0x4032B2: main (main.c:41)
-==2523914== 
-==2523914== 8 bytes in 1 blocks are still reachable in loss record 7 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x403FB3: ft_strdup (outils_libft.c:35)
-==2523914==    by 0x405759: get_node (token_list.c:25)
-==2523914==    by 0x405960: lexer (token_list.c:55)
-==2523914==    by 0x404478: group_list (parser.c:24)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 8 bytes in 1 blocks are still reachable in loss record 8 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x401813: get_cmd_tab (cmd_check_outils.c:88)
-==2523914==    by 0x402FB9: get_group (group_list.c:45)
-==2523914==    by 0x40316C: get_group_list (group_list.c:87)
-==2523914==    by 0x4044EB: group_list (parser.c:35)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 9 bytes in 1 blocks are still reachable in loss record 9 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x401A52: get_value (envp_get_list.c:59)
-==2523914==    by 0x401B23: first_node (envp_get_list.c:80)
-==2523914==    by 0x401B64: get_list (envp_get_list.c:91)
-==2523914==    by 0x4032B2: main (main.c:41)
-==2523914== 
-==2523914== 10 bytes in 2 blocks are still reachable in loss record 12 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x402790: ft_get_word1 (ft_split1.c:55)
-==2523914==    by 0x402939: ft_split1 (ft_split1.c:83)
-==2523914==    by 0x404435: group_list (parser.c:17)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 12 bytes in 1 blocks are still reachable in loss record 16 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x405072: no_quotes (quotes_expand.c:203)
-==2523914==    by 0x405348: quotes_expand (quotes_expand.c:273)
-==2523914==    by 0x4045A6: parser (parser.c:57)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 24 bytes in 1 blocks are still reachable in loss record 23 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x401AE5: first_node (envp_get_list.c:76)
-==2523914==    by 0x401B64: get_list (envp_get_list.c:91)
-==2523914==    by 0x4032B2: main (main.c:41)
-==2523914== 
-==2523914== 24 bytes in 1 blocks are still reachable in loss record 28 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x4046E1: create_init_p (parser_outils.c:28)
-==2523914==    by 0x404564: parser (parser.c:53)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 24 bytes in 1 blocks are still reachable in loss record 29 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x405728: get_node (token_list.c:19)
-==2523914==    by 0x405916: lexer (token_list.c:48)
-==2523914==    by 0x404478: group_list (parser.c:24)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 24 bytes in 1 blocks are still reachable in loss record 30 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x405728: get_node (token_list.c:19)
-==2523914==    by 0x405960: lexer (token_list.c:55)
-==2523914==    by 0x404478: group_list (parser.c:24)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 56 bytes in 1 blocks are still reachable in loss record 38 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x404751: create_init_group (parser_outils.c:41)
-==2523914==    by 0x402FAC: get_group (group_list.c:44)
-==2523914==    by 0x40316C: get_group_list (group_list.c:87)
-==2523914==    by 0x4044EB: group_list (parser.c:35)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 72 bytes in 1 blocks are still reachable in loss record 39 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x402880: ft_split1 (ft_split1.c:74)
-==2523914==    by 0x404435: group_list (parser.c:17)
-==2523914==    by 0x404622: parser (parser.c:70)
-==2523914==    by 0x4033C3: main (main.c:56)
-==2523914== 
-==2523914== 1,056 bytes in 72 blocks are still reachable in loss record 65 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x401970: get_key (envp_get_list.c:37)
-==2523914==    by 0x401BE1: get_list (envp_get_list.c:103)
-==2523914==    by 0x4032B2: main (main.c:41)
-==2523914== 
-==2523914== 1,728 bytes in 72 blocks are still reachable in loss record 68 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x401B94: get_list (envp_get_list.c:96)
-==2523914==    by 0x4032B2: main (main.c:41)
-==2523914== 
-==2523914== 1,826 bytes in 72 blocks are still reachable in loss record 69 of 97
-==2523914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2523914==    by 0x401A52: get_value (envp_get_list.c:59)
-==2523914==    by 0x401BFC: get_list (envp_get_list.c:104)
-==2523914==    by 0x4032B2: main (main.c:41)
-==2523914== 
-make: *** [Makefile:39: valgrind] Segmentation fault (core dumped)
-paul-f3Ar3s2% 
+>$ echo 123 >file
+==2758119== Invalid write of size 4
+==2758119==    at 0x405342: no_quotes (quotes_remove.c:67)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69428 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+==2758119== Invalid read of size 4
+==2758119==    at 0x405349: no_quotes (quotes_remove.c:68)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69428 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+==2758119== Invalid read of size 4
+==2758119==    at 0x4050EF: quotes_removing (quotes_remove.c:31)
+==2758119==    by 0x405386: no_quotes (quotes_remove.c:71)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69428 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+==2758119== Invalid read of size 4
+==2758119==    at 0x405265: quotes_removing (quotes_remove.c:45)
+==2758119==    by 0x405386: no_quotes (quotes_remove.c:71)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69428 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404982: quotes_expand (quotes_expand.c:31)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+==2758119== Invalid write of size 4
+==2758119==    at 0x405342: no_quotes (quotes_remove.c:67)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69c68 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+==2758119== Invalid read of size 4
+==2758119==    at 0x405349: no_quotes (quotes_remove.c:68)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69c68 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+==2758119== Invalid read of size 4
+==2758119==    at 0x4050EF: quotes_removing (quotes_remove.c:31)
+==2758119==    by 0x405386: no_quotes (quotes_remove.c:71)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69c68 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+==2758119== Invalid read of size 4
+==2758119==    at 0x405265: quotes_removing (quotes_remove.c:45)
+==2758119==    by 0x405386: no_quotes (quotes_remove.c:71)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119==  Address 0x4b69c68 is 0 bytes after a block of size 8 alloc'd
+==2758119==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2758119==    by 0x4052EB: no_quotes (quotes_remove.c:62)
+==2758119==    by 0x404A38: quotes_expand (quotes_expand.c:48)
+==2758119==    by 0x4046D6: parser (parser.c:57)
+==2758119==    by 0x4034F3: main (main.c:56)
+==2758119== 
+
+Parsed :
+
+cmd: 
+echo
+123
+
+fichier redir_in: (null)
+fichier redir_out: file
+fichier app_out: (null)
+flag: 0
+
+***********************************
+
+>$ >"123>" echo "123>34"
+123>34: Command not found
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 127
+
+>$ echo "123>34" >"ret>"
+minishell: syntax error near unexpected token `newline'
+
+Parsed :
+fichier redir_in: (null)
+fichier redir_out: (null)
+fichier app_out: (null)
+flag: 2
+
 
 ****************************************************************
 
