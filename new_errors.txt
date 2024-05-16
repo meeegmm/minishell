@@ -24,6 +24,8 @@ Commentaires du code :
 
 10/ quotes_remove.c : 36 : while((*str)[r->i] && (*str)[r->i] != 31 && r->k < r->len) //check if str[i - 1] != '$'
 
+11/ quotes_expand.c : 34 : 	if (no_double == NULL || *no_double == '\0') //en vrai c'est cmd not found
+
 ***************************************************
 
 >$ echo 123 >file

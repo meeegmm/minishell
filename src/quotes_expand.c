@@ -5,61 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 21:12:17 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/12 23:45:17 by abelosev         ###   ########.fr       */
+/*   Created: 2024/05/16 12:15:09 by abelosev          #+#    #+#             */
+/*   Updated: 2024/05/16 12:23:20 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
-#include "../inc/minishell.h"
 
-char *quotes_expand(char *str, t_list_env *env)
+void	temp_free(char *a, char *b)
 {
-	char *spaces_quotes_replaced;
-	char *no_double;
-	char *no_single;
-	char *expnd;
+	if (a)
+		free(a);
+	if (b)
+		free(b);
+}
 
-	spaces_quotes_replaced = NULL;
+char	*quotes_handle(char *str)
+{
+	char	*replaced;
+	char	*no_double;
+
+	replaced = NULL;
 	no_double = NULL;
-	no_single = NULL;
-	expnd = NULL;
-	
-	spaces_quotes_replaced = add_spaces(&str);
-	if(spaces_quotes_replaced == NULL)
+	replaced = add_spaces(&str);
+	if (replaced == NULL)
 		return (NULL);
-	no_double = no_quotes(spaces_quotes_replaced, 29);
-	if(no_double == NULL || *no_double == '\0') //en vrai c'est cmd not found
+	no_double = no_quotes(replaced, 29);
+	if (no_double == NULL || *no_double == '\0')
 	{
-		free(spaces_quotes_replaced);
-		if(no_double)
+		free(replaced);
+		if (no_double)
 			free(no_double);
 		return (NULL);
 	}
+	free(replaced);
+	return (no_double);
+}
+
+char	*expnd_handle(char *no_double, t_list_env *env)
+{
+	char	*no_single;
+	char	*expnd;
+
+	no_single = NULL;
+	expnd = NULL;
 	expnd = ft_expand(no_double, env);
-	if(expnd == NULL || *expnd == '\0') //en vrai c'est cmd not found
+	if (expnd == NULL || *expnd == '\0')
 	{
-		free(spaces_quotes_replaced);
-		free(no_double);
-		if(expnd)
-			free(expnd);
+		temp_free(no_double, expnd);
 		return (NULL);
 	}
 	no_single = no_quotes(expnd, 30);
-	if(no_single == NULL || *no_single == '\0') //en vrai c'est cmd not found
+	if (no_single == NULL || *no_single == '\0')
 	{
-		free(spaces_quotes_replaced);
-		free(no_double);
 		free(expnd);
-		if(no_single)
+		if (no_single)
 			free(no_single);
 		return (NULL);
 	}
-	if(no_double)
+	free(expnd);
+	return (no_single);
+}
+
+char	*quotes_expand(char *str, t_list_env *env)
+{
+	char	*no_double;
+	char	*no_single;
+
+	no_double = NULL;
+	no_single = NULL;
+	no_double = quotes_handle(str);
+	if (no_double == NULL)
+		return (NULL);
+	no_single = expnd_handle(no_double, env);
+	if (no_single == NULL)
+	{
 		free(no_double);
-	if(spaces_quotes_replaced)
-		free(spaces_quotes_replaced);
-	if(expnd)
-		free(expnd);
-	return(no_single);
+		return (NULL);
+	}
+	free(no_double);
+	return (no_single);
 }
