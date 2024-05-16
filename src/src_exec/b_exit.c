@@ -12,7 +12,7 @@ void	end_minish(t_exec *exec, t_group *group, t_list_env *env)
 		free_envp_list(env);
 	close_fds(exec);
 	init_exec(exec);
-	rl_clear_history();
+	clear_history();
 	if (exec->status == 0)
 		exit(EXIT_SUCCESS); //use tty?
 	else

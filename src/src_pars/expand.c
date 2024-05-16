@@ -13,6 +13,8 @@
 #include "../../inc/parsing.h"
 #include "../../inc/minishell.h"
 
+unsigned int	status;
+
 char	*no_null(void)
 {
 	char	*str;
@@ -60,8 +62,8 @@ void	replace_token(char **str, t_list_env *env)
 			new = no_null();
 		else if ((*str)[i + 1] && is_alpha((*str)[i + 1]))
 			new = expanded_token((*str) + 1, env);
-		//else if(str[i + 1] && str[i + 1] == '?')
-			//int status
+		else if ((*str)[i + 1] && (*str)[i + 1] == '?')
+			new = ft_itoa(status);
 		else
 			new = no_null();
 	}

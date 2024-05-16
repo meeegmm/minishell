@@ -84,6 +84,7 @@ int			delimiter_nb(char *str);
 int			quotes_ok(char **str);
 int			spaces_nb(char *str);
 int			is_meta(char *str);
+char		*ft_itoa(int n);
 char		**spaces_between_quotes(char ***tab);
 char		*no_quotes(char *str, char c);
 char		*add_spaces(char **tmp);

@@ -22,7 +22,7 @@
 # define CTRL_C 130
 # define CTRL_SLASH 131
 
-extern unsigned char	status;
+extern unsigned int	status;
 
 ////////////////// STRUCTS //////////////////
 
@@ -35,7 +35,7 @@ char **cmd;
 char *redir_in;
 char *redir_out;
 char *app_out;
-char *app_in; //heredoc
+char *app_in;
 struct s_group *next;
 } t_group;
 
