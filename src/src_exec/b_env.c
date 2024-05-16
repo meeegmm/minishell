@@ -1,4 +1,5 @@
 #include "../../inc/exec.h"
+#include "../../inc/minishell.h"
 
 int	builtin_env(t_group *group, t_list_env *env_lst)
 {

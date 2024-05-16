@@ -43,7 +43,7 @@ void		append_out(t_exec *exec, t_group *group);
 
 //built_ins
 char		*set_path(t_list_env *env_lst, char *key);
-int			is_built2(char *str);
+// int			is_built2(char *str);
 
 // t_list_env	*env_lst_sos(void);
 t_list_env	*check_var(t_list_env **env_lst, char *var);
@@ -68,7 +68,7 @@ int			open_file(char *file, int std_no);
 //signals
 
 //libft
-int			ft_strcmp(char *s1, char *s2);
+// int			ft_strcmp(char *s1, char *s2);
 void		ft_putstr(char *str);
 void		ft_putstr_fd(char *cmd, char *s, int fd);
 int			is_char(char *str, char c);

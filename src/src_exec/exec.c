@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../inc/exec.h"
+#include "../../inc/minishell.h"
 
 //add printf
 //add checks
@@ -47,16 +48,16 @@ void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 {
 	if (exec->pid == -1 && group_size(group) == 1)
 	{
-		if (is_built2(group->cmd[0]))
-			exec->status = ft_builtins(exec, group, env_lst);
+		if (is_built(group->cmd[0]))
+			exec->stat = ft_builtins(exec, group, env_lst); //exec->stat?
 		else
-			exec->status = ft_bin(exec, group, env_lst);
+			exec->stat = ft_bin(exec, group, env_lst);
 		return ;
 	}
-	else if (is_built2(group->cmd[0]))
-		exec->status = ft_builtins(exec, group, env_lst);
+	else if (is_built(group->cmd[0]))
+		exec->stat = ft_builtins(exec, group, env_lst);
 	else
-		exec->status = ft_bin(exec, group, env_lst);
+		exec->stat = ft_bin(exec, group, env_lst);
 	return ;
 }
 

@@ -16,29 +16,30 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 {
 	while (group != NULL)
 	{
-		if (group->flag_fail == 2 || (group->flag_fail == 127 \
-									&& group->next == NULL))
+		if (group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL))
 		{
-			reset_minish(exec, group);
-			break ;
+			status = group->flag_fail;
+			reset_minish(exec);
+			return ;
 		}
 		else if (group->flag_fail == 0)
 		{
+			status = group->flag_fail;
 			if (group->next != NULL)
 				ft_pipe(exec);
 			simple_cmd(exec, group, env);
 		}
-		if (exec->status == 0)
-			group = group->next;
 		else
-			return ;
+			status = group->flag_fail;
+		// if (exec->stat == 0)
+		group = group->next;
+		// else
+		// 	return ;
 	}
 }
 
-void	reset_minish(t_exec *exec, t_group *group)
+void	reset_minish(t_exec *exec)
 {
-	if (group != NULL)
-		free_group_list(group);
 	close_fds(exec);
 	init_exec(exec);
 	set_io(exec);
