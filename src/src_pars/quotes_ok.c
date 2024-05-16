@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 20:32:23 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/12 22:21:09 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:29 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 void	double_detected(char **str, int *res, int *start, int *i)
 {

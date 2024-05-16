@@ -6,12 +6,12 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/12 21:57:14 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:02:53 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
+#include "../../inc/minishell.h"
 
 int	get_group_nb(t_tokens *list)
 {

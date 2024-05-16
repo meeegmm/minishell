@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:14:02 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/15 21:16:20 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:45 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 t_tokens	*get_node(char **token_tab, int i)
 {

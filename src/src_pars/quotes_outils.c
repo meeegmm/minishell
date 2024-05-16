@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 23:10:48 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/12 23:22:56 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:32 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 int	is_meta(char *str)
 {

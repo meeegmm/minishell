@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:33:00 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/12 21:47:55 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:19 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 int	only_spaces(char *str)
 {

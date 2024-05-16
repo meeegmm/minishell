@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:40 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/25 19:23:44 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:12 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 int	ft_strlen(const char *s)
 {

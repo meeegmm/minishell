@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:13 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 18:03:29 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:02:37 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 int	ft_is_delimiter1(char c, int flag)
 {

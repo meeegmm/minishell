@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:15:09 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/16 12:23:20 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:24 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 void	temp_free(char *a, char *b)
 {

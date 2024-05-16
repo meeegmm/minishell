@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:46 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/17 15:54:52 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:17 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 void	ft_putstr_err(char *str)
 {

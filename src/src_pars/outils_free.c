@@ -6,11 +6,11 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:07 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/29 16:21:51 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:09 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
+#include "../../inc/parsing.h"
 
 void	free_tab(char **tab)
 {
