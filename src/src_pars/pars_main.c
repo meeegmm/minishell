@@ -43,19 +43,18 @@ int	main(int ac, char **av, char **envp)
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
-		if(!line || *line == '\0' || only_spaces(line) || ft_strncmp(line, ":", ft_strlen(line)) == 0 || ft_strncmp(line, "!", ft_strlen(line)) == 0) // TO FIX "" and ''
+		if(!line || *line == '\0' || only_spaces(line) || ft_strncmp(line, ":", ft_strlen(line)) == 0 || ft_strncmp(line, "!", ft_strlen(line)) == 0)
 		{
 			if(line)
 				free(line);
-			// printf("\n");
 			line = readline(">$ ");
 			continue ;
 		}
 		if (line && *line)
 			add_history(line);
-		group = parser(line, env); //group_list is here
+		group = parser(line, env);
 
-		if(!group) //malloc pb
+		if(!group)
 		{
 			if(line)
 				free(line);
@@ -70,12 +69,9 @@ int	main(int ac, char **av, char **envp)
 			if(group->flag_fail == 2)
 			{
 				//changer global var en fonction de flag_fail
-				printf("\nParsed :\n");
-				print_group(group);
-				printf("\n");
 				break; 
 			}
-			else if(group->flag_fail == 0)
+			if(group->flag_fail == 0)
 			{
 				//exec magic
 				//changer global var en fonction de flag_fail

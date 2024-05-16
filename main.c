@@ -32,7 +32,6 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*line;
 	t_group		*group;
-	// t_group		*start;
 	t_list_env	*env;
 	t_exec		exec;
 
@@ -47,7 +46,7 @@ int	main(int ac, char **av, char **envp)
 	line = readline(">$ ");
 	while (is_exit(line))
 	{
-		if (!line || *line == '\0' || only_spaces(line))
+		if (!line || *line == '\0' || only_spaces(line) || ft_strncmp(line, ":", ft_strlen(line)) == 0 || ft_strncmp(line, "!", ft_strlen(line)) == 0)
 		{
 			if (line)
 				free(line);
@@ -59,16 +58,18 @@ int	main(int ac, char **av, char **envp)
 		group = parser(line, env);
 		if (!group)
 		{
-			// exec.status = 1;
+			status = 1; //??
 			if (line)
 				free(line);
-			builtin_exit(&exec, group, env);
+			free_envp_list(env);
+			exit(EXIT_FAILURE);
 		}
-		// start = group;
 		minish(&exec, group, env);
 		free(line);
 		reset_minish(&exec, group);
 		line = readline(">$ ");
 	}
-	builtin_exit(&exec, group, env);
+	free_envp_list(env);
+	clear_history();
+	return (0);
 }
