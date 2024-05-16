@@ -32,19 +32,16 @@ t_list_env	*env_lst_sos(void)
 //env for pgm
 //just env_lst sos
 //return list
-// char	**set_envp(char **envp)
-// {
-// 	t_list_env	*env_lst;
-// 	char		**new_envp;
+t_list_env	*set_envp(char **envp)
+{
+	t_list_env	*env;
 
-// 	if (*envp == NULL)
-// 		env_lst = env_lst_sos();
-// 	// else
-// 	// 	env_lst = get_list(envp);
-// 	// new_envp = get_envp(env_lst);
-// 	// free_envp_list(env_lst);
-// 	return (new_envp);
-// }
+	if (*envp == NULL)
+		env = env_lst_sos();
+	else
+		env = get_list(envp);
+	return (env);
+}
 
 //return var or end of list if !var
 t_list_env	*check_var(t_list_env **env_lst, char *var)

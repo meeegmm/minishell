@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/11 04:31:37 by memarign          #+#    #+#             */
+/*   Updated: 2024/05/11 04:39:35 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/exec.h"
 
 //add printf
@@ -15,17 +27,18 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	exec->pid = pid;
 	if (pid == 0)
 	{
+		ft_redir(exec, group);
 		if (execve(group->cmd[0], group->cmd, envp) == 0)
 		{
 			if (access(group->cmd[0], F_OK | X_OK) == -1)
 			{
 				free_tab(envp);
-				return(2);
+				return(126);
 			}
 		}
 	}
 	else
-		waitpid(-1, NULL, 0);
+		waitpid(exec->pid, NULL, 0);
 	free_tab(envp);
 	return (0);
 }
@@ -41,11 +54,9 @@ void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 		return ;
 	}
 	else if (is_built2(group->cmd[0]))
-	{
-		// waitpid(exec->pid, NULL, 0);
 		exec->status = ft_builtins(exec, group, env_lst);
-	}
 	else
 		exec->status = ft_bin(exec, group, env_lst);
 	return ;
 }
+

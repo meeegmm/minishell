@@ -6,12 +6,12 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 14:19:29 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:02:53 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
+#include "../../inc/minishell.h"
 
 int	get_group_nb(t_tokens *list)
 {
@@ -32,38 +32,6 @@ t_tokens	*move_after_pipe(t_tokens *list)
 	while (list->type != 5 && list->next != NULL)
 		list = list->next;
 	return (list->next);
-}
-
-t_group	*get_group(t_tokens *list, t_list_env *env)
-{
-	char		**new_envp;
-	t_tokens	*start;
-	t_group		*group;
-
-	start = list;
-	group = create_init_group();
-	group->cmd = get_cmd_tab(list);
-	if (!group->cmd)
-		invalid_group(group, 1);
-	if (is_built(group->cmd[0]) == 0)
-	{
-		new_envp = get_envp(env);
-		group->cmd[0] = cmd_check(group->cmd, new_envp);
-		if (group->cmd[0] == NULL)
-		{
-			free(group->cmd);
-			invalid_group(group, 127);
-			ft_putstr_err("Command not found\n");
-		}
-		free_tab(new_envp);
-	}
-	list = start;
-	if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0' && get_files(list, group) != 0) //should I check if it exists?
-	{
-		free_tab(group->cmd);
-		invalid_group(group, 1);	
-	}
-	return (group);
 }
 
 int	get_new_node(t_tokens **list, t_list_env *env,

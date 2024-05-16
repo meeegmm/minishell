@@ -6,12 +6,12 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 18:03:56 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:02:34 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
+#include "../../inc/minishell.h"
 
 char	*no_null(void)
 {
@@ -105,25 +105,18 @@ char	*ft_expand(char *str, t_list_env *env)
 	if (!temp)
 		return (NULL);
 	token_tab = ft_split1(temp, 3);
-	if (!token_tab || !token_tab[0]) // NOT SURE THAT THIS IS CORRECT
+	if (!token_tab || !token_tab[0])
 	{
 		free(token_tab);
 		free(temp);
 		return (NULL);
 	}
-	// printf("TOKEN TAB\n");
-	// print_tab(token_tab);
-	
 	i = 0;
 	while (token_tab[i])
 	{
 		replace_token(token_tab + i, env);
 		i++;
 	}
-
-	// printf("TOKEN TAB replaced\n");
-	// print_tab(token_tab);
-	
 	free(temp);
 	new = from_tab_to_line(token_tab);
 	return (new);

@@ -12,6 +12,18 @@
 # include <sys/types.h>
 # include <dirent.h>
 
+////////////////// ERRORS //////////////////
+# define ERR_SYNTX 2
+# define ERR_CMD 127
+# define ERR_DIR 126
+# define ERR_IDENTIF 1
+
+////////////////// SIGNALS //////////////////
+# define CTRL_C 130
+# define CTRL_SLASH 131
+
+extern unsigned char	status;
+
 ////////////////// STRUCTS //////////////////
 
 //parsed ligne struct : REDO!!
@@ -36,8 +48,6 @@ typedef struct s_list_env
 
 typedef struct s_exec
 {
-	// struct s_group		*group;
-	// struct s_list_env	*env_lst;
 	int				status;
 	int				infile;
 	int				outfile;
@@ -51,39 +61,41 @@ typedef struct s_exec
 ////////////////// FONCTIONS //////////////////
 
 //parsing
-int 	only_spaces(char *str);
-t_group	*parser(char *input, t_list_env *env);
+int			only_spaces(char *str);
+t_group		*parser(char *input, t_list_env *env);
 
 //envp parsing
 char		**get_envp(t_list_env *list);
 t_list_env	*get_list(char **tab);
 t_list_env	*env_lst_sos(void);
+t_list_env	*set_envp(char **envp);
 
 //exec
-void	minish(t_exec *exec, t_group *group, t_list_env *env);
-void	reset_minish(t_exec *exec, t_group *start);
-void	ft_redir(t_exec *exec, t_group *group);
-void	ft_pipe(t_exec *exec);
-void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
-void	end_minish(t_exec *exec, t_group *group, t_list_env *env);
-void	builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
+void		minish(t_exec *exec, t_group *group, t_list_env *env);
+void		reset_minish(t_exec *exec, t_group *start);
+void		ft_redir(t_exec *exec, t_group *group);
+void		ft_pipe(t_exec *exec);
+void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
+void		end_minish(t_exec *exec, t_group *group, t_list_env *env);
+void		builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 //fd
-void		init_std(t_exec *exec);
-void		reset_std(t_exec *exec);
-void		close_std(t_exec *exec);
 void		init_exec(t_exec *exec);
 void		close_fds(t_exec *exec);
+void		set_io(t_exec *exec);
+void		init_std(t_exec *exec);
+void		close_std(t_exec *exec);
 
 //free
-void	free_tab(char **tab);
-void	free_envp_list(t_list_env *list);
-void	free_group_list(t_group *group);
+void		free_tab(char **tab);
+void		free_envp_list(t_list_env *list);
+void		free_group_list(t_group *group);
 
-int		ft_strncmp(const char *s1, const char *s2, int n);
-char	*get_key(char *str);
-char	*get_value(char *str);
-int		ft_strlen(const char *s);
-char	*ft_strdup(char *s1);
+int			ft_strncmp(const char *s1, const char *s2, int n);
+void		print_list(t_list_env *list);
+char		*get_key(char *str);
+char		*get_value(char *str);
+int			ft_strlen(const char *s);
+char		*ft_strdup(char *s1);
 
 #endif

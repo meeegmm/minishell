@@ -2,7 +2,6 @@
 # define EXEC_H
 
 # include "minishell.h"
-// # include "parsing.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -14,24 +13,11 @@
 //define error messages + code (exit exec->status)
 //check flag fail, if 1 = fail
 
-// typedef struct	s_exec
-// {
-// 	t_group		*group;
-// 	t_list_env	*env_lst;
-//	int			fd_in;
-//	int			fd_out;
-// 	int			infile;
-// 	int			outfile;
-// 	int			pfd_in;
-// 	int			pfd_out;
-// 	pid_t		pid;
-// }				t_exec;
-
 ////////////////// BUILT_INS //////////////////
 int			builtin_echo(t_group *group);
 int			builtin_pwd(t_group *group);
 int			builtin_cd(t_group *group, char *path, t_list_env *env_lst);
-int			builtin_env(t_group *group);
+int			builtin_env(t_group *group, t_list_env *env_lst);
 // void		builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
 int			builtin_export(t_group *group, t_list_env *env_lst);
 int			builtin_unset(t_group *group, t_list_env *env_lst);
@@ -59,9 +45,6 @@ void		append_out(t_exec *exec, t_group *group);
 char		*set_path(t_list_env *env_lst, char *key);
 int			is_built2(char *str);
 
-//env
-char		**set_envp(char **envp);
-// void	print_env_list(t_list_env *list);
 // t_list_env	*env_lst_sos(void);
 t_list_env	*check_var(t_list_env **env_lst, char *var);
 void		mod_var(t_list_env **env_lst, char *var);

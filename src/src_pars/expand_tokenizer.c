@@ -6,20 +6,12 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:12:56 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 18:05:50 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:02:28 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
-#include "../inc/minishell.h"
-
-void	before_expand_or_special(t_tokenizer *d, char *s)
-{
-	d->new[d->k] = 28;
-	d->new[d->k + 1] = s[d->i];
-	d->k += 2;
-	d->i++;
-}
+#include "../../inc/parsing.h"
+#include "../../inc/minishell.h"
 
 void	after_digit(t_tokenizer *d, char *s)
 {
@@ -44,6 +36,23 @@ void	par_defaut(t_tokenizer *d, char *s)
 	d->i++;
 }
 
+void	temp_token_outil(t_tokenizer *d, char *str)
+{
+	if (str[d->i] == 30)
+		between_single(d, str);
+	else if (str[d->i] && (str[d->i] == '$' || is_special(str[d->i]))
+		&& (d->k + 1 < d->len))
+		before_expand_or_special(d, str);
+	else if (d->i > 0 && str[d->i - 1] && str[d->i] && str[d->i - 1] == '$'
+		&& is_digit(str[d->i]) && (d->k + 1 < d->len))
+		after_digit(d, str);
+	else if (d->i > 0 && str[d->i - 1] && str[d->i - 1] == 31
+		&& str[d->i] && (d->k + 1 < d->len))
+		ending_quote(d, str);
+	else
+		par_defaut(d, str);
+}
+
 char	*temp_tokenizer(char *str)
 {
 	char		*res;
@@ -55,19 +64,7 @@ char	*temp_tokenizer(char *str)
 		if (str[d->i] == '$' && str[d->i + 1]
 			&& (str[d->i + 1] == 30 || str[d->i + 1] == 29))
 			d->i++;
-		if (str[d->i] == 30)
-			between_single(d, str);
-		else if (str[d->i] && (str[d->i] == '$' || is_special(str[d->i]))
-			&& (d->k + 1 < d->len))
-			before_expand_or_special(d, str);
-		else if (d->i > 0 && str[d->i - 1] && str[d->i] && str[d->i - 1] == '$'
-			&& is_digit(str[d->i]) && (d->k + 1 < d->len))
-			after_digit(d, str);
-		else if (d->i > 0 && str[d->i - 1] && str[d->i - 1] == 31
-			&& str[d->i] && (d->k + 1 < d->len))
-			ending_quote(d, str);
-		else
-			par_defaut(d, str);
+		temp_token_outil(d, str);
 	}
 	d->new[d->k] = '\0';
 	res = d->new;

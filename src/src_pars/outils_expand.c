@@ -6,12 +6,12 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:09:37 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/20 18:06:15 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:06 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parsing.h"
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
+#include "../../inc/minishell.h"
 
 int	is_special(char c)
 {
@@ -68,4 +68,12 @@ void	between_single(t_tokenizer *d, char *s)
 		d->k++;
 		d->i++;
 	}
+}
+
+void	before_expand_or_special(t_tokenizer *d, char *s)
+{
+	d->new[d->k] = 28;
+	d->new[d->k + 1] = s[d->i];
+	d->k += 2;
+	d->i++;
 }

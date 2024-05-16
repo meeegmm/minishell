@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_echo.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/11 02:56:38 by memarign          #+#    #+#             */
+/*   Updated: 2024/05/11 02:56:39 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/exec.h"
 
 //function is_option?
@@ -8,28 +20,18 @@ int	builtin_echo(t_group *group)
 	int	i;
 	int	option;
 
-	i = 0;
+	i = 1;
 	option = 0;
-	if (ft_strncmp(group->cmd[0], "echo", 4) == 0)
+	if (tab_size(group->cmd) < 2)
+		write(1, "\n", 1);
+	else
 	{
-		if (tab_size(group->cmd) < 2)
+		if (ft_strncmp(group->cmd[i], "-n", 2) == 0 \
+										&& is_char(group->cmd[i], 'n'))
 		{
-			write(1, "\n", 1);
-			return (0);
+			option = 1;
+			i++;
 		}
-		i++;
-		while (group->cmd[i])
-		{
-			if (ft_strncmp(group->cmd[i], "-n", 2) == 0 \
-											&& is_char(group->cmd[i], 'n'))
-			{
-				option = 1;
-				i++;
-			}
-			else
-				break ;
-		}
-		//write on exec->fd_out?
 		while (group->cmd[i])
 		{
 			ft_putstr(group->cmd[i]);
@@ -39,9 +41,6 @@ int	builtin_echo(t_group *group)
 		}
 		if (!option)
 			write(1, "\n", 1);
-		return (0);
 	}
-	else
-		ft_putstr_fd(group->cmd[0], ": Command failed\n", 2);
-	return (4);
+	return (0);
 }
