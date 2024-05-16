@@ -9,7 +9,7 @@ int	builtin_export(t_group *group, t_list_env *env_lst)
 	tmp = env_lst;
 	if (tab_size(group->cmd) == 1)
 	{
-		print_env_list(env_lst);
+		print_list(env_lst);
 		// while (env_lst != NULL)
 		// {
 		// 	printf("export %s=\"%s\"\n", env_lst->key, env_lst->value);
