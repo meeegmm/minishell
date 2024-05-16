@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_check_outils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:31:05 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/11 03:36:27 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:43:38 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
+#include "../inc/parsing.h"
 
 int	is_built(char *str)
 {
@@ -81,9 +81,11 @@ char	**get_cmd_tab(t_tokens *list)
 
 	len = 0;
 	i = 1;
-	while (list != NULL && list->next != 0 && list->type != 0
+	while (list != NULL && list->next != NULL && list->type != 0
 		&& list->next->type == 0)
 		list = list->next->next;
+	if (list == NULL)
+		return (NULL);
 	len = cmd_lines_nb(list);
 	cmd_tab = malloc(sizeof(char *) * (len + 1));
 	if (!cmd_tab)

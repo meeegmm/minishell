@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   outils_libft2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:23:10 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/11 03:59:16 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:19:34 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
+#include "../inc/parsing.h"
 
 int	is_alpha(char c)
 {

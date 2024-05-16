@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 02:23:10 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:29:54 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
-// #include "../../inc/minishell.h"
+#include "../inc/parsing.h"
+#include "../inc/minishell.h"
 
 char	*no_null(void)
 {
@@ -105,8 +105,12 @@ char	*ft_expand(char *str, t_list_env *env)
 	if (!temp)
 		return (NULL);
 	token_tab = ft_split1(temp, 3);
-	if (!token_tab)
+	if (!token_tab || !token_tab[0])
+	{
+		free(token_tab);
+		free(temp);
 		return (NULL);
+	}
 	i = 0;
 	while (token_tab[i])
 	{

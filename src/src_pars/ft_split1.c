@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:13 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/18 20:52:45 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:03:29 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
+#include "../inc/parsing.h"
 
 int	ft_is_delimiter1(char c, int flag)
 {

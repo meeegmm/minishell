@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:18 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 02:23:14 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:12:29 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
-// #include "../../inc/minishell.h"
-
-void	permission_pb_msg(char *str)
-{
-	ft_putstr_err("minishell: ");
-	ft_putstr_err(str);
-	ft_putstr_err(": Permission denied\n");
-}
-
-void	existence_pb_msg(char *str)
-{
-	ft_putstr_err("minishell: ");
-	ft_putstr_err(str);
-	ft_putstr_err(": No such file or directory\n");
-}
+#include "../inc/parsing.h"
+#include "../inc/minishell.h"
 
 char	*outfile_access(t_tokens *list, char *str)
 {
@@ -73,14 +59,33 @@ char	*infile_access(t_tokens *list, char *str)
 	return (str);
 }
 
-void create_file(char *str)
+int	handle_outfile(char **s1, char **s2, char **s3, t_tokens *list)
 {
-	int fd;
+	*s1 = outfile_access(list, *s1);
+	if (*s1 == NULL)
+	{
+		if (*s2)
+			free(*s2);
+		if (*s3)
+			free(*s3);
+		return (1);
+	}
+	create_file(*s1);
+	return (0);
+}
 
-	fd = open(str, O_CREAT | O_WRONLY);
-	if(fd < 0)
-		return ;
-	close(fd);
+int	handle_infile(t_tokens *list, t_group *group)
+{
+	group->redir_in = infile_access(list, group->redir_in);
+	if (group->redir_in == NULL)
+	{
+		if (group->redir_out)
+			free(group->redir_out);
+		if (group->app_out)
+			free(group->app_out);
+		return (1);
+	}
+	return (0);
 }
 
 int	get_files(t_tokens *list, t_group *group)
@@ -89,23 +94,20 @@ int	get_files(t_tokens *list, t_group *group)
 	{
 		if (list->type == 1 && list->next->type == 0)
 		{
-			group->redir_in = infile_access(list, group->redir_in);
-			if (group->redir_in == NULL)
+			if (handle_infile(list, group))
 				return (1);
 		}
 		else if (list->type == 2 && list->next->type == 0)
 		{
-			group->redir_out = outfile_access(list, group->redir_out); //should I free here before reinitialize?
-			if (group->redir_out == NULL)
+			if (handle_outfile(&group->redir_out, &group->redir_in,
+					&group->app_out, list))
 				return (1);
-			create_file(group->redir_out); //???????
 		}
 		else if (list->type == 4 && list->next->type == 0)
 		{
-			group->app_out = outfile_access(list, group->app_out);
-			if (group->app_out == NULL)
+			if (handle_outfile(&group->app_out, &group->redir_in,
+					&group->redir_out, list))
 				return (1);
-			create_file(group->app_out);
 		}
 		list = list->next;
 	}

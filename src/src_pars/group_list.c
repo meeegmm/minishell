@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   group_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:25 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/11 03:54:33 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:57:14 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
-// #include "../../inc/minishell.h"
+#include "../inc/parsing.h"
+#include "../inc/minishell.h"
 
 int	get_group_nb(t_tokens *list)
 {
@@ -32,35 +32,6 @@ t_tokens	*move_after_pipe(t_tokens *list)
 	while (list->type != 5 && list->next != NULL)
 		list = list->next;
 	return (list->next);
-}
-
-t_group	*get_group(t_tokens *list, t_list_env *env)
-{
-	t_tokens	*start;
-	t_group		*group;
-	int			flag;
-
-	start = list;
-	group = create_init_group();
-	group->cmd = get_cmd_tab(list);
-	if (!group->cmd)
-		invalid_group(group, 1);
-	flag = cmd_check(&(group->cmd[0]), env);
-	if (flag > 0)
-	{
-		free_tab(group->cmd);
-		invalid_group(group, flag);
-	}
-	else
-	{
-		if (group->cmd && group->cmd[0] != NULL && group->cmd[0][0] != '\0'
-			&& get_files(start, group) != 0)
-		{
-			free_tab(group->cmd);
-			invalid_group(group, 1);
-		}
-	}
-	return (group);
 }
 
 int	get_new_node(t_tokens **list, t_list_env *env,

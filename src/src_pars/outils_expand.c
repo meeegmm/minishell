@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   outils_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:09:37 by abelosev          #+#    #+#             */
-/*   Updated: 2024/04/19 02:23:34 by memarign         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:42:20 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
-// #include "../../inc/minishell.h"
+#include "../inc/parsing.h"
+#include "../inc/minishell.h"
 
 int	is_special(char c)
 {
@@ -28,7 +28,7 @@ int	delimiter_nb(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$' || (is_special(str[i])) || str[i] == 30)
-			nb++;
+			nb += 2;
 		if (str[i] == '$' && str[i + 1] && is_digit(str[i + 1]))
 			nb++;
 		i++;
@@ -62,10 +62,18 @@ void	between_single(t_tokenizer *d, char *s)
 		d->k++;
 		d->i++;
 	}
-	if (d->k < d->len && s[d->i])
+	if (d->k < d->len && s[d->i] && s[d->i] == 31)
 	{
-		d->new[d->k] = 30;
+		d->new[d->k] = 31;
 		d->k++;
 		d->i++;
 	}
+}
+
+void	before_expand_or_special(t_tokenizer *d, char *s)
+{
+	d->new[d->k] = 28;
+	d->new[d->k + 1] = s[d->i];
+	d->k += 2;
+	d->i++;
 }
