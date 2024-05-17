@@ -77,7 +77,7 @@ void		reset_minish(t_exec *exec);
 void		ft_redir(t_exec *exec, t_group *group);
 void		ft_pipe(t_exec *exec);
 void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
-void		end_minish(t_exec *exec, t_group *group, t_list_env *env);
+int		end_minish(t_exec *exec, t_group *group, t_list_env *env);
 // void		builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 //fd

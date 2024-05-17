@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/12 17:56:06 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/05/17 12:37:51 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_exit(char *line)
 {
 	if(ft_strlen(line) != 4)
 		return (1);
-	if (ft_strcmp(line, "exit") == 0)
+	if (ft_strncmp(line, "exit", 4) == 0)
 	{
 		if(line)
 			free(line);
@@ -28,6 +28,7 @@ int	is_exit(char *line)
 	else
 		return (1);
 }
+
 
 int	main(int ac, char **av, char **envp)
 {
@@ -47,7 +48,7 @@ int	main(int ac, char **av, char **envp)
 		env = get_list(envp);
 	}
 	init_exec(&exec);
-	line = readline(">$ ");
+	line = readline(">$ "); //signals handled already
 	while (is_exit(line))
 	{
 		if (!line || *line == '\0' || only_spaces(line) || ft_strncmp(line, ":", ft_strlen(line)) == 0 || ft_strncmp(line, "!", ft_strlen(line)) == 0)
@@ -77,5 +78,6 @@ int	main(int ac, char **av, char **envp)
 	}
 	free_envp_list(env);
 	clear_history();
-	return (0);
+	close_fds(&exec);
+	return (status);
 }

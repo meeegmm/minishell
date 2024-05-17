@@ -1,0 +1,18 @@
+1/ problem with makefile
+
+pars_main : pooij | ls
+
+main : same output (comme si make valgrind n'a pas remis a jour main)
+
+"paul-f5Br3s1% make 
+make: 'minishell' is up to date."
+
+2/ problem with waitpids : wc bugs
+
+3/ problem with sortie d'erreurs 
+
+4/ what is exec->stat ?
+
+5/ segfault pour "> bonjour"
+
+6/ 

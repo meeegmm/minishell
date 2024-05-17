@@ -4,7 +4,7 @@
 //process then only contain return exec->status
 //go to parent or end shell
 
-void	end_minish(t_exec *exec, t_group *group, t_list_env *env)
+int	end_minish(t_exec *exec, t_group *group, t_list_env *env)
 {
 	if (group != NULL)
 		free_group_list(group);
@@ -13,10 +13,10 @@ void	end_minish(t_exec *exec, t_group *group, t_list_env *env)
 	close_fds(exec);
 	init_exec(exec);
 	clear_history();
-	if (status == 0)
-		exit(EXIT_SUCCESS); //use tty?
-	else
-		exit(EXIT_FAILURE);
+	// if (status == 0)
+	// 	exit(EXIT_SUCCESS); //use tty?
+	// else
+	return (status);
 }
 
 // void	builtin_exit(t_exec *exec, t_group *group, t_list_env *env)

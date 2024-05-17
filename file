@@ -1,0 +1,9 @@
+deps
+file
+ignore_readline
+inc
+Makefile
+minishell
+obj
+pars_main.c
+src
