@@ -28,7 +28,7 @@ int	is_built(char *str)
 	tab[6] = "export";
 	while (i <= 6)
 	{
-		if (ft_strcmp(str, tab[i]) == 0)
+		if (ft_strlen(tab[i]) == ft_strlen(str) && ft_strcmp(str, tab[i]) == 0)
 			return (1);
 		i++;
 	}
