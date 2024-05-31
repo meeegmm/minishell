@@ -90,6 +90,18 @@ int	handle_infile(t_tokens *list, t_group *group)
 
 int	get_files(t_tokens *list, t_group *group)
 {
+	t_tokens *start;
+
+	start = list;
+	while(start->type != 5 && start->next != NULL)
+	{
+		if(start->type == 3 && start->next->type == 0)
+		{
+			group->app_in = ft_strdup(start->next->value);
+			return (0);
+		}
+		start = start->next;
+	}
 	while (list->type != 5 && list->next != NULL)
 	{
 		if (list->type == 1 && list->next->type == 0)
