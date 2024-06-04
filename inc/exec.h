@@ -42,6 +42,7 @@ void		redir_out(t_exec *exec, t_group *group);
 void		redir_out2(t_exec *exec, t_group *group);
 void		append_out(t_exec *exec, t_group *group);
 void		append_out2(t_exec *exec, t_group *group);
+char		**get_here_doc(t_exec *exec, t_group *group);
 void		here_doc(t_exec *exec, t_group *group);
 
 ////////////////// SIGNALS //////////////////

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 23:44:10 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/18 00:08:04 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/06/04 11:16:41 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ char	**get_here_doc(t_exec *exec, t_group *group)
 	{
 		line = get_next_line(exec->fd_in);
 		if (line == NULL || ft_strcmp(line, group->app_in) == 0)
-		{
-			free(line);
+		// {
+			// free(line);
 			break ;
-		}
+		// }
 		else
 		{
 			here_doc[i] = ft_strdup(line);

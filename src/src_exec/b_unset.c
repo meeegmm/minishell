@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_unset.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 11:04:59 by memarign          #+#    #+#             */
+/*   Updated: 2024/06/04 11:05:26 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/exec.h"
 
 //voir pour le prmier et last node
@@ -5,7 +17,7 @@
 
 int	builtin_unset(t_group *group, t_list_env *env_lst)
 {
-	int	i;
+	int			i;
 	t_list_env	*tmp;
 
 	i = 1;

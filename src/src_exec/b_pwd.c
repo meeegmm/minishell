@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_pwd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 11:04:49 by memarign          #+#    #+#             */
+/*   Updated: 2024/06/04 11:04:50 by memarign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/exec.h"
 
 int	builtin_pwd(t_group *group)
@@ -12,15 +24,17 @@ int	builtin_pwd(t_group *group)
 	{
 		if (ft_strncmp(group->cmd[1], "-", 1) == 0 \
 								&& !is_char(group->cmd[1], '-'))
-			return (126);
+			return (5);
 	}
 	else
 	{
 		dir = getcwd(buf, size);
 		ft_putstr(dir);
 		write(1, "\n", 1);
+		free(buf);
+		free(dir);
+		return (0);
 	}
-	free(dir);
 	free(buf);
-	return (0);
-}
+	return (4);
+}	

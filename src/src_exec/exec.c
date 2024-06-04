@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:31:37 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/23 00:20:30 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/06/04 11:25:15 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	envp = get_envp(env_lst);
 	// if (exec->pid == -1)
 	// 	exec->pid = 0;
-	if (exec->pid == -1 || exec->pid == 0)
+	// if (exec->pid == -1 || exec->pid == 0)
+	if (exec->pid >= 0)
 	{
 		pid = exec->pid;
 		// printf("BIN PID_START = %d\n\n", pid);
@@ -80,6 +81,23 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 
 int	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 {
+	char **tab;
+
+	if (group->app_in != NULL)
+	{
+		tab = get_here_doc(exec, group);
+		if (!group->cmd)
+		{
+			free_tab(tab);
+			return (0);
+		}
+		else
+		{
+			here_doc(exec, group);
+			free_tab(tab);
+			return (0);
+		}
+	}
 	if (!group->cmd)
 	{
 		ft_redir2(exec, group);
