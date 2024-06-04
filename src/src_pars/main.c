@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/22 20:24:31 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:20:07 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,9 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_FAILURE);
 		}
 		start = group;
-		// printf("MAIN START EXEC_PID = %d\n\n", exec.pid);
-		// printf("MAIN START EXEC PFD_IN = %d\n", exec.pfd_in);
-		// printf("MAIN START EXEC PFD_OUT = %d\n\n", exec.pfd_out);
 		minish(&exec, group, env);
-		// printf("MAIN AFTER MINISH EXEC_PID = %d\n\n", exec.pid);
-		// printf("MAIN AFTER MINISH EXEC PFD_IN = %d\n", exec.pfd_in);
-		// printf("MAIN AFTER MINISH EXEC PFD_OUT = %d\n\n", exec.pfd_out);
 		free_group_list(start);
 		reset_minish(&exec);
-		// printf("MAIN AFTER RESET EXEC_PID = %d\n\n", exec.pid);
-		// printf("MAIN AFTER RESET EXEC PFD_IN = %d\n", exec.pfd_in);
-		// printf("MAIN AFTER RESET EXEC PFD_OUT = %d\n\n", exec.pfd_out);
 		if (line)
 			free(line);
 		line = readline(">$ ");

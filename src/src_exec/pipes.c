@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:05:48 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/04 11:05:49 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:14:19 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,6 @@ void		ft_pipe(t_exec *exec)
 		// printf("PIPE PARENT EXEC PFD_OUT = %d\n\n", exec->pfd_out);
 	}
 }
+
+//Faire attention au IN et au OUT des differents forks 
+soit en dup() puis retablir soit "is_pipe" puis revenir sur IN au besoin ou redir

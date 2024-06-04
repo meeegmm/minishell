@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   z_b_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 03:03:04 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/22 23:52:16 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:18:41 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ int	ft_builtins(t_exec *exec, t_group *group, t_list_env *env_lst)
 			exec->stat = builtin_export(group, env_lst);
 	}
 	else
-		waitpid(exec->pid, NULL, 0);	
+		waitpid(exec->pid, NULL, 0);
 	return (exec->stat);
 }
+
+// close + revert
+//print sur STDERR IN et OUT actuels
