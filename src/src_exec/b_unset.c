@@ -1,6 +1,6 @@
 #include "../../inc/exec.h"
 
-//voir pour le prmier node
+//voir pour le prmier et last node
 //okay dans la fonction mais modifeir **env_lst pour aller au next
 
 int	builtin_unset(t_group *group, t_list_env *env_lst)

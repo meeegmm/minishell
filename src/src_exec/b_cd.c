@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 02:56:12 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/11 03:02:55 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:31:31 by madmeg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/exec.h"
 
 // change $OLDPWD
-
+//check if msg when error with changes
 int	builtin_cd(t_group *group, char *path, t_list_env *env_lst)
 {
 	if (tab_size(group->cmd) > 2)
@@ -30,10 +30,8 @@ int	builtin_cd(t_group *group, char *path, t_list_env *env_lst)
 			write(1, "\n", 1);
 		}
 		if (chdir(path) == -1)
-			return (3);
+			return (126); //add
 		//$OLDPWD = path
-		return (0);
 	}
-	// free(path);
-	return (4);
+	return (0); //moved
 }

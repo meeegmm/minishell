@@ -1,4 +1,5 @@
 #include "../../inc/exec.h"
+#include "../../inc/minishell.h"
 
 int	builtin_env(t_group *group, t_list_env *env_lst)
 {
@@ -7,10 +8,7 @@ int	builtin_env(t_group *group, t_list_env *env_lst)
 		if (ft_strcmp(group->cmd[1], "env") != 0)
 			return (2);
 	}
-	if (ft_strncmp(group->cmd[0], "env", 3) == 0)
-	{
-		print_list(env_lst);
-		return (0);
-	}
-	return (4);
+	// if (ft_strncmp(group->cmd[0], "env", 3) == 0)
+	print_list(env_lst);
+	return (0);
 }

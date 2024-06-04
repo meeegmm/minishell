@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   z_m_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 02:55:42 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/11 04:04:35 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:36:06 by madmeg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 {
 	while (group != NULL)
 	{
-		if (group->flag_fail == 2 || (group->flag_fail == 127 \
-									&& group->next == NULL))
+		if (group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL))
 		{
-			reset_minish(exec, group);
+			reset_minish(exec);
+			//print error msg
 			break ;
 		}
 		else if (group->flag_fail == 0)
@@ -28,18 +28,16 @@ void	minish(t_exec *exec, t_group *group, t_list_env *env)
 				ft_pipe(exec);
 			simple_cmd(exec, group, env);
 		}
-		if (exec->status == 0)
-			group = group->next;
-		else
-			return ;
+		// printf("exec stat = %d\n", exec->stat);
+		// builtin_error(exec, group);
+		// status = group->flag_fail;
+		group = group->next;
 	}
 }
 
-void	reset_minish(t_exec *exec, t_group *group)
+void	reset_minish(t_exec *exec)
 {
-	if (group != NULL)
-		free_group_list(group);
 	close_fds(exec);
 	init_exec(exec);
-	set_io(exec);
+	// set_io(exec);
 }

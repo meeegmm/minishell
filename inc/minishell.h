@@ -22,7 +22,7 @@
 # define CTRL_C 130
 # define CTRL_SLASH 131
 
-extern unsigned char	status;
+extern unsigned int	status;
 
 ////////////////// STRUCTS //////////////////
 
@@ -30,13 +30,13 @@ extern unsigned char	status;
 
 typedef struct s_group
 {
-int flag_fail;
-char **cmd; 
-char *redir_in;
-char *redir_out;
-char *app_out;
-char *app_in; //heredoc
-struct s_group *next;
+	unsigned int flag_fail;
+	char **cmd; 
+	char *redir_in;
+	char *redir_out;
+	char *app_out;
+	char *app_in;
+	struct s_group *next;
 } t_group;
 
 typedef struct s_list_env
@@ -48,7 +48,7 @@ typedef struct s_list_env
 
 typedef struct s_exec
 {
-	int				status;
+	int				stat;
 	int				infile;
 	int				outfile;
 	int				fd_in;
@@ -71,13 +71,15 @@ t_list_env	*env_lst_sos(void);
 t_list_env	*set_envp(char **envp);
 
 //exec
+int			is_built(char *str);
 void		minish(t_exec *exec, t_group *group, t_list_env *env);
-void		reset_minish(t_exec *exec, t_group *start);
+void		reset_minish(t_exec *exec);
 void		ft_redir(t_exec *exec, t_group *group);
+void		ft_redir2(t_exec *exec, t_group *group);
 void		ft_pipe(t_exec *exec);
-void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
-void		end_minish(t_exec *exec, t_group *group, t_list_env *env);
-void		builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
+int			simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
+int			end_minish(t_exec *exec, t_group *group, t_list_env *env);
+// void		builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 //fd
 void		init_exec(t_exec *exec);
@@ -92,6 +94,7 @@ void		free_envp_list(t_list_env *list);
 void		free_group_list(t_group *group);
 
 int			ft_strncmp(const char *s1, const char *s2, int n);
+int			ft_strcmp(const char *s1, const char *s2);
 void		print_list(t_list_env *list);
 char		*get_key(char *str);
 char		*get_value(char *str);

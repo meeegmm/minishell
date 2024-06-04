@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:31:37 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/11 04:39:35 by memarign         ###   ########.fr       */
+/*   Updated: 2024/05/23 00:20:30 by madmeg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/minishell.h"
 #include "../../inc/exec.h"
 
 //add printf
@@ -21,42 +22,79 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	pid_t	pid;
 
 	envp = get_envp(env_lst);
-	pid = fork();
+	// if (exec->pid == -1)
+	// 	exec->pid = 0;
+	if (exec->pid == -1 || exec->pid == 0)
+	{
+		pid = exec->pid;
+		// printf("BIN PID_START = %d\n\n", pid);
+	}
+	else
+		pid = fork();
+	// printf("BIN PID_START IF -1 = %d\n\n", pid);
+	// printf("EXEC PFD_IN = %d\n", exec->pfd_in);
+	// printf("EXEC PFD_OUT = %d\n\n", exec->pfd_out);
 	if (pid == -1)
+	{
 		perror("Error exec fork");
-	exec->pid = pid;
+		exit(EXIT_FAILURE);
+	}
+	// exec->pid = pid;
+	// printf("BIN EXEC PID = %d\n\n", exec->pid);
+	// printf("BIN EXEC PFD_IN = %d\n", exec->pfd_in);
+	// printf("BIN EXEC PFD_OUT = %d\n\n", exec->pfd_out);
 	if (pid == 0)
 	{
 		ft_redir(exec, group);
-		if (execve(group->cmd[0], group->cmd, envp) == 0)
-		{
-			if (access(group->cmd[0], F_OK | X_OK) == -1)
-			{
-				free_tab(envp);
-				return(126);
-			}
-		}
+		// printf("BIN AFTER REDIR PID = %d\n", pid);
+		// printf("BIN AFTER REDIR EXEC_PID = %d\n\n", exec->pid);
+		// printf("AFTER FTREDIR exec: fd_in = %d\n", exec->fd_in);
+		// printf("AFTER FTREDIR exec: fd_out = %d\n\n", exec->fd_out);
+		// printf("BIN REDIR EXEC PFD_IN = %d\n", exec->pfd_in);
+		// printf("BIN REDIR EXEC PFD_OUT = %d\n\n", exec->pfd_out);
+		exec->stat = execve(group->cmd[0], group->cmd, envp);
+		// printf("BIN AFTER EXEC PID = %d\n", pid);
+		// printf("BIN AFTER EXEC EXEC_PID = %d\n\n", exec->pid);
+		// printf("BIN AFTER EXEC PFD_IN = %d\n", exec->pfd_in);
+		// printf("BIN AFTER EXEC PFD_OUT = %d\n\n", exec->pfd_out);
+	// 	if (execve(group->cmd[0], group->cmd, envp) == 0)
+	// 	{
+	// 		if (access(group->cmd[0], F_OK | X_OK) == -1)
+	// 		{
+	// 			free_tab(envp);
+	// 			return(126);
+	// 		}
+	// 	}
 	}
 	else
-		waitpid(exec->pid, NULL, 0);
+		waitpid(pid, NULL, 0);
+	// printf("BIN AFTER WAIT PID = %d\n", pid);
+	// printf("BIN AFTER WAIT EXEC_PID = %d\n\n", exec->pid);
 	free_tab(envp);
-	return (0);
+	// printf("AFTER EXEC: fd_in = %d\n", exec->fd_in);
+	// printf("AFTER EXEC: fd_out = %d\n\n", exec->fd_out);
+	// printf("AFTER WAIT PF_DIN = %d\n\n", exec->pfd_in);
+	// printf("AFTER WAIT PFD_OUT = %d\n\n", exec->pfd_out);
+	return (exec->stat);
 }
 
-void	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
+int	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 {
-	if (exec->pid == -1 && group_size(group) == 1)
+	if (!group->cmd)
 	{
-		if (is_built2(group->cmd[0]))
-			exec->status = ft_builtins(exec, group, env_lst);
-		else
-			exec->status = ft_bin(exec, group, env_lst);
-		return ;
+		ft_redir2(exec, group);
+		return (0);
 	}
-	else if (is_built2(group->cmd[0]))
-		exec->status = ft_builtins(exec, group, env_lst);
+	if (is_built(group->cmd[0]))
+	{
+		ft_redir(exec, group);
+		// printf("BEFORE BUILT EXEC PID = %d\n", exec->pid);
+		exec->stat = ft_builtins(exec, group, env_lst);
+		// printf("AFTER BUILT EXEC PID = %d\n", exec->pid);
+		// reset_fds(exec);
+	}
 	else
-		exec->status = ft_bin(exec, group, env_lst);
-	return ;
+		ft_bin(exec, group, env_lst);
+	return (exec->stat);
 }
 

@@ -6,16 +6,16 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:05:08 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/16 13:30:35 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:18:59 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "minishell.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "minishell.h"
 
 ////////////////// STRUCTS //////////////////
 
@@ -84,6 +84,7 @@ int			delimiter_nb(char *str);
 int			quotes_ok(char **str);
 int			spaces_nb(char *str);
 int			is_meta(char *str);
+char		*ft_itoa(int n);
 char		**spaces_between_quotes(char ***tab);
 char		*no_quotes(char *str, char c);
 char		*add_spaces(char **tmp);
@@ -97,7 +98,7 @@ void		between_single(t_tokenizer *d, char *s);
 void		before_expand_or_special(t_tokenizer *d, char *s);
 
 //сheck cmd and files
-int			is_built(char *str);
+// int			is_built(char *str);
 int			only_spaces(char *str);
 int			is_folder(char *line);
 int			cmd_check(char **str, t_list_env *env);
@@ -121,10 +122,8 @@ int			ft_strncmp(const char *s1, const char *s2, int n);
 int			is_digit(char c);
 int			is_alpha(char c);
 int			is_special(char c);
-int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strjoin(char *s1, char *s2);
 char		**ft_split1(char *str, int flag);
-char		**copy_tab(char **tab);
 char		*from_tab_to_line(char **tab);
 char		*ft_strdup(char *s1);
 char		*ft_strchr(const char *s, int c);

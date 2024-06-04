@@ -6,7 +6,7 @@
 /*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:01 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/16 14:02:34 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:35:22 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	replace_token(char **str, t_list_env *env)
 			new = no_null();
 		else if ((*str)[i + 1] && is_alpha((*str)[i + 1]))
 			new = expanded_token((*str) + 1, env);
-		//else if(str[i + 1] && str[i + 1] == '?')
-			//int status
+		else if ((*str)[i + 1] && (*str)[i + 1] == '?')
+			new = ft_itoa(status);
 		else
 			new = no_null();
 	}
