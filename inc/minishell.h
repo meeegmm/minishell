@@ -72,12 +72,12 @@ t_list_env	*set_envp(char **envp);
 
 //exec
 int			is_built(char *str);
-void		minish(t_exec *exec, t_group *group, t_list_env *env);
+void		minish(t_exec *exec, t_group *group, t_list_env **env);
 void		reset_minish(t_exec *exec);
 void		ft_redir(t_exec *exec, t_group *group);
 void		ft_redir2(t_exec *exec, t_group *group);
 void		ft_pipe(t_exec *exec);
-int			simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
+int			simple_cmd(t_exec *exec, t_group *group, t_list_env **env_lst);
 int			end_minish(t_exec *exec, t_group *group, t_list_env *env);
 // void		builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
 

@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:31:37 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/04 12:17:02 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/07 21:04:12 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	return (exec->stat);
 }
 
-int	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
+int	simple_cmd(t_exec *exec, t_group *group, t_list_env **env_lst)
 {
+	t_built	fd;
 	char **tab;
 
 	if (group->app_in != NULL)
@@ -72,11 +73,10 @@ int	simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst)
 	}
 	if (is_built(group->cmd[0]))
 	{
-		ft_redir(exec, group);
-		exec->stat = ft_builtins(exec, group, env_lst);
+		ft_redir_b(exec, group, &fd);
+		exec->stat = ft_builtins(exec, group, env_lst, &fd);
 	}
 	else
-		ft_bin(exec, group, env_lst);
+		ft_bin(exec, group, *env_lst);
 	return (exec->stat);
 }
-

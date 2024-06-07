@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:05:48 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/04 12:14:19 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:32:22 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void		ft_pipe(t_exec *exec)
 	if (pipe(pipe_fd))
 		return ; // -1?
 	pid = fork();
-	// printf("PIPE PID = %d\n\n", pid);
 	if (pid == -1)
 	{
 		//return (1);
@@ -47,28 +46,42 @@ void		ft_pipe(t_exec *exec)
 	if (pid == 0)
 	{
 		close(pipe_fd[1]);
-		close(pipe_fd[0]);
 		dup2(pipe_fd[0], 0);
+		dup2(exec->pfd_out, 1);
+		close(pipe_fd[0]);
 		exec->pfd_in = pipe_fd[0];
-		// printf("PIPE EXEC PFD_IN = %d\n", exec->pfd_in);
-		// printf("PIPE EXEC PFD_OUT = %d\n\n", exec->pfd_out);
 		exec->pid = -1;
-		// printf("AFTER PIPE EXEC_PID = %d\n\n", exec->pid);
 	}
 	else
 	{
-		waitpid(-1, NULL, 0);
 		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		dup2(pipe_fd[1], 1);
 		exec->pfd_out = pipe_fd[1];
-		exec->pid = pid;
-		// printf("AFTER PIPE PARENT PID = %d\n", pid);
-		// printf("AFTER PIPE PARENT EXEC_PID = %d\n\n", exec->pid);
-		// printf("PIPE PARENT EXEC PFD_IN = %d\n", exec->pfd_in);
-		// printf("PIPE PARENT EXEC PFD_OUT = %d\n\n", exec->pfd_out);
+		close( pipe_fd[1]);
 	}
+//	else
+//	{
+//		waitpid(-1, NULL, 0);
+//		close(pipe_fd[0]);
+//		close(pipe_fd[1]);
+//		dup2(pipe_fd[1], 1);
+//		exec->pfd_out = pipe_fd[1];
+//		exec->pid = pid;
+//	}
 }
 
 //Faire attention au IN et au OUT des differents forks 
-soit en dup() puis retablir soit "is_pipe" puis revenir sur IN au besoin ou redir
+// soit en dup() puis retablir soit "is_pipe" puis revenir sur IN au besoin ou redir
+
+//
+//boucle sur toutes les commandes
+//si command de next creer un pipe
+//dans le child si la commande est la 1er ne pas dup stdin
+//dup stdout avec le pipe[1] sauf si la commande est la derniere
+//si la commande n'est pas la premiere tu dup stdin avec le pipe[0] qui a ete sauvegarde precedement
+//dans le parent
+//sauvegarder le pipe[0] pour la prochaine qui lui servira d'infile
+//wait uniquement qund toutes les commandes ont ete lancees 
+//sauvegarder tout les pids
+//ne conserver aue la valeur de retour de la derniere cmd pour la glbl
+
+//dup ave pipe apres dup des redir

@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 03:03:04 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/04 12:18:41 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/07 20:54:20 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,45 +41,23 @@ int	tab_size(char **tab)
 	return (i);
 }
 
-// //changed
-// int	is_built2(char *str)
-// {
-// 	int		i;
-// 	char	*tab[7];
 
-// 	i = 0;
-// 	tab[0] = "cd";
-// 	tab[1] = "env";
-// 	tab[2] = "pwd";
-// 	tab[3] = "echo";
-// 	tab[4] = "exit";
-// 	tab[5] = "unset";
-// 	tab[6] = "export";
-// 	while (i <= 6)
-// 	{
-// 		if (ft_strncmp(str, tab[i], ft_strlen(str)) == 0)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 //+ exec in param to return int exec->status
 //+ int in param for builtins
 
-int	ft_builtins(t_exec *exec, t_group *group, t_list_env *env_lst)
+int	ft_builtins(t_exec *exec, t_group *group, t_list_env **env_lst, t_built *fd)
 {
-
 	if (exec->pid <= 0)
 	{
 		if (ft_strncmp(group->cmd[0], "cd", 2) == 0)
-			exec->stat = builtin_cd(group, group->cmd[1], env_lst);
+			exec->stat = builtin_cd(group, group->cmd[1], env_lst, fd);
 		else if (ft_strncmp(group->cmd[0], "env", 3) == 0)
 			exec->stat = builtin_env(group, env_lst);
 		else if (ft_strncmp(group->cmd[0], "pwd", 3) == 0)
-			exec->stat = builtin_pwd(group);
+			exec->stat = builtin_pwd(group, fd);
 		else if (ft_strncmp(group->cmd[0], "echo", 4) == 0)
-			exec->stat = builtin_echo(group);
+			exec->stat = builtin_echo(group, fd);
 		else if (ft_strncmp(group->cmd[0], "unset", 5) == 0)
 			exec->stat = builtin_unset(group, env_lst);
 		else if (ft_strncmp(group->cmd[0], "export", 6) == 0)

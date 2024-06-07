@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/06/04 12:20:07 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:27:43 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_FAILURE);
 		}
 		start = group;
-		minish(&exec, group, env);
+		minish(&exec, group, &env);
 		free_group_list(start);
 		reset_minish(&exec);
 		if (line)
@@ -103,3 +103,19 @@ int	main(int ac, char **av, char **envp)
 	close_fds(&exec);
 	return (status);
 }
+//while(1)
+//{
+//	line = readline
+//	if (!line)
+//		break;
+//	if (globale ndiaue pas de signal)
+//	{
+//		struct parrsing = parsing
+//		if (parsing)
+//		{
+//			expand 
+//			exec
+//		}
+//	}
+//	tout free
+//}

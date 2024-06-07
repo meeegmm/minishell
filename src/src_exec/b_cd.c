@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 02:56:12 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/22 13:31:31 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/06/07 20:50:23 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // change $OLDPWD
 //check if msg when error with changes
-int	builtin_cd(t_group *group, char *path, t_list_env *env_lst)
+int	builtin_cd(t_group *group, char *path, t_list_env **env_lst, t_built *fd)
 {
 	if (tab_size(group->cmd) > 2)
 		return (2);
@@ -22,12 +22,12 @@ int	builtin_cd(t_group *group, char *path, t_list_env *env_lst)
 	{
 		if (tab_size(group->cmd) == 1 \
 			|| ft_strncmp(group->cmd[1], "~", 1) == 0)
-			path = set_path(env_lst, "HOME");
+			path = set_path(*env_lst, "HOME");
 		else if (ft_strncmp(group->cmd[1], "-", 1) == 0)
 		{
-			path = set_path(env_lst, "OLDPWD");
-			ft_putstr(path);
-			write(1, "\n", 1);
+			path = set_path(*env_lst, "OLDPWD");
+			ft_fd_putstr(path, fd->out);
+			write(fd->out, "\n", 1);
 		}
 		if (chdir(path) == -1)
 			return (126); //add

@@ -6,7 +6,7 @@
 /*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:05:56 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/04 11:07:06 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:43:21 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,13 @@ void	append_out(t_exec *exec, t_group *group)
 
 void	ft_redir(t_exec *exec, t_group *group)
 {
-	// printf("BEFORE FTREDIR: fd_in = %d\n", exec->fd_in);
-	// printf("BEFORE FTREDIR: fd_out = %d\n", exec->fd_out);
 	if (group->redir_in != NULL)
 		redir_in(exec, group);
 	else if (group->redir_out != NULL)
 		redir_out(exec, group);
 	else if (group->app_out != NULL)
 		append_out(exec, group);
-	// printf("AFTER FTREDIR: fd_in = %d\n", exec->fd_in);
-	// printf("AFTER FTREDIR: fd_out = %d\n", exec->fd_out);
 }
+/////////////////////////////////////////////////////////////
+
+

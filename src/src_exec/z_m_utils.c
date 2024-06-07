@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   z_m_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 02:55:42 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/22 20:36:06 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/06/07 22:20:24 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/exec.h"
 
-void	minish(t_exec *exec, t_group *group, t_list_env *env)
+void	minish(t_exec *exec, t_group *group, t_list_env **env)
 {
 	while (group != NULL)
 	{

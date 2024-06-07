@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   z_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 04:06:33 by memarign          #+#    #+#             */
-/*   Updated: 2024/05/22 13:31:59 by madmeg           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:56:47 by memarign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	ft_putstr_fd(char *cmd, char *s, int fd)
 	write(fd, ": ", 2);
 }
 
-void	ft_putstr(char *str)
+void	ft_fd_putstr(char *str, int fd)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		write(1, &str[i], 1);
+		write(fd, &str[i], ft_strlen(str));
 		i++;
 	}
 }
