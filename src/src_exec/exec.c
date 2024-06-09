@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:31:37 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/07 21:04:12 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/09 12:14:16 by madmeg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 #include "../../inc/exec.h"
 
-//add printf
-//add checks
-//think about exit
 int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 {
 	char	**envp;
@@ -38,7 +35,11 @@ int	ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst)
 	if (pid == 0)
 	{
 		ft_redir(exec, group);
-		exec->stat = execve(group->cmd[0], group->cmd, envp);
+		if (execve(group->cmd[0], group->cmd, envp) == -1)
+		{
+			perror("execve"); // error function
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 		waitpid(pid, NULL, 0);

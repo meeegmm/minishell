@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:05:56 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/07 18:43:21 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/09 12:14:50 by madmeg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/exec.h"
-
-//!! si redir = deja fork
-//always connect before I/O redir
-//open then dup(2)
-//do it for all redir
-//exec
 
 void	redir_in(t_exec *exec, t_group *group)
 {
@@ -55,6 +49,3 @@ void	ft_redir(t_exec *exec, t_group *group)
 	else if (group->app_out != NULL)
 		append_out(exec, group);
 }
-/////////////////////////////////////////////////////////////
-
-

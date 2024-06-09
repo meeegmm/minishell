@@ -49,14 +49,22 @@ typedef struct s_list_env
 typedef struct s_exec
 {
 	int				stat;
-	int				infile;
-	int				outfile;
+	// int				infile;
+	// int				outfile;
 	int				fd_in;
 	int				fd_out;
-	int				pfd_in;
-	int				pfd_out;
+	// int				pfd_in;
+	// int				pfd_out;
 	pid_t			pid;
 }	t_exec;
+
+typedef struct	s_cmd
+{
+	int				pfd;
+	int				prev_in;
+	int				pid;
+	struct s_cmd	*next;
+}					t_cmd;
 
 ////////////////// FONCTIONS //////////////////
 
@@ -72,17 +80,16 @@ t_list_env	*set_envp(char **envp);
 
 //exec
 int			is_built(char *str);
-void		minish(t_exec *exec, t_group *group, t_list_env **env);
+void		minish(t_exec *exec, t_group *group, t_list_env **env, t_cmd *command);
 void		reset_minish(t_exec *exec);
-void		ft_redir(t_exec *exec, t_group *group);
-void		ft_redir2(t_exec *exec, t_group *group);
-void		ft_pipe(t_exec *exec);
+void		ft_pipe(t_exec *exec, t_cmd *command);
 int			simple_cmd(t_exec *exec, t_group *group, t_list_env **env_lst);
 int			end_minish(t_exec *exec, t_group *group, t_list_env *env);
 // void		builtin_exit(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 //fd
 void		init_exec(t_exec *exec);
+void		init_s_cmd(t_group *group, t_cmd *command);
 void		close_fds(t_exec *exec);
 void		set_io(t_exec *exec);
 void		init_std(t_exec *exec);

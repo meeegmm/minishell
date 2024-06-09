@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/06/07 22:27:43 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/09 12:13:09 by madmeg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 // 	close_fds(&exec);
 // }
 
+//Un seul readline, le placer dans la boucle
+//Tout exec puis y revenir
+//if (!line) do CTRL + D
+
 unsigned int	status;
 
 int	is_exit(char *line)
@@ -56,6 +60,7 @@ int	main(int ac, char **av, char **envp)
 	char		*line;
 	t_group		*group;
 	t_list_env	*env;
+	t_cmd		command;
 	t_exec		exec;
 	t_group		*start;
 
@@ -91,7 +96,7 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_FAILURE);
 		}
 		start = group;
-		minish(&exec, group, &env);
+		minish(&exec, group, &env, &command);
 		free_group_list(start);
 		reset_minish(&exec);
 		if (line)
@@ -107,7 +112,7 @@ int	main(int ac, char **av, char **envp)
 //{
 //	line = readline
 //	if (!line)
-//		break;
+//		break; (= CTRL + D)
 //	if (globale ndiaue pas de signal)
 //	{
 //		struct parrsing = parsing
