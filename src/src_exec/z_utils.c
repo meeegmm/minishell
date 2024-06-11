@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   z_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 04:06:33 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/07 18:56:47 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:14:05 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,9 @@ void	ft_putstr_fd(char *cmd, char *s, int fd)
 
 void	ft_fd_putstr(char *str, int fd)
 {
-	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		write(fd, &str[i], ft_strlen(str));
-		i++;
-	}
+		write(fd, str, ft_strlen(str));
+
 }
 
 int	is_char(char *str, char c)

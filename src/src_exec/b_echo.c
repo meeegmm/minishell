@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memarign <memarign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 02:56:38 by memarign          #+#    #+#             */
-/*   Updated: 2024/06/07 19:00:45 by memarign         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:10:25 by abelosev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	builtin_echo(t_group *group, t_built *fd)
 		while (group->cmd[i])
 		{
 			ft_fd_putstr(group->cmd[i], fd->out);
-			if (group->cmd[i + 1] != NULL)
-				write(fd->out, " ", 1);
+			// if (group->cmd[i + 1] != NULL)
+			// 	write(fd->out, " ", 1);
 			i++;
 		}
 		if (!option)
