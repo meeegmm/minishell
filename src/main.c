@@ -74,14 +74,19 @@ int	main(int ac, char **av, char **envp)
 		env = get_list(envp);
 	}
 	init_exec(&exec);
-	line = readline(">$ "); //signals handled already
-	while (is_exit(line))
+	while (1)
 	{
-		if (!line || *line == '\0' || only_spaces(line) || ft_strncmp(line, ":", ft_strlen(line)) == 0 || ft_strncmp(line, "!", ft_strlen(line)) == 0)
+		line = readline(">$ ");
+		if (!line)
+			break ;
+		if (is_exit(line) == 0)
+        {
+            free(line);
+            break;
+        }
+		if (*line == '\0' || only_spaces(line) || ft_strncmp(line, ":", ft_strlen(line)) == 0 || ft_strncmp(line, "!", ft_strlen(line)) == 0)
 		{
-			if (line)
-				free(line);
-			line = readline(">$ ");
+			free(line);
 			continue ;
 		}
 		if (line && *line)
@@ -90,18 +95,16 @@ int	main(int ac, char **av, char **envp)
 		if (!group)
 		{
 			status = 1; //??
-			if (line)
-				free(line);
-			free_envp_list(env);
-			exit(EXIT_FAILURE);
+			free(line);
+			// free_envp_list(env);
+			// return (1);
+			continue ;
 		}
 		start = group;
 		minish(&exec, group, &env, &command);
 		free_group_list(start);
 		reset_minish(&exec);
-		if (line)
-			free(line);
-		line = readline(">$ ");
+		free(line);
 	}
 	free_envp_list(env);
 	clear_history();
