@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
-#include "../../inc/minishell.h"
 
 int	is_built(char *str)
 {

@@ -1,4 +1,4 @@
-obj/z_e_utils.o: src/src_exec/z_e_utils.c src/src_exec/../../inc/exec.h \
+obj/no_cmd_r.o: src/src_exec/no_cmd_r.c src/src_exec/../../inc/exec.h \
   src/src_exec/../../inc/minishell.h
 
 src/src_exec/../../inc/exec.h:

@@ -98,7 +98,7 @@ void		between_single(t_tokenizer *d, char *s);
 void		before_expand_or_special(t_tokenizer *d, char *s);
 
 //сheck cmd and files
-int			is_built(char *str);
+// int			is_built(char *str);
 int			only_spaces(char *str);
 int			is_folder(char *line);
 int			cmd_check(char **str, t_list_env *env);

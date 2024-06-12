@@ -3,15 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelosev <abelosev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madmeg <madmeg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:13:30 by abelosev          #+#    #+#             */
-/*   Updated: 2024/05/17 12:37:51 by abelosev         ###   ########.fr       */
+/*   Updated: 2024/06/09 12:13:09 by madmeg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include "../../inc/exec.h"
+
+// void	init_readline(char *line)
+// {
+// 	if (line)
+// 		free(line);
+// 	line = readline(">$ ");
+// }
+
+// void	exit_group(t_list_env *env, char *line)
+// {
+// 	if (line)
+// 		free(line);
+// 	free_envp_list(env);
+// 	exit(EXIT_FAILURE);
+// }
+
+// void	end_minish(t_exec *exec, t_list_env *env)
+// {
+// 	free_envp_list(env);
+// 	clear_history();
+// 	close_fds(&exec);
+// }
+
+//Un seul readline, le placer dans la boucle
+//Tout exec puis y revenir
+//if (!line) do CTRL + D
 
 unsigned int	status;
 
@@ -35,6 +60,7 @@ int	main(int ac, char **av, char **envp)
 	char		*line;
 	t_group		*group;
 	t_list_env	*env;
+	t_cmd		command;
 	t_exec		exec;
 	t_group		*start;
 
@@ -70,10 +96,11 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_FAILURE);
 		}
 		start = group;
-		minish(&exec, group, env);
-		free(line);
+		minish(&exec, group, &env, &command);
 		free_group_list(start);
 		reset_minish(&exec);
+		if (line)
+			free(line);
 		line = readline(">$ ");
 	}
 	free_envp_list(env);
@@ -81,3 +108,19 @@ int	main(int ac, char **av, char **envp)
 	close_fds(&exec);
 	return (status);
 }
+//while(1)
+//{
+//	line = readline
+//	if (!line)
+//		break; (= CTRL + D)
+//	if (globale ndiaue pas de signal)
+//	{
+//		struct parrsing = parsing
+//		if (parsing)
+//		{
+//			expand 
+//			exec
+//		}
+//	}
+//	tout free
+//}
