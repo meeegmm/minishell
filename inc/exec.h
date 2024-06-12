@@ -23,15 +23,6 @@ typedef struct s_built
 	int				out;
 }				t_built;
 
-// typedef struct	s_cmd
-// {
-// 	char			*cmd;
-// 	int				pfd;
-// 	int				prev_pfd;
-// 	int				pid;
-// 	struct s_cmd	*next;
-// }					t_cmd;
-
 ////////////////// BUILT_INS //////////////////
 int			builtin_echo(t_group *group, t_built *fd);
 int			builtin_pwd(t_group *group, t_built *fd);
@@ -47,11 +38,16 @@ void		builtin_error(t_exec *exec, t_group *group);
 int			ft_builtins(t_exec *exec, t_group *group, t_list_env **env_lst, t_built *fd);
 int			ft_bin(t_exec *exec, t_group *group, t_list_env *env_lst);
 // void		simple_cmd(t_exec *exec, t_group *group, t_list_env *env_lst);
+// void		ft_redir(t_exec *exec, t_group *group);
 // void		minish(t_exec *exec, t_group *group, t_list_env *env_lst);
 
 ////////////////// REDIRECTION //////////////////
-void		ft_redir(t_exec *exec, t_group *group);
-void		ft_redir2(t_exec *exec, t_group *group);
+void		redir_in(t_exec *exec, t_group *group);
+void		redir_in2(t_exec *exec, t_group *group);
+void		redir_out(t_exec *exec, t_group *group);
+void		redir_out2(t_exec *exec, t_group *group);
+void		append_out(t_exec *exec, t_group *group);
+void		append_out2(t_exec *exec, t_group *group);
 void		ft_redir_b(t_exec *exec, t_group *group, t_built *fd);
 char		**get_here_doc(t_exec *exec, t_group *group);
 void		here_doc(t_exec *exec, t_group *group);
@@ -59,6 +55,7 @@ void		here_doc(t_exec *exec, t_group *group);
 ////////////////// SIGNALS //////////////////
 
 ////////////////// CHECKS //////////////////
+
 
 ////////////////// UTILS //////////////////
 
@@ -99,7 +96,7 @@ t_list_env	*ft_lstlast(t_list_env *lst);
 int			is_char(char *str, char c);
 int			is_empty(char *line);
 int			tab_size(char **tab);
-int			group_nbr(t_group *head);
+int			group_size(t_group *group);
 void		print_tab2(char **tab);
 
 #endif
