@@ -12,28 +12,6 @@
 
 #include "../../inc/minishell.h"
 
-// void	init_readline(char *line)
-// {
-// 	if (line)
-// 		free(line);
-// 	line = readline(">$ ");
-// }
-
-// void	exit_group(t_list_env *env, char *line)
-// {
-// 	if (line)
-// 		free(line);
-// 	free_envp_list(env);
-// 	exit(EXIT_FAILURE);
-// }
-
-// void	end_minish(t_exec *exec, t_list_env *env)
-// {
-// 	free_envp_list(env);
-// 	clear_history();
-// 	close_fds(&exec);
-// }
-
 unsigned int	status;
 
 int	is_exit(char *line)
@@ -76,10 +54,9 @@ int main(int ac, char **av, char **envp)
 
     while (1)
     {
-        line = readline(">$ "); // signals handled already
+        line = readline(">$ ");
         if (!line)
         {
-            // If line is NULL, readline encountered EOF or an error
             break;
         }
 
@@ -111,7 +88,6 @@ int main(int ac, char **av, char **envp)
         free_group_list(start);
         reset_minish(&exec);
 
-        // Restore original stdin and stdout
         dup2(original_stdin, STDIN_FILENO);
         dup2(original_stdout, STDOUT_FILENO);
 

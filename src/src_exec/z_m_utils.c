@@ -30,7 +30,7 @@ void minish(t_exec *exec, t_group *group, t_list_env **env)
 {
     while (group != NULL)
     {
-        if (group->flag_fail == 2 || (group->flag_fail == 127 && group->next == NULL))
+        if (group->flag_fail != 0 || (group->flag_fail == 127 && group->next == NULL))
         {
             reset_minish(exec);
             // print error msg

@@ -44,7 +44,7 @@ char	*expanded_token(char *str, t_list_env *env)
 	return (res);
 }
 
-void	replace_token(char **str, t_list_env *env)
+static void	replace_token(char **str, t_list_env *env)
 {
 	int		i;
 	char	*new;
